@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Summarizer</title>
+	{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
+</head>
+<body>
+	<form action="/create" method="POST">
+		{% csrf_token %}
+		<label for="title">Título: <input type="text" name="title" /></label>
+		<label for="file">Arquivo .PDF: <input type="file" name="file" /></label>
+		<label for="url">Repositório: <input type="url" name="url" /></label>
+		<input type="submit" value="Submit" />
+	</form>
+	<hr>
+	<table border="1">
+		<thead>
+			<tr>
+				<th>Título</th>
+				<th>Arquivo</th>
+				<th>Repositório</th>
+				<th>Criado em</th>
+				<th>Editado em</th>
+				<th>Ações</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for each in files %}
+				<tr>
+					<td>{{ each.title }}</td>
+					<td>{{ each.file }}</td>
+					<td>{{ each.url }}</td>
+					<td>{{ each.created_at }}</td>
+					<td>{{ each.updated_at }}</td>
+					<td>
+						<a href="/edit/{{ each.id }}">Editar</a>
+						<a href="/delete/{{ each.id }}">Excluir</a>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</body>
+</html>
