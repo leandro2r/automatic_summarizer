@@ -3,43 +3,35 @@
 <head>
 	<title>Summarizer</title>
 	{% load staticfiles %}
-	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
 </head>
 <body>
-	<form action="/create" method="POST">
-		{% csrf_token %}
-		<label for="title">Título: <input type="text" name="title" /></label>
-		<label for="file">Arquivo .PDF: <input type="file" name="file" /></label>
-		<label for="url">Repositório: <input type="url" name="url" /></label>
-		<input type="submit" value="Submit" />
-	</form>
-	<hr>
-	<table border="1">
-		<thead>
-			<tr>
-				<th>Título</th>
-				<th>Arquivo</th>
-				<th>Repositório</th>
-				<th>Criado em</th>
-				<th>Editado em</th>
-				<th>Ações</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for each in files %}
-				<tr>
-					<td>{{ each.title }}</td>
-					<td>{{ each.file }}</td>
-					<td>{{ each.url }}</td>
-					<td>{{ each.created_at }}</td>
-					<td>{{ each.updated_at }}</td>
-					<td>
-						<a href="/edit/{{ each.id }}">Editar</a>
-						<a href="/delete/{{ each.id }}">Excluir</a>
-					</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+	<div class="container">
+	    <div class="jumbotron vertical-center">
+	    	<h2 class="text-center">Summarizer 
+	    	<a href="http://unb.br" target="_blank"><img src="{% static 'unb_logo.png' %}"></a></h2>
+	        <form action="/create" method="POST" class="form-horizontal">
+				{% csrf_token %}
+				<div class="form-group">
+					<label for="title" class="control-label">Título</label>
+					<input type="text" name="title" class="form-control input-lg" />
+				</div>
+				<div class="form-group">
+					<label for="file" class="control-label">Arquivo (.pdf)</label>
+					<input type="file" name="file" class="form-control input-lg" />
+				</div>
+				<div class="form-group">
+					<label for="url" class="control-label">Selecione um arquivo</label>
+					<select class="form-control input-lg">
+						{% for each in files %}
+					    	<option value="{{ each.id }}">{{ each.title }} ({{ each.file }})</option>
+						{% endfor %}
+					</select>
+					<span id="url" class="help-block">Escolha um dos arquivo cadastrados.</span>
+				</div>
+				<input type="submit" value="Submit" class="btn btn-primary btn-lg btn-block" />
+			</form>
+	    </div>
+	</div>
 </body>
 </html>

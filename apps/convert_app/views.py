@@ -8,7 +8,7 @@ def index(request):
 
 def create(request):
 	print request.POST
-	file = File(title=request.POST['title'], file=request.POST['file'], url=request.POST['url'])
+	file = File(title=request.POST['title'], file=request.POST['file'])
 	file.save()
 	return redirect('/')
 
@@ -21,7 +21,6 @@ def update(request, id):
 	file = File.objects.get(id=id)
 	file.title = request.POST['title']
 	file.file = request.POST['file']
-	file.url = request.POST['url']
 	file.save()
 	return redirect('/')
 

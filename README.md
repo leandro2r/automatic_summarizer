@@ -1,13 +1,13 @@
-Automatic Summarizer Project from UnB
+# Automatic Summarizer Project from UnB
 
-- Converter App
-	- PDF to TXT Converter
+## Converter App
+This app converts PDF files into TXT format
 
-- Summarizer App
-	- Summarizer
+## Summarizer App
+This app summarizes the TXT file and return metrics data about it
 
-- Translator App
-	- Translator (PT-BT -> FR)
+## Translator App
+This app translates the language of the TXT summarized file (PT-BR -> FR)
 
-- Aligner App
-	- Aligner
+## Aligner App
+This app aligns the TXT summarized translated file

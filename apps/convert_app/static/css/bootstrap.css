@@ -1581,7 +1581,11 @@ pre code {
   max-height: 340px;
   overflow-y: scroll;
 }
-.container {
+.container{
+  max-width: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;top: 50%;
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
