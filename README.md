@@ -1,6 +1,6 @@
-# Automatic Summarizer Project from UnB
+# Project from UnB
 
-## Converter App
+## Converter App `In progress`
 This app converts PDF files into TXT format
 
 ## Summarizer App

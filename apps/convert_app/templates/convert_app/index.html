@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Summarizer</title>
+	<title>project</title>
 	{% load staticfiles %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
 </head>
 <body>
 	<div class="container">
 	    <div class="jumbotron vertical-center">
-	    	<h2 class="text-center">Summarizer 
+	    	<h2 class="text-center">project 
 	    	<a href="http://unb.br" target="_blank"><img src="{% static 'unb_logo.png' %}"></a></h2>
 	        <form action="/create" enctype="multipart/form-data" method="POST" class="form-horizontal" >
 				{% csrf_token %}
