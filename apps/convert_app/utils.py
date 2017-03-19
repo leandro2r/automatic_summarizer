@@ -7,6 +7,8 @@ import os
 import sys, getopt
 import string
 
+from django.core.files.base import ContentFile
+
 def pdf_to_txt(input, pages=None):
     if not pages:
         pagenums = set()
@@ -26,13 +28,10 @@ def pdf_to_txt(input, pages=None):
     output.close
     return text 
 
-def convertFile(file):
+def ConvertFile(file):
     pdf = file.name
     fileExtension = pdf.split(".")[-1]
     if fileExtension == "pdf":
-        text = pdf_to_txt(file)
-    elif fileExtension == "txt":
-        text = open(file, 'rb')
-        text.close()
-
-    return text
+        newcontent = pdf_to_txt(file)
+        newdocfile = os.path.splitext(os.path.basename(pdf))[0] + ".txt"
+        file.save(newdocfile, ContentFile(newcontent))

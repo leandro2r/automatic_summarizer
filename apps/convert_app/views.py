@@ -1,14 +1,12 @@
 from django.shortcuts import render, redirect
-from django import forms
-from models import ConvertFile
+from models import File
 
 def index(request):
-	files = ConvertFile.objects.all()
+	files = File.objects.all()
 	context = {'files':files}
 	return render(request, 'convert_app/index.html', context)
 
 def create(request):
-	print request.POST
-	form = ConvertFile(title=request.POST.get('title'), docfile=request.POST.get('docfile'))
+	form = File(request.POST)
 	form.save()
 	return redirect('/')
