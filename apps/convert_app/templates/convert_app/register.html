@@ -17,16 +17,6 @@
 
 					<input type="submit" value="Submit" class="btn btn-primary btn-lg btn-block" />
 				</div>
-				
-				<div class="form-group">
-					<label for="url" class="control-label">Selecione um arquivo</label>
-					<select class="form-control input-lg">
-						{% for each in files %}
-					    	<option value="{{ each.id }}">{{ each.title }} ({{ each.docfile.name }})</option>
-						{% endfor %}
-					</select>
-					<span id="url" class="help-block">Escolha um dos arquivo cadastrados.</span>
-				</div>
 			</form>
 	    </div>
 	</div>

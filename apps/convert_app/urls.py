@@ -1,8 +1,8 @@
 from django.conf.urls import url
-from . import views
-from django.contrib.auth.views import login
+
+from .views import IndexView, UserView
 
 urlpatterns = [
-	url(r'^$', views.index), 
-	url(r'^create$', views.create)
+	url(r'^$', IndexView.as_view(), name="index"), 
+	url(r'^register/$', UserView.as_view(), name="register"), 
 ]
