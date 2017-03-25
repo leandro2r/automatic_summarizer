@@ -4,20 +4,48 @@
 	<title>{{ title }}</title>
 	{% load staticfiles %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
 </head>
 <body>
-	<div class="container">
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+		    <ul class="nav navbar-nav">
+		     	<li class="active"><a href="/">Conversor</a></li>
+		      	<li><a href="#">Sumarizador</a></li>
+		      	<li><a href="#">Tradutor</a></li>
+		      	<li><a href="#">Alinhador</a></li>
+		    </ul>
+			<ul class="nav navbar-nav navbar-right">
+					<li><a href="register"><span class="glyphicon glyphicon-user"></span> Registrar</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container">		
 	    <div class="jumbotron vertical-center">
 	    	<h2 class="text-center">{{ title }} 
 	    	<a href="http://unb.br" target="_blank"><img src="{% static 'unb_logo.png' %}"></a></h2>
-	        <form method="POST" action="." enctype="multipart/form-data" class="form-horizontal" >
-				{% csrf_token %}
-				<div class="form-group">
-					{{ form.as_p }}
+	    	<nav class="navbar navbar-default">
+				<div class="container-fluid" align="center">
+		      		<button type="button" class="btn btn-success navbar-btn" data-toggle="collapse" data-target="#adicionar" aria-expanded="false">Adicionar Arquivo</button>
+		      		<button type="button" class="btn btn-danger navbar-btn" data-toggle="collapse" data-target="#excluir" aria-expanded="false">Excluir Arquivo</button>
+		      	</div>
+		    </nav>
+			<div id="adicionar" class="collapse">
+				<div class="well">
+				    <form method="POST" action="." enctype="multipart/form-data" class="form-horizontal" >
+						{% csrf_token %}
+						<div class="form-group">
+							{{ form.as_p }}
 
-					<input type="submit" value="Submit" class="btn btn-primary btn-lg btn-block" />
+							<input type="submit" value="Upload" class="btn btn-primary btn-block" />
+						</div>
+					</form>
 				</div>
-				
+			</div>
+			<form method="POST" action="summarize" enctype="multipart/form-data" class="form-horizontal" >
 				<div class="form-group">
 					<label for="url" class="control-label">Selecione um arquivo</label>
 					<select class="form-control input-lg">
@@ -26,6 +54,7 @@
 						{% endfor %}
 					</select>
 					<span id="url" class="help-block">Escolha um dos arquivo cadastrados.</span>
+					<input type="submit" value="Avançar" class="btn btn-primary btn-lg btn-block" />
 				</div>
 			</form>
 	    </div>
