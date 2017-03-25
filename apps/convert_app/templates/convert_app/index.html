@@ -17,8 +17,8 @@
 		      	<li><a href="#">Alinhador</a></li>
 		    </ul>
 			<ul class="nav navbar-nav navbar-right">
-					<li><a href="register"><span class="glyphicon glyphicon-user"></span> Registrar</a></li>
-					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				<li><a href="edit"><span class="glyphicon glyphicon-user"></span> {{ user.username }}</a></li>
+				<li><a href="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -26,7 +26,7 @@
 	<div class="container">		
 	    <div class="jumbotron vertical-center">
 	    	<h2 class="text-center">{{ title }} 
-	    	<a href="http://unb.br" target="_blank"><img src="{% static 'unb_logo.png' %}"></a></h2>
+	    	<a href="http://unb.br" target="_blank"><img src="{% static 'unb_logo.png' %}" class="logo-custom"></a></h2>
 	    	<nav class="navbar navbar-default">
 				<div class="container-fluid" align="center">
 		      		<button type="button" class="btn btn-success navbar-btn" data-toggle="collapse" data-target="#adicionar" aria-expanded="false">Adicionar Arquivo</button>
@@ -40,7 +40,7 @@
 						<div class="form-group">
 							{{ form.as_p }}
 
-							<input type="submit" value="Upload" class="btn btn-primary btn-block" />
+							<input type="submit" value="Adicionar" class="btn btn-primary btn-block" />
 						</div>
 					</form>
 				</div>
@@ -53,7 +53,7 @@
 					    	<option value="{{ each.id }}">{{ each.title }} ({{ each.docfile.name }})</option>
 						{% endfor %}
 					</select>
-					<span id="url" class="help-block">Escolha um dos arquivo cadastrados.</span>
+					<span id="url" class="help-block">Escolha um dos arquivo adicionados.</span>
 					<input type="submit" value="Avançar" class="btn btn-primary btn-lg btn-block" />
 				</div>
 			</form>

@@ -1,7 +1,7 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View 
-from django.contrib.auth import authenticate, login
+from django.contrib import auth, messages
 
 from models import File
 from forms import UserForm, SubmitFileForm
@@ -19,11 +19,19 @@ class IndexView(View):
 		return render(request, "convert_app/index.html", context)
 
 	def post(self, request, *args, **kwargs):
+		# if not request.user.is_authenticated():
+		# 	raise Http404
+
 		files = File.objects.all()
-		form = SubmitFileForm(request.POST)
+		form = SubmitFileForm(request.POST or None, request.FILES or None)
 
 		if form.is_valid():
-			file = form.save(commit=False)
+			file = File(
+				title = request.POST['title'], 
+				docfile = request.FILES['docfile'], 
+				page = request.POST['page'], 
+				user = request.user
+			)
 
 			# cleaned data
 			title = form.cleaned_data["title"]
@@ -32,8 +40,10 @@ class IndexView(View):
 
 			file.save()
 
+			messages.success(request, "Upload de arquivo efetuado com sucesso!")
+
 		context = {
-			"title": "Project",
+			"title": "Conversor",
 			"form": form,
 			"files": files
 		}
@@ -44,7 +54,7 @@ class UserView(View):
 		form = UserForm()
 
 		context = {
-			"title": "Login",
+			"title": "Registrar",
 			"form": form
 		}
 		return render(request, "convert_app/register.html", context)
@@ -62,15 +72,15 @@ class UserView(View):
 			user.set_password(password)
 			user.save()
 
-			user = authenticate(username=username, password=password)
+			user = auth.authenticate(username=username, password=password)
 
 			if user is not None:
 				if user.is_active:
-					login(request, user)
+					auth.login(request, user)
 					return redirect("/")
 
 		context = {
-			"title": "Project login",
+			"title": "Login",
 			"form": form
 		}
 		return render(request, "convert_app/register.html", context)

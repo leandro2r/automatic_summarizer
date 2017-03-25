@@ -6764,4 +6764,7 @@ button.close {
 /*# sourceMappingURL=bootstrap.css.map */
 
 /* Custon */
-
+.logo-custom {
+  opacity:0.4;
+  filter:alpha(opacity=40);
+}
