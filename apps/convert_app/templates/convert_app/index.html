@@ -29,26 +29,40 @@
 	    	<a href="http://unb.br" target="_blank"><img src="{% static 'unb_logo.png' %}" class="logo-custom"></a></h2>
 	    	<nav class="navbar navbar-default">
 				<div class="container-fluid" align="center">
-		      		<button type="button" class="btn btn-success navbar-btn" data-toggle="collapse" data-target="#adicionar" aria-expanded="false">Adicionar Arquivo</button>
-		      		<button type="button" class="btn btn-danger navbar-btn" data-toggle="collapse" data-target="#excluir" aria-expanded="false">Excluir Arquivo</button>
+		      		<button type="button" class="btn btn-success navbar-btn" data-toggle="collapse" data-target="#add" aria-expanded="false">Adicionar Arquivo</button>
+		      		<button type="button" class="btn btn-danger navbar-btn" data-toggle="collapse" data-target="#delete" aria-expanded="false">Excluir Arquivo</button>
 		      	</div>
 		    </nav>
-			<div id="adicionar" class="collapse">
+			<div id="add" class="collapse">
 				<div class="well">
 				    <form method="POST" action="." enctype="multipart/form-data" class="form-horizontal" >
 						{% csrf_token %}
 						<div class="form-group">
 							{{ form.as_p }}
 
-							<input type="submit" value="Adicionar" class="btn btn-primary btn-block" />
+							<input type="submit" name="_method" value="Adicionar" class="btn btn-primary btn-block" />
 						</div>
+					</form>
+				</div>
+			</div>
+			<div id="delete" class="collapse">
+				<div class="well">
+					<form method="POST" action="." enctype="multipart/form-data" class="form-horizontal" >
+						{% csrf_token %}
+					    <label for="url" class="control-label">Selecione um ou mais arquivos</label>
+						<select class="form-control input" name="delete_ids" multiple size="5">
+							{% for each in files %}
+						    	<option value="{{ each.id }}">{{ each.title }} ({{ each.docfile.name }})</option>
+							{% endfor %}
+						</select>
+						<input type="submit" name="_method" value="Excluir" class="btn btn-primary btn-block" />
 					</form>
 				</div>
 			</div>
 			<form method="POST" action="summarize" enctype="multipart/form-data" class="form-horizontal" >
 				<div class="form-group">
 					<label for="url" class="control-label">Selecione um arquivo</label>
-					<select class="form-control input-lg">
+					<select class="form-control input-lg" data-live-search="true">
 						{% for each in files %}
 					    	<option value="{{ each.id }}">{{ each.title }} ({{ each.docfile.name }})</option>
 						{% endfor %}

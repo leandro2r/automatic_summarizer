@@ -8,7 +8,7 @@ from forms import UserForm, SubmitFileForm
 
 class IndexView(View):
 	def get(self, request, *args, **kwargs):
-		files = File.objects.all()
+		files = File.objects.filter(user=request.user).all()
 		form = SubmitFileForm()
 
 		context = {
@@ -22,7 +22,15 @@ class IndexView(View):
 		# if not request.user.is_authenticated():
 		# 	raise Http404
 
-		files = File.objects.all()
+		method = self.request.POST.get('_method', '').lower()
+
+		if method == 'adicionar':
+			return self.add(request, *args, **kwargs)
+		if method == 'excluir':
+			return self.delete(request, *args, **kwargs)
+
+
+	def add(self, request, *args, **kwargs):
 		form = SubmitFileForm(request.POST or None, request.FILES or None)
 
 		if form.is_valid():
@@ -40,14 +48,19 @@ class IndexView(View):
 
 			file.save()
 
-			messages.success(request, "Upload de arquivo efetuado com sucesso!")
-
+		files = File.objects.filter(user=request.user).all()
 		context = {
 			"title": "Conversor",
 			"form": form,
 			"files": files
 		}
 		return render(request, "convert_app/index.html", context)
+
+	def delete(self, request, *args, **kwargs):
+		files = request.POST.get('delete_ids')
+		print files
+		form = File.objects.filter(id=files).delete()
+		return redirect('/')
 
 class UserView(View):
 	def get(self, request, *args, **kwargs):
