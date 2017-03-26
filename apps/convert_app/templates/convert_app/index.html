@@ -3,9 +3,12 @@
 <head>
 	<title>{{ title }}</title>
 	{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-select.min.css' %}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="{% static 'js/bootstrap-select.min.js' %}" /></script>
 	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/i18n/defaults-pt_BR.js' %}"></script>
 </head>
 <body>
 	<nav class="navbar navbar-default">
@@ -49,20 +52,21 @@
 				<div class="well">
 					<form method="POST" action="." enctype="multipart/form-data" class="form-horizontal" >
 						{% csrf_token %}
-					    <label for="url" class="control-label">Selecione um ou mais arquivos</label>
-						<select class="form-control input" name="delete_ids" multiple size="5">
+					    <label for="url" class="control-label">Arquivos</label>
+						<select class="form-control selectpicker" name="delete_ids" multiple data-actions-box="true"
+						data-selected-text-format="count" multiple required>
 							{% for each in files %}
 						    	<option value="{{ each.id }}">{{ each.title }} ({{ each.docfile.name }})</option>
 							{% endfor %}
-						</select>
+						</select><br/><br/>
 						<input type="submit" name="_method" value="Excluir" class="btn btn-primary btn-block" />
 					</form>
 				</div>
 			</div>
 			<form method="POST" action="summarize" enctype="multipart/form-data" class="form-horizontal" >
 				<div class="form-group">
-					<label for="url" class="control-label">Selecione um arquivo</label>
-					<select class="form-control input-lg" data-live-search="true">
+					<label for="url" class="control-label">Arquivo</label>
+					<select class="form-control selectpicker" name="docfile" input-lg title="Selecione um arquivo" data-live-search="true" required>
 						{% for each in files %}
 					    	<option value="{{ each.id }}">{{ each.title }} ({{ each.docfile.name }})</option>
 						{% endfor %}

@@ -47,6 +47,7 @@ class IndexView(View):
 			page = form.cleaned_data["page"]
 
 			file.save()
+			form = SubmitFileForm()
 
 		files = File.objects.filter(user=request.user).all()
 		context = {
@@ -57,9 +58,9 @@ class IndexView(View):
 		return render(request, "convert_app/index.html", context)
 
 	def delete(self, request, *args, **kwargs):
-		files = request.POST.get('delete_ids')
-		print files
-		form = File.objects.filter(id=files).delete()
+		files = request.POST.getlist("delete_ids")
+		for each in files:
+			form = File.objects.filter(id=each).delete()
 		return redirect('/')
 
 class UserView(View):
