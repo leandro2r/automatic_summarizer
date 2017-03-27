@@ -5454,8 +5454,8 @@ button.list-group-item-danger.active:focus {
 }
 .panel {
   margin-bottom: 20px;
-  background-color: #fff;
-  border: 1px solid transparent;
+  background-color: #f8f8f8;
+  border: 1px solid #e7e7e7;
   border-radius: 4px;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
           box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
@@ -5463,6 +5463,7 @@ button.list-group-item-danger.active:focus {
 .panel-body {
   padding: 15px;
   background: transparent;
+  margin: 10px;
 }
 .panel-heading {
   padding: 10px 15px;
@@ -6767,4 +6768,16 @@ button.close {
 .logo-custom {
   opacity:0.4;
   filter:alpha(opacity=40);
+}
+
+.lb-sm {
+  font-size: 12px;
+}
+
+.lb-md {
+  font-size: 16px;
+}
+
+.lb-lg {
+  font-size: 20px;
 }

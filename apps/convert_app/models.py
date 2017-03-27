@@ -17,8 +17,11 @@ class File(models.Model):
 	updated = models.DateTimeField(auto_now=True)
 
 	def save(self, *args, **kwargs):
-		ConvertFile(self.docfile)
-		super(File, self).save()
+		validformat = ConvertFile(self.docfile)
+		if validformat == True:
+			super(File, self).save()
+		else:
+			super(File, self).clean()
 
 	def __unicode__(self):
 		return str(self.title)

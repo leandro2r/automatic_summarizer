@@ -9,63 +9,65 @@
 	<script src="{% static 'js/bootstrap-select.min.js' %}" /></script>
 	<script src="{% static 'js/bootstrap.min.js' %}"></script>
 	<script src="{% static 'js/i18n/defaults-pt_BR.js' %}"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body>
-	<nav class="navbar navbar-default">
-		<div class="container-fluid">
-		    <ul class="nav navbar-nav">
-		     	<li class="active"><a href="/">Conversor</a></li>
-		      	<li><a href="#">Sumarizador</a></li>
-		      	<li><a href="#">Tradutor</a></li>
-		      	<li><a href="#">Alinhador</a></li>
-		    </ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="edit"><span class="glyphicon glyphicon-user"></span> {{ user.username }}</a></li>
-				<li><a href="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-			</ul>
-		</div>
-	</nav>
-
-	<div class="container">		
+<body>	
+	<div class="container">	
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+			    <ul class="nav navbar-nav">
+			     	<li class="active"><a href="/">Conversor</a></li>
+			      	<li><a href="#">Sumarizador</a></li>
+			      	<li><a href="#">Tradutor</a></li>
+			      	<li><a href="#">Alinhador</a></li>
+			    </ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="edit"><span class="glyphicon glyphicon-user"></span> {{ user.username }}</a></li>
+					<li><a href="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+				</ul>
+			</div>
+		</nav>	
 	    <div class="jumbotron vertical-center">
 	    	<h2 class="text-center">{{ title }} 
 	    	<a href="http://unb.br" target="_blank"><img src="{% static 'unb_logo.png' %}" class="logo-custom"></a></h2>
-	    	<nav class="navbar navbar-default">
-				<div class="container-fluid" align="center">
-		      		<button type="button" class="btn btn-success navbar-btn" data-toggle="collapse" data-target="#add" aria-expanded="false">Adicionar Arquivo</button>
-		      		<button type="button" class="btn btn-danger navbar-btn" data-toggle="collapse" data-target="#delete" aria-expanded="false">Excluir Arquivo</button>
-		      	</div>
-		    </nav>
-			<div id="add" class="collapse">
-				<div class="well">
-				    <form method="POST" action="." enctype="multipart/form-data" class="form-horizontal" >
-						{% csrf_token %}
-						<div class="form-group">
-							{{ form.as_p }}
+	    	<div class="panel-group" id="accordion">
+			  	<div class="panel">
+				    <div class="panel-heading" align="center">
+				  		<button type="button" class="btn btn-success" data-toggle="collapse" data-target="#add" data-parent="#accordion">Adicionar Arquivo</button>
+				  		<button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#delete" data-parent="#accordion">Excluir Arquivo</button>
+					</div>
+					<div id="add" class="collapse">
+						<div class="panel-body">
+						    <form method="POST" action="." enctype="multipart/form-data" class="form-horizontal" >
+								{% csrf_token %}
+								<div class="form-group">
+									{{ form.as_p }}
 
-							<input type="submit" name="_method" value="Adicionar" class="btn btn-primary btn-block" />
+									<input type="submit" name="_method" value="Adicionar" class="btn btn-primary btn-block" />
+								</div>
+							</form>
 						</div>
-					</form>
-				</div>
-			</div>
-			<div id="delete" class="collapse">
-				<div class="well">
-					<form method="POST" action="." enctype="multipart/form-data" class="form-horizontal" >
-						{% csrf_token %}
-					    <label for="url" class="control-label">Arquivos</label>
-						<select class="form-control selectpicker" name="delete_ids" multiple data-actions-box="true"
-						data-selected-text-format="count" multiple required>
-							{% for each in files %}
-						    	<option value="{{ each.id }}">{{ each.title }} ({{ each.docfile.name }})</option>
-							{% endfor %}
-						</select><br/><br/>
-						<input type="submit" name="_method" value="Excluir" class="btn btn-primary btn-block" />
-					</form>
+					</div>
+					<div id="delete" class="collapse">
+						<div class="panel-body">
+							<form method="POST" action="." enctype="multipart/form-data" class="form-horizontal" >
+								{% csrf_token %}
+							    <label for="url" class="control-label lb-lg">Arquivos</label>
+								<select class="form-control selectpicker" name="delete_ids" multiple data-actions-box="true"
+								data-selected-text-format="count" multiple required>
+									{% for each in files %}
+								    	<option value="{{ each.id }}">{{ each.title }} ({{ each.docfile.name }})</option>
+									{% endfor %}
+								</select><br/><br/>
+								<input type="submit" name="_method" value="Excluir" class="btn btn-primary btn-block" />
+							</form>
+						</div>
+					</div>
 				</div>
 			</div>
 			<form method="POST" action="summarize" enctype="multipart/form-data" class="form-horizontal" >
 				<div class="form-group">
-					<label for="url" class="control-label">Arquivo</label>
+					<label for="url" class="control-label lb-lg">Arquivo</label>
 					<select class="form-control selectpicker" name="docfile" input-lg title="Selecione um arquivo" data-live-search="true" required>
 						{% for each in files %}
 					    	<option value="{{ each.id }}">{{ each.title }} ({{ each.docfile.name }})</option>
