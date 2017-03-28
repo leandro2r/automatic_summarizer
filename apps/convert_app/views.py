@@ -1,13 +1,16 @@
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View 
-from django.contrib import auth, messages
+from django.contrib.auth import authenticate, login, logout
 
 from models import File
 from forms import UserForm, SubmitFileForm
 
 class IndexView(View):
 	def get(self, request, *args, **kwargs):
+		if not request.user.is_authenticated():
+			return redirect("/login")
+
 		files = File.objects.filter(user=request.user).all()
 		form = SubmitFileForm()
 
@@ -19,9 +22,6 @@ class IndexView(View):
 		return render(request, "convert_app/index.html", context)
 
 	def post(self, request, *args, **kwargs):
-		# if not request.user.is_authenticated():
-		# 	raise Http404
-
 		method = self.request.POST.get('_method', '').lower()
 
 		if method == 'adicionar':
@@ -86,15 +86,15 @@ class UserView(View):
 			user.set_password(password)
 			user.save()
 
-			user = auth.authenticate(username=username, password=password)
+			user = authenticate(username=username, password=password)
 
 			if user is not None:
 				if user.is_active:
-					auth.login(request, user)
+					login(request, user)
 					return redirect("/")
 
 		context = {
 			"title": "Login",
 			"form": form
 		}
-		return render(request, "convert_app/register.html", context)
+		return redirect("/")

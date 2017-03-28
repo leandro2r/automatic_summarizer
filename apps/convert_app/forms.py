@@ -7,7 +7,9 @@ from .utils import ConvertFile
 import os 
 
 class UserForm(forms.ModelForm):
-	password = forms.CharField(widget=forms.PasswordInput)
+	username = forms.CharField(label="Usuário", widget=forms.TextInput(attrs={"class" : "form-control input-mg"}))
+	email = forms.EmailField(widget=forms.TextInput(attrs={"class" : "form-control input-mg"}))
+	password = forms.CharField(label="Senha", widget=forms.PasswordInput(attrs={"class" : "form-control input-mg"}))
 
 	class Meta:
 		model = User

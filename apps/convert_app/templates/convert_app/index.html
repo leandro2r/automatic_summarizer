@@ -11,7 +11,7 @@
 	<script src="{% static 'js/i18n/defaults-pt_BR.js' %}"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body>	
+<body>
 	<div class="container">	
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
@@ -22,11 +22,11 @@
 			      	<li><a href="#">Alinhador</a></li>
 			    </ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="edit"><span class="glyphicon glyphicon-user"></span> {{ user.username }}</a></li>
-					<li><a href="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-user"></span> {{ user.username }}</a></li>
+					<li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 				</ul>
 			</div>
-		</nav>	
+		</nav>
 	    <div class="jumbotron vertical-center">
 	    	<h2 class="text-center">{{ title }} 
 	    	<a href="http://unb.br" target="_blank"><img src="{% static 'unb_logo.png' %}" class="logo-custom"></a></h2>
