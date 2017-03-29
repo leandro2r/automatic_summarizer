@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>{{ title }}</title>
+	<title>Sumarizador Automático - {{ title }}</title>
 	{% load staticfiles %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-select.min.css' %}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script src="{% static 'js/bootstrap-select.min.js' %}" /></script>
-	<script src="{% static 'js/bootstrap.min.js' %}"></script>
-	<script src="{% static 'js/i18n/defaults-pt_BR.js' %}"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
@@ -17,23 +13,45 @@
 			<div class="container-fluid">
 				<ul class="nav navbar-nav navbar-right">
 					<li class="active"><a href="#"><span class="glyphicon glyphicon-user"></span> Registrar</a></li>
-					<li><a href="/login"><span class="glyphicon glyphicon-log-out"></span> Login</a></li>
+					<li><a href="/login"><span class="glyphicon glyphicon-log-out"></span> Acessar</a></li>
 				</ul>
 			</div>
 		</nav>
 
 	    <div class="jumbotron vertical-center">
+			{% if form.errors %}
+			    {% for field in form %}
+			        {% for error in field.errors %}
+			            <div class="alert alert-danger fade in">
+			            	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			                <strong>Atenção! </strong>{{ error|escape }}
+			            </div>
+			        {% endfor %}
+			    {% endfor %}
+			    {% for error in form.non_field_errors %}
+			        <div class="alert alert-danger fade in">
+		            	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		                <strong>Atenção! </strong>{{ error|escape }}
+		            </div>
+			    {% endfor %}
+			{% endif %}
+
 	    	<h2 class="text-center">{{ title }} 
 	    	<a href="http://unb.br" target="_blank"><img src="{% static 'unb_logo.png' %}" class="logo-custom"></a></h2>
 	    	<form method="POST" action="." enctype="multipart/form-data" class="form-horizontal" >
 				{% csrf_token %}
 				<div class="form-group">
 					{{ form.as_p }}
-
 					<input type="submit" value="Registrar" class="btn btn-primary btn-lg btn-block" />
 				</div>
 			</form>
 	    </div>
 	</div>
 </body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="{% static 'js/bootstrap-select.min.js' %}" /></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/i18n/defaults-pt_BR.js' %}"></script>
+
 </html>
