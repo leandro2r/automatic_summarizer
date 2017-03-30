@@ -20,7 +20,7 @@ class IndexView(View):
 			"form": form,
 			"files": files
 		}
-		return render(request, "convert_app/index.html", context)
+		return render(request, "converter_app/index.html", context)
 
 	def post(self, request, *args, **kwargs):
 		method = self.request.POST.get('_method', '').lower()
@@ -56,7 +56,7 @@ class IndexView(View):
 			"form": form,
 			"files": files
 		}
-		return render(request, "convert_app/index.html", context)
+		return render(request, "converter_app/index.html", context)
 
 	def delete(self, request, *args, **kwargs):
 		files = request.POST.getlist("delete_ids")
