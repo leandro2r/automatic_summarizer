@@ -10,7 +10,7 @@
 		  		<button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#delete" data-parent="#accordion">Excluir Arquivo</button>
 			</div>
 			<div id="add" class="collapse">
-				<div class="panel-body">
+				<div class="new-background">
 				    <form method="POST" action="." enctype="multipart/form-data" class="form-horizontal" >
 						{% csrf_token %}
 						<div class="form-group">
@@ -22,7 +22,7 @@
 				</div>
 			</div>
 			<div id="delete" class="collapse">
-				<div class="panel-body">
+				<div class="new-background">
 					<form method="POST" action="." enctype="multipart/form-data" class="form-horizontal" >
 						{% csrf_token %}
 					    <label for="url" class="control-label lb-lg">Arquivos</label>
