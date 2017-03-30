@@ -1,108 +1,53 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Sumarizador Automático - {{ title }}</title>
-	{% load staticfiles %}
-	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-select.min.css' %}" />
-	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
-	<div class="container">	
-		<nav class="navbar navbar-default">
-			<div class="container-fluid">
-			    <ul class="nav navbar-nav">
-			     	<li class="active"><a href="/">Conversor</a></li>
-			      	<li><a href="#">Sumarizador</a></li>
-			      	<li><a href="#">Tradutor</a></li>
-			      	<li><a href="#">Alinhador</a></li>
-			    </ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> {{ user.username }} <span class="caret"></span></a>
-						<ul class="dropdown-menu">
-				        	<li><a href="#">Editar</a></li>
-				            <li><a href="/logout">Sair</a></li>
-				        </ul>
-					</li>
-				</ul>
+{% extends 'apps/base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+	<div class="panel-group" id="accordion">
+	  	<div class="panel">
+		    <div class="panel-heading" align="center">
+		  		<button type="button" class="btn btn-success" data-toggle="collapse" data-target="#add" data-parent="#accordion">Adicionar Arquivo</button>
+		  		<button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#delete" data-parent="#accordion">Excluir Arquivo</button>
 			</div>
-		</nav>
-	    <div class="jumbotron vertical-center">
-			{% if form.errors %}
-			    {% for field in form %}
-			        {% for error in field.errors %}
-			            <div class="alert alert-danger fade in">
-			            	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-			                <strong>Atenção! </strong>{{ error|escape }}
-			            </div>
-			        {% endfor %}
-			    {% endfor %}
-			    {% for error in form.non_field_errors %}
-			        <div class="alert alert-danger fade in">
-		            	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-		                <strong>Atenção! </strong>{{ error|escape }}
-		            </div>
-			    {% endfor %}
-			{% endif %}
+			<div id="add" class="collapse">
+				<div class="panel-body">
+				    <form method="POST" action="." enctype="multipart/form-data" class="form-horizontal" >
+						{% csrf_token %}
+						<div class="form-group">
+							{{ form.as_p }}
 
-	    	<h2 class="text-center">{{ title }} 
-	    	<a href="http://unb.br" target="_blank"><img src="{% static 'unb_logo.png' %}" class="logo-custom"></a></h2>
-	    	<div class="panel-group" id="accordion">
-			  	<div class="panel">
-				    <div class="panel-heading" align="center">
-				  		<button type="button" class="btn btn-success" data-toggle="collapse" data-target="#add" data-parent="#accordion">Adicionar Arquivo</button>
-				  		<button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#delete" data-parent="#accordion">Excluir Arquivo</button>
-					</div>
-					<div id="add" class="collapse">
-						<div class="panel-body">
-						    <form method="POST" action="." enctype="multipart/form-data" class="form-horizontal" >
-								{% csrf_token %}
-								<div class="form-group">
-									{{ form.as_p }}
-
-									<input type="submit" name="_method" value="Adicionar" class="btn btn-primary btn-block" />
-								</div>
-							</form>
+							<input type="submit" name="_method" value="Adicionar" class="btn btn-primary btn-block" />
 						</div>
-					</div>
-					<div id="delete" class="collapse">
-						<div class="panel-body">
-							<form method="POST" action="." enctype="multipart/form-data" class="form-horizontal" >
-								{% csrf_token %}
-							    <label for="url" class="control-label lb-lg">Arquivos</label>
-								<select class="form-control selectpicker" name="delete_ids" multiple data-actions-box="true"
-								data-selected-text-format="count" multiple required>
-									{% for each in files %}
-								    	<option value="{{ each.id }}">{{ each.title }} ({{ each.docfile.name }})</option>
-									{% endfor %}
-								</select><br/><br/>
-								<input type="submit" name="_method" value="Excluir" class="btn btn-primary btn-block" />
-							</form>
-						</div>
-					</div>
+					</form>
 				</div>
 			</div>
-			<form method="POST" action="summarize" enctype="multipart/form-data" class="form-horizontal" >
-				<div class="form-group">
-					<label for="url" class="control-label lb-lg">Arquivo</label>
-					<select class="form-control selectpicker" name="docfile" input-lg title="Selecione um arquivo" data-live-search="true" required>
-						{% for each in files %}
-					    	<option value="{{ each.id }}">{{ each.title }} ({{ each.docfile.name }})</option>
-						{% endfor %}
-					</select>
-					<span id="url" class="help-block">Escolha um dos arquivo adicionados.</span>
-					<input type="submit" value="Avançar" class="btn btn-primary btn-lg btn-block" />
+			<div id="delete" class="collapse">
+				<div class="panel-body">
+					<form method="POST" action="." enctype="multipart/form-data" class="form-horizontal" >
+						{% csrf_token %}
+					    <label for="url" class="control-label lb-lg">Arquivos</label>
+						<select class="form-control selectpicker" name="delete_ids" multiple data-actions-box="true"
+						data-selected-text-format="count" multiple required>
+							{% for each in files %}
+						    	<option value="{{ each.id }}">{{ each.title }} ({{ each.docfile.name }})</option>
+							{% endfor %}
+						</select><br/><br/>
+						<input type="submit" name="_method" value="Excluir" class="btn btn-primary btn-block" />
+					</form>
 				</div>
-			</form>
-	    </div>
+			</div>
+		</div>
 	</div>
-</body>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="{% static 'js/bootstrap-select.min.js' %}" /></script>
-<script src="{% static 'js/bootstrap.min.js' %}"></script>
-<script src="{% static 'js/i18n/defaults-pt_BR.js' %}"></script>
-
-
-</html>
+	<form method="POST" action="summarize" enctype="multipart/form-data" class="form-horizontal" >
+		<div class="form-group">
+			<label for="url" class="control-label lb-lg">Arquivo</label>
+			<select class="form-control selectpicker" name="docfile" input-lg title="Selecione um arquivo" data-live-search="true" required>
+				{% for each in files %}
+			    	<option value="{{ each.id }}">{{ each.title }} ({{ each.docfile.name }})</option>
+				{% endfor %}
+			</select>
+			<span id="url" class="help-block">Escolha um dos arquivo adicionados.</span>
+			<input type="submit" value="Avançar" class="btn btn-primary btn-lg btn-block" />
+		</div>
+	</form>
+{% endblock content %}

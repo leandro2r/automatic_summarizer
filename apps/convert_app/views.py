@@ -72,7 +72,7 @@ class UserView(View):
 			"title": "Registrar",
 			"form": form
 		}
-		return render(request, "convert_app/register.html", context)
+		return render(request, "apps/register.html", context)
 
 	def post(self, request, *args, **kwargs):
 		form = UserForm(request.POST)
@@ -98,4 +98,4 @@ class UserView(View):
 			"title": "Registrar",
 			"form": form
 		}
-		return render(request, "convert_app/register.html", context)
+		return render(request, "apps/register.html", context)

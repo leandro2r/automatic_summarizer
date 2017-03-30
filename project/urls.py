@@ -22,6 +22,6 @@ from apps.convert_app.forms import LoginForm
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('apps.convert_app.urls')),
-    url(r'^login/$', auth_views.login, {'template_name': 'convert_app/login.html', 'authentication_form': LoginForm}, name='login'),
+    url(r'^login/$', auth_views.login, {'template_name': 'apps/login.html', 'authentication_form': LoginForm}, name='login'),
     url(r'^logout/$', auth_views.logout, {'next_page': '/login'}, name='logout'),
 ]

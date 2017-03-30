@@ -1,0 +1,13 @@
+{% extends 'apps/base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+	<form method="POST" action="." enctype="multipart/form-data" class="form-horizontal" >
+		{% csrf_token %}
+		<div class="form-group">
+			{{ form.as_p }}
+			<input type="submit" value="Registrar" class="btn btn-primary btn-lg btn-block" />
+		</div>
+	</form>
+{% endblock content %}
