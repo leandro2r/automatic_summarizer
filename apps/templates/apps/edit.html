@@ -1,0 +1,16 @@
+{% extends 'apps/base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+	<form method="POST" action="." enctype="multipart/form-data" class="form-horizontal" >
+		{% csrf_token %}
+		{% for field in form %}
+			<div class="form-group">
+    			<label class="control-label lb-lg" for="{{ field.name }}">{{ field.label }}:</label> {{ field }}
+    		</div>
+		{% endfor %}
+		<br/>
+		<input type="submit" value="Editar" class="btn btn-primary btn-lg btn-block" />
+	</form>
+{% endblock content %}

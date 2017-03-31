@@ -2,7 +2,7 @@
 
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views import View 
+from django.views import View
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -39,13 +39,13 @@ class IndexView(View):
 
 		if form.is_valid():
 			docfile = request.FILES['docfile']
-			fileExtension = docfile.name.split(".")[-1]
+			docfile_ext = docfile.name.split(".")[-1]
 
-			if fileExtension == "pdf" or fileExtension == "txt":
+			if docfile_ext == "pdf" or docfile_ext == "txt":
 				file = File(
-					title = request.POST['title'], 
-					docfile = request.FILES['docfile'], 
-					page = request.POST['page'], 
+					title = request.POST['title'],
+					docfile = request.FILES['docfile'],
+					page = request.POST['page'],
 					user = request.user
 				)
 
@@ -55,11 +55,13 @@ class IndexView(View):
 				page = form.cleaned_data["page"]
 
 				file.save()
-				messages.success(request, 
-					"Arquivo " + docfile.name + " (" + request.POST['title'] + ") adicionado com sucesso!")
+				messages.success(request,
+					"Arquivo " + docfile.name + " (" + request.POST['title'] +
+					") adicionado com sucesso!")
 				form = SubmitFileForm()
 			else:
-				messages.error(request, "Formato do arquivo inválido! Apenas .pdf e .txt são permitidos.")
+				messages.error(request, "Formato do arquivo ." + docfile_ext +
+					u" inválido! Apenas .pdf e .txt são permitidos.")
 
 		files = File.objects.filter(user=request.user).all()
 		context = {
@@ -89,21 +91,27 @@ class UserView(View):
 		form = UserForm(request.POST)
 
 		if form.is_valid():
-			user = form.save(commit=False)
+			if request.POST['password'] == request.POST['confirm_password']:
+				user = form.save(commit=False)
 
-			# cleaned data
-			username = form.cleaned_data["username"]
-			password = form.cleaned_data["password"]
+				# cleaned data
+				username = form.cleaned_data["username"]
+				password = form.cleaned_data["password"]
 
-			user.set_password(password)
-			user.save()
+				user.set_password(password)
+				user.save()
 
-			user = authenticate(username=username, password=password)
+				user = authenticate(username=username, password=password)
 
-			if user is not None:
-				if user.is_active:
-					login(request, user)
-					return redirect("/")
+				if user is not None:
+					if user.is_active:
+						login(request, user)
+						messages.success(request, u"Usuário " + user.username +
+							" registrado com sucesso! Seja bem-vindo(a)")
+						return redirect("/")
+			else:
+				messages.error(request,
+					"A senha informada diverge da senha de confirmação. Verifique-as")
 
 		context = {
 			"title": "Registrar",
