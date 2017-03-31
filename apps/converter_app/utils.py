@@ -35,7 +35,3 @@ def ConvertFile(file):
         newcontent = pdf_to_txt(file)
         newdocfile = os.path.splitext(os.path.basename(pdf))[0] + ".txt"
         file.save(newdocfile, ContentFile(newcontent))
-    elif fileExtension != "txt":
-        return False
-
-    return True

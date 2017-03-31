@@ -47,8 +47,26 @@ label {
   padding: 0px 15px;
 }
 
-.panel-heading, .new-background {
+.new-background {
   background-color: #ddd;
+  border: 1px solid #ddd;
+}
+
+.panel-heading-custom {
+  text-align: center;
+  padding-top: 10px;
+  background-color: #ddd;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+  border-bottom: 1px solid #ddd;
+}
+
+.panel-footer-custom {
+  padding: 5px 10px;
+  background-color: #ddd;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-top: 1px solid #ddd;
 }
 
 .panel-content .form-group {
@@ -123,4 +141,29 @@ label {
 }
 .nav li:hover:nth-child(8n+8), .nav li.active:nth-child(8n+8){
   border-bottom: #62C2E4 3px solid;
+}
+
+.logo-custom {
+  opacity:0.4;
+  filter:alpha(opacity=40);
+}
+
+.bootstrap-select.btn-group .dropdown-menu {
+  border: 1px solid #999; 
+}
+
+.lb-sm {
+  font-size: 12px;
+}
+
+.lb-md {
+  font-size: 16px;
+}
+
+.lb-lg {
+  font-size: 20px;
+}
+
+.panel-button {
+  margin-bottom: 0px;
 }

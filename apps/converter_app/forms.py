@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from django.contrib.auth.models import User
 from django import forms
+from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm 
 
+from models import File
 from .utils import ConvertFile
 import os 
 
@@ -19,11 +20,12 @@ class UserForm(forms.ModelForm):
 	email = forms.EmailField(widget=forms.TextInput(attrs={"class" : "form-control input-mg"}))
 	password = forms.CharField(label="Senha", max_length=30, 
 								widget=forms.PasswordInput(attrs={"class" : "form-control input-mg"}))
+	confirm_password = forms.CharField(label="Confirme a senha", max_length=30, 
+								widget=forms.PasswordInput(attrs={"class" : "form-control input-mg"}))
 
 	class Meta:
 		model = User
-		fields = ["username", "email", "password"]
-
+		fields = ["username", "email", "password", "confirm_password"]
 
 class SubmitFileForm(forms.Form):
 	title = forms.CharField(label="Título", 
@@ -32,5 +34,3 @@ class SubmitFileForm(forms.Form):
 								widget=forms.FileInput(attrs={"class" : "form-control input-mg"}))
 	page = forms.CharField(label="Página", initial=1, 
 								widget=forms.NumberInput(attrs={"class" : "form-control input-mg"}))
-	active = forms.BooleanField(initial=True, 
-								widget=forms.HiddenInput())

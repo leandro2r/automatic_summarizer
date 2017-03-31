@@ -1,6 +1,9 @@
+# -*- coding: utf-8 -*-
+
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View 
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
@@ -35,20 +38,28 @@ class IndexView(View):
 		form = SubmitFileForm(request.POST or None, request.FILES or None)
 
 		if form.is_valid():
-			file = File(
-				title = request.POST['title'], 
-				docfile = request.FILES['docfile'], 
-				page = request.POST['page'], 
-				user = request.user
-			)
+			docfile = request.FILES['docfile']
+			fileExtension = docfile.name.split(".")[-1]
 
-			# cleaned data
-			title = form.cleaned_data["title"]
-			docfile = form.cleaned_data["docfile"]
-			page = form.cleaned_data["page"]
+			if fileExtension == "pdf" or fileExtension == "txt":
+				file = File(
+					title = request.POST['title'], 
+					docfile = request.FILES['docfile'], 
+					page = request.POST['page'], 
+					user = request.user
+				)
 
-			file.save()
-			form = SubmitFileForm()
+				# cleaned data
+				title = form.cleaned_data["title"]
+				docfile = form.cleaned_data["docfile"]
+				page = form.cleaned_data["page"]
+
+				file.save()
+				messages.success(request, 
+					"Arquivo " + docfile.name + " (" + request.POST['title'] + ") adicionado com sucesso!")
+				form = SubmitFileForm()
+			else:
+				messages.error(request, "Formato do arquivo inválido! Apenas .pdf e .txt são permitidos.")
 
 		files = File.objects.filter(user=request.user).all()
 		context = {

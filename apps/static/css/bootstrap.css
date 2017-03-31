@@ -5093,15 +5093,15 @@ a.thumbnail.active {
 .alert-warning .alert-link {
   color: #66512c;
 }
-.alert-danger {
+.alert-error {
   color: #a94442;
   background-color: #f2dede;
   border-color: #ebccd1;
 }
-.alert-danger hr {
+.alert-error hr {
   border-top-color: #e4b9c0;
 }
-.alert-danger .alert-link {
+.alert-error .alert-link {
   color: #843534;
 }
 @-webkit-keyframes progress-bar-stripes {
@@ -6763,21 +6763,3 @@ button.close {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
-
-/* Custon */
-.logo-custom {
-  opacity:0.4;
-  filter:alpha(opacity=40);
-}
-
-.lb-sm {
-  font-size: 12px;
-}
-
-.lb-md {
-  font-size: 16px;
-}
-
-.lb-lg {
-  font-size: 20px;
-}

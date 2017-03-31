@@ -6,7 +6,7 @@
 	<title>Sumarizador Automático</title>
 	<link rel="stylesheet" type="text/css" href="{% static "css/bootstrap-select.min.css" %}" />
 	<link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.css" %}" />
-	<link rel="stylesheet" type="text/css" href="{% static "css/default.css" %}" />
+	<link rel="stylesheet" type="text/css" href="{% static "css/custom.css" %}" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
@@ -22,7 +22,7 @@
                 			<h2>{% if title %} {{ title }} {% else %} Sumarizador Automático {% endif %}
 							</h2>
 
-							{% include "apps/errors.html" %}
+							{% include "apps/messages.html" %}
 
 							{% block content %}
 							{% endblock %}
