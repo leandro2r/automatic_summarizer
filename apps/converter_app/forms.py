@@ -27,6 +27,13 @@ class UserForm(forms.ModelForm):
 		model = User
 		fields = ["username", "email", "password"]
 
+class UserEditForm(forms.Form):
+	email = forms.EmailField(widget=forms.TextInput(attrs={"class" : "form-control input-mg"}))
+	password = forms.CharField(label="Nova senha", max_length=30,
+								widget=forms.PasswordInput(attrs={"class" : "form-control input-mg"}))
+	new_password = forms.CharField(label="Confirme a nova senha", max_length=30,
+								widget=forms.PasswordInput(attrs={"class" : "form-control input-mg"}))
+
 class SubmitFileForm(forms.Form):
 	title = forms.CharField(label="Título",
 							widget=forms.TextInput(attrs={"class" : "form-control input-mg"}))

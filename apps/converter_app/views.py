@@ -8,7 +8,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 from models import File
-from forms import UserForm, SubmitFileForm
+from django.contrib.auth.models import User
+from forms import UserForm, UserEditForm, SubmitFileForm
 
 class IndexView(View):
 	def get(self, request, *args, **kwargs):
@@ -74,18 +75,27 @@ class IndexView(View):
 	def delete(self, request, *args, **kwargs):
 		files = request.POST.getlist("delete_ids")
 		for each in files:
+
 			form = File.objects.filter(id=each).delete()
+		messages.success(request,"Arquivo(s) removido(s) com sucesso!")
 		return redirect('/')
 
 class UserView(View):
 	def get(self, request, *args, **kwargs):
-		form = UserForm()
-
+		if not request.user.is_authenticated():
+			form = UserForm()
+			title = "Registrar"
+			template = "apps/register.html"
+		else:
+			form = UserEditForm()
+			title = "Editar"
+			template = "apps/edit.html"
+			
 		context = {
-			"title": "Registrar",
+			"title": title,
 			"form": form
 		}
-		return render(request, "apps/register.html", context)
+		return render(request, template, context)
 
 	def post(self, request, *args, **kwargs):
 		form = UserForm(request.POST)

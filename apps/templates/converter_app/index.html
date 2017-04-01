@@ -30,7 +30,7 @@
 						<select class="form-control selectpicker" name="delete_ids" multiple data-actions-box="true"
 						data-selected-text-format="count" multiple required>
 							{% for each in files %}
-						    	<option value="{{ each.id }}">{{ each.title }} ({{ each.docfile.name }})</option>
+						    	<option value="{{ each.id }}" data-subtext="{{ each.docfile.name }}">{{ each.title }}</option>
 							{% endfor %}
 						</select>
 					</div>
@@ -48,7 +48,7 @@
 			<label for="url" class="control-label lb-lg">Arquivo:</label>
 			<select class="form-control selectpicker" name="docfile" input-lg title="Selecione um arquivo" data-live-search="true" required>
 				{% for each in files %}
-			    	<option value="{{ each.id }}">{{ each.title }} ({{ each.docfile.name }})</option>
+			    	<option value="{{ each.id }}" data-subtext="{{ each.docfile.name }}">{{ each.title }}</option>
 				{% endfor %}
 			</select>
 			<span id="url" class="help-block">Escolha um dos arquivo adicionados.</span>
