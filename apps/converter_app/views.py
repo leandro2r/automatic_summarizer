@@ -18,13 +18,14 @@ class IndexView(View):
 
 		files = File.objects.filter(user=request.user).all()
 		form = SubmitFileForm()
+		template = "converter_app/index.html"
 
 		context = {
 			"title": "Conversor",
 			"form": form,
 			"files": files
 		}
-		return render(request, "converter_app/index.html", context)
+		return render(request, template, context)
 
 	def post(self, request, *args, **kwargs):
 		method = self.request.POST.get('_method', '').lower()
@@ -56,28 +57,34 @@ class IndexView(View):
 				page = form.cleaned_data["page"]
 
 				file.save()
-				messages.success(request,
-					"Arquivo " + docfile.name + " (" + request.POST['title'] +
-					") adicionado com sucesso!")
+				messages.success(request, "O arquivo " + docfile.name +
+					" foi convertido para txt e adicionado com sucesso!")
 				form = SubmitFileForm()
 			else:
 				messages.error(request, "Formato do arquivo ." + docfile_ext +
 					u" inválido! Apenas .pdf e .txt são permitidos.")
 
 		files = File.objects.filter(user=request.user).all()
+		template = "converter_app/index.html"
 		context = {
 			"title": "Conversor",
 			"form": form,
 			"files": files
 		}
-		return render(request, "converter_app/index.html", context)
+		return render(request, template, context)
 
 	def delete(self, request, *args, **kwargs):
 		files = request.POST.getlist("delete_ids")
 		for each in files:
-
 			form = File.objects.filter(id=each).delete()
-		messages.success(request,"Arquivo(s) removido(s) com sucesso!")
+
+		n_files = len(files)
+		if n_files > 1:
+			messages.success(request, "Os " + str(n_files) +
+				" arquivos selecionados foram removidos com sucesso!")
+		else:
+			messages.success(request, "O arquivo selecionado foi removido"
+				" com sucesso!")
 		return redirect('/')
 
 class UserView(View):
@@ -87,10 +94,10 @@ class UserView(View):
 			title = "Registrar"
 			template = "apps/register.html"
 		else:
-			form = UserEditForm()
+			form = UserEditForm(instance=request.user)
 			title = "Editar"
 			template = "apps/edit.html"
-			
+
 		context = {
 			"title": title,
 			"form": form
@@ -98,14 +105,23 @@ class UserView(View):
 		return render(request, template, context)
 
 	def post(self, request, *args, **kwargs):
-		form = UserForm(request.POST)
+		method = self.request.POST.get('_method', '').lower()
 
+		if not request.user.is_authenticated():
+			form = UserForm(request.POST)
+			return self.new(request, form, *args, **kwargs)
+		else:
+			form = UserEditForm(request.POST)
+			return self.edit(request, form, *args, **kwargs)
+
+	def new(self, request, form, *args, **kwargs):
 		if form.is_valid():
 			if request.POST['password'] == request.POST['confirm_password']:
 				user = form.save(commit=False)
 
 				# cleaned data
 				username = form.cleaned_data["username"]
+				email = form.cleaned_data["email"]
 				password = form.cleaned_data["password"]
 
 				user.set_password(password)
@@ -128,3 +144,25 @@ class UserView(View):
 			"form": form
 		}
 		return render(request, "apps/register.html", context)
+
+	def edit(self, request, form, *args, **kwargs):
+		if form.is_valid():
+			user = form.save(commit=False)
+
+			# cleaned data
+			email = form.cleaned_data["email"]
+			password = form.cleaned_data["password"]
+
+			# if request.POST['password'] == request.POST['confirm_password']
+			# 	and request.POST['password'] is not None:
+			# 	user.set_password(password)
+			# 	user.save()
+
+			messages.success(request, u"Usuário " + user.username +
+				" editado com sucesso!")
+
+		context = {
+			"title": "Editar",
+			"form": form
+		}
+		return render(request, "apps/edit.html", context)

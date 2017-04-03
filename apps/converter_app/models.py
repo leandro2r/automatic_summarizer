@@ -5,7 +5,7 @@ from django.db import models
 from django.conf import settings
 
 from .utils import ConvertFile
-import os 
+import os
 
 class File(models.Model):
 	title = models.CharField(max_length=100, null=False, blank=False)
@@ -22,4 +22,3 @@ class File(models.Model):
 
 	def __unicode__(self):
 		return str(self.title)
-		

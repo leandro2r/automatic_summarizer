@@ -26,7 +26,7 @@ def pdf_to_txt(input, pages=None):
     converter.close()
     text = output.getvalue()
     output.close
-    return text 
+    return text
 
 def ConvertFile(file):
     pdf = file.name

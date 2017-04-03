@@ -27,12 +27,16 @@ class UserForm(forms.ModelForm):
 		model = User
 		fields = ["username", "email", "password"]
 
-class UserEditForm(forms.Form):
+class UserEditForm(forms.ModelForm):
 	email = forms.EmailField(widget=forms.TextInput(attrs={"class" : "form-control input-mg"}))
-	password = forms.CharField(label="Nova senha", max_length=30,
+	password = forms.CharField(label="Nova senha", max_length=30, required=False,
 								widget=forms.PasswordInput(attrs={"class" : "form-control input-mg"}))
-	new_password = forms.CharField(label="Confirme a nova senha", max_length=30,
+	new_password = forms.CharField(label="Confirme a nova senha", max_length=30, required=False,
 								widget=forms.PasswordInput(attrs={"class" : "form-control input-mg"}))
+
+	class Meta:
+		model = User
+		fields = ["email", "password"]
 
 class SubmitFileForm(forms.Form):
 	title = forms.CharField(label="Título",
