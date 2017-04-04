@@ -41,7 +41,7 @@ class UserEditForm(forms.ModelForm):
 class SubmitFileForm(forms.Form):
 	title = forms.CharField(label="Título",
 							widget=forms.TextInput(attrs={"class" : "form-control input-mg"}))
-	docfile = forms.FileField(label="Arquivo (.pdf)",
+	docfile = forms.FileField(label="Arquivo (.pdf ou .txt)",
 								widget=forms.FileInput(attrs={"class" : "form-control input-mg"}))
 	page = forms.CharField(label="Página", initial=1,
 								widget=forms.NumberInput(attrs={"class" : "form-control input-mg"}))

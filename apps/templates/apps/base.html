@@ -43,6 +43,7 @@
     $(document).ready(function(){
     	var url = window.location.pathname;
     	$('ul.nav a[href="'+ url +'"]').parent().addClass('active');
+    	$('ul.nav a[id="'+ url +'"]').parent().addClass('active');
     	if (url == '/edit/') {
     		$('li.dropdown').addClass('active');
     	}
@@ -63,7 +64,7 @@
     		"color", color
     	);
 
-    	$(".alert-success").delay(3000).fadeOut(300, function() {
+    	$(".alert-success").delay(4000).fadeOut(400, function() {
 		    $(this).alert('close');
 		});
 	});

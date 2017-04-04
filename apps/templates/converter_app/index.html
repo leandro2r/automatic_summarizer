@@ -43,7 +43,8 @@
 			</div>
 		</div>
 	</div>
-	<form method="POST" action="summarize" enctype="multipart/form-data" class="form-horizontal" >
+	<form method="POST" action="summarizer/" enctype="multipart/form-data" class="form-horizontal" >
+		{% csrf_token %}
 		<div class="form-group">
 			<label for="url" class="control-label lb-lg">Arquivo:</label>
 			<select class="form-control selectpicker" name="docfile" input-lg title="Selecione um arquivo" data-live-search="true" required>

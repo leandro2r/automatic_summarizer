@@ -14,9 +14,9 @@ from forms import UserForm, UserEditForm, SubmitFileForm
 class IndexView(View):
 	def get(self, request, *args, **kwargs):
 		if not request.user.is_authenticated():
-			return redirect("/login")
+			return redirect("/login/")
 
-		files = File.objects.filter(user=request.user).all()
+		files = File.objects.filter(user=request.user, active=True).all()
 		form = SubmitFileForm()
 		template = "converter_app/index.html"
 
@@ -57,8 +57,14 @@ class IndexView(View):
 				page = form.cleaned_data["page"]
 
 				file.save()
-				messages.success(request, "O arquivo " + docfile.name +
-					" foi convertido para txt e adicionado com sucesso!")
+
+				if docfile_ext == "pdf":
+					messages.success(request, "O arquivo " + docfile.name +
+						" foi convertido para txt e adicionado com sucesso!")
+				else:
+					messages.success(request, "O arquivo " + docfile.name +
+						" foi adicionado com sucesso!")
+
 				form = SubmitFileForm()
 			else:
 				messages.error(request, "Formato do arquivo ." + docfile_ext +
