@@ -54,6 +54,18 @@
         $('.title-session').css(
     		"border-color", color
     	);
+
+        var icon = $('li.active span').attr('class');
+    	$('.title-session').append(
+    		"<span class='"+icon+"'></span>"
+    	);
+    	$('.title-session span').css(
+    		"color", color
+    	);
+
+    	$(".alert-success").delay(3000).fadeOut(300, function() {
+		    $(this).alert('close');
+		});
 	});
 </script>
 </html>

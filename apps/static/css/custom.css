@@ -128,13 +128,7 @@ label {
 .nav li:hover:nth-child(8n+4), .nav li.active:nth-child(8n+4){
   border-bottom: #F0776C 3px solid;
 }
-.nav li:hover:nth-child(8n+5), .nav li.active:nth-child(8n+5){
-  border-bottom: #DB9DBE 3px solid;
-}
-.nav li:hover:nth-child(8n+6), .nav li.active:nth-child(8n+6){
-  border-bottom: #C49CDE 3px solid;
-}
-.nav li:hover:nth-child(8n+8), .nav li.active:nth-child(8n+8){
+.nav li:hover:nth-child(8n+5), .nav li.active:nth-child(8n+8){
   border-bottom: #62C2E4 3px solid;
 }
 
@@ -144,7 +138,7 @@ label {
 }
 
 .bootstrap-select.btn-group .dropdown-menu {
-  border: 1px solid #999; 
+  border: 1px solid #999;
 }
 
 .lb-sm {
