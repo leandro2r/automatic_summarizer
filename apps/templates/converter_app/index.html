@@ -6,8 +6,8 @@
 	<div class="panel-group" id="accordion">
 	  	<div class="panel">
 		    <div class="panel-heading-custom">
-		  		<button type="button" class="btn btn-success" data-toggle="collapse" data-target="#add" data-parent="#accordion">Adicionar Arquivo</button>
-		  		<button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#delete" data-parent="#accordion">Excluir Arquivo</button>
+		  		<button type="button" class="btn btn-success" data-toggle="collapse" data-target="#add" data-parent="#accordion" title="Adicione o arquivo que deseja utilizar no sumarizador automático.">Adicionar arquivo</button>
+		  		<button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#delete" data-parent="#accordion" title="Exclua o(s) arquivo(s) já adicionado(s).">Excluir arquivo</button>
 			</div>
 			<div id="add" class="collapse new-background">
 			    <form method="POST" action="." enctype="multipart/form-data" class="form-horizontal" >
@@ -52,8 +52,8 @@
 			    	<option value="{{ each.id }}" data-subtext="{{ each.docfile.name }}">{{ each.title }}</option>
 				{% endfor %}
 			</select>
-			<span id="url" class="help-block">Escolha um dos arquivo adicionados.</span>
-			<input type="submit" value="Avançar" class="btn btn-primary btn-lg btn-block" />
+			<span id="url" class="help-block">Escolha um dos arquivo listados, caso já o tenha adicionado. Senão, adicione-o clicando no botão acima "Adicionar arquivo".</span>
+			<input type="submit" value="Avançar" class="btn btn-primary btn-lg btn-block" title="Sumarizador" />
 		</div>
 	</form>
 {% endblock content %}
