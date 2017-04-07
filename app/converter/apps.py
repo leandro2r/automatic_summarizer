@@ -3,5 +3,5 @@ from __future__ import unicode_literals
 from django.apps import AppConfig
 
 
-class ConverterAppConfig(AppConfig):
-    name = 'converter_app'
+class ConverterConfig(AppConfig):
+    name = 'converter'

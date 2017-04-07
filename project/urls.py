@@ -17,11 +17,11 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 from django.contrib.auth import views as auth_views
-from apps.converter_app.forms import LoginForm
+from app.converter.forms import LoginForm
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'', include('apps.converter_app.urls')),
-    url(r'^login/$', auth_views.login, {'template_name': 'apps/login.html', 'authentication_form': LoginForm}, name='login'),
+    url(r'', include('app.converter.urls')),
+    url(r'^login/$', auth_views.login, {'template_name': 'app/login.html', 'authentication_form': LoginForm}, name='login'),
     url(r'^logout/$', auth_views.logout, {'next_page': '/login'}, name='logout'),
 ]

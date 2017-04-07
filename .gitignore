@@ -3,5 +3,6 @@ __pycache__
 myvenv
 db.sqlite3
 .DS_Store
-apps/converter_app/migrations/*.py
+app/converter/migrations/*.py
+app/summarizer/migrations/*.py
 media/files/*

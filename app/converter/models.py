@@ -4,13 +4,12 @@ from __future__ import unicode_literals
 from django.db import models
 from django.conf import settings
 
-from .utils import ConvertFile
+from utils import ConvertFile
 import os
 
 class File(models.Model):
 	title = models.CharField(max_length=100, null=False, blank=False)
 	docfile = models.FileField(upload_to="files/", null=False, blank=False)
-	page = models.DecimalField(max_digits=2, decimal_places=0, default="1")
 	active = models.BooleanField(default=True)
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
 	created = models.DateTimeField(auto_now_add=True)

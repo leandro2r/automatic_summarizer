@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 
 from models import File
-from .utils import ConvertFile
+from utils import ConvertFile
 import os
 
 class LoginForm(AuthenticationForm):
@@ -43,5 +43,3 @@ class SubmitFileForm(forms.Form):
 							widget=forms.TextInput(attrs={"class" : "form-control input-mg"}))
 	docfile = forms.FileField(label="Arquivo (.pdf ou .txt)",
 								widget=forms.FileInput(attrs={"class" : "form-control input-mg"}))
-	page = forms.CharField(label="Página", initial=1,
-								widget=forms.NumberInput(attrs={"class" : "form-control input-mg"}))

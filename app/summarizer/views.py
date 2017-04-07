@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
-# from apps.converter_app.models import File
+from app.converter.models import File
 
 class IndexView(View):
 	def get(self, request, *args, **kwargs):
@@ -17,7 +17,8 @@ class IndexView(View):
 		return redirect("/")
 
 	def post(self, request, *args, **kwargs):
-		template = "summarizer_app/index.html"
+		template = "summarizer/index.html"
+		print request.POST['docfile']
 		# docfile = File.objects.filter(id=request.POST['docfile']).all()
 
 		context = {

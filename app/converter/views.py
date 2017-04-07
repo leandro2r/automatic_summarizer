@@ -18,7 +18,7 @@ class IndexView(View):
 
 		files = File.objects.filter(user=request.user, active=True).all()
 		form = SubmitFileForm()
-		template = "converter_app/index.html"
+		template = "converter/index.html"
 
 		context = {
 			"title": "Conversor",
@@ -47,14 +47,12 @@ class IndexView(View):
 				file = File(
 					title = request.POST['title'],
 					docfile = request.FILES['docfile'],
-					page = request.POST['page'],
 					user = request.user
 				)
 
 				# cleaned data
 				title = form.cleaned_data["title"]
 				docfile = form.cleaned_data["docfile"]
-				page = form.cleaned_data["page"]
 
 				file.save()
 
@@ -71,7 +69,7 @@ class IndexView(View):
 					u" inválido! Apenas .pdf e .txt são permitidos.")
 
 		files = File.objects.filter(user=request.user).all()
-		template = "converter_app/index.html"
+		template = "converter/index.html"
 		context = {
 			"title": "Conversor",
 			"form": form,
@@ -98,11 +96,11 @@ class UserView(View):
 		if not request.user.is_authenticated():
 			form = UserForm()
 			title = "Registrar"
-			template = "apps/register.html"
+			template = "app/register.html"
 		else:
 			form = UserEditForm(instance=request.user)
 			title = "Editar"
-			template = "apps/edit.html"
+			template = "app/edit.html"
 
 		context = {
 			"title": title,
@@ -149,7 +147,7 @@ class UserView(View):
 			"title": "Registrar",
 			"form": form
 		}
-		return render(request, "apps/register.html", context)
+		return render(request, "app/register.html", context)
 
 	def edit(self, request, form, *args, **kwargs):
 		if form.is_valid():
@@ -171,4 +169,4 @@ class UserView(View):
 			"title": "Editar",
 			"form": form
 		}
-		return render(request, "apps/edit.html", context)
+		return render(request, "app/edit.html", context)

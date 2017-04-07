@@ -12,7 +12,7 @@
 <body>
 
 <div class="container">
-	{% include "apps/nav.html" %}
+	{% include "app/nav.html" %}
 	<div class="row">
 		<div class="col-md-12 col-md-offset-0">
 			<div class="panel panel-content">
@@ -23,7 +23,7 @@
 							{% if title %} {{ title }}
 							{% else %} Sumarizador Automático {% endif %}
 							</h2>
-							{% include "apps/messages.html" %}
+							{% include "app/messages.html" %}
 
 							{% block content %}
 							{% endblock %}
