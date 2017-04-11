@@ -6,11 +6,6 @@ body {
   font-weight:100;
 }
 
-.panel {
-  border-radius: 5px;
-  background-color: #F5F5F5;
-}
-
 label {
   font-weight: 300;
 }
@@ -48,23 +43,19 @@ label {
 }
 
 .new-background {
-  background-color: #ddd;
-  border: 1px solid #ddd;
+  background-color: #e7e7e7;
 }
 
 .panel-heading-custom {
   text-align: center;
-  padding-top: 10px;
-  background-color: #ddd;
-  border-top-right-radius: 3px;
-  border-top-left-radius: 3px;
+  padding-top: 12px;
+  background-color: #e7e7e7;
 }
 
 .panel-footer-custom {
   padding: 5px 10px;
-  background-color: #ddd;
-  border-bottom-right-radius: 3px;
-  border-bottom-left-radius: 3px;
+  background-color: #e7e7e7;
+  border-bottom: 3px solid silver;
 }
 
 .panel-content .form-group {
@@ -165,4 +156,15 @@ label {
 .title-session {
   padding: 10px;
   border-bottom: 3px solid transparent;
+}
+
+.subtitle-session {
+  text-align: center;
+  padding: 15px;
+  color: #777;
+  background-color: #e7e7e7;
+  border-radius: 5px;
+  cursor: default;
+  margin-bottom: 15px;
+  border-bottom: 3px solid silver;
 }

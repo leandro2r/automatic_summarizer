@@ -17,12 +17,19 @@ class IndexView(View):
 		return redirect("/")
 
 	def post(self, request, *args, **kwargs):
+		method = self.request.POST.get('_method', '').lower()
+
+		if method == u'translate':
+			return self.sumarize(request, *args, **kwargs)
+
 		template = "summarizer/index.html"
-		print request.POST['docfile']
-		# docfile = File.objects.filter(id=request.POST['docfile']).all()
+		file = File.objects.get(id=request.POST['docfile'])
 
 		context = {
-			"title": "Sumarizador"
-			# "docfile": docfile
+			"title": "Sumarizador",
+			"file": file
 		}
 		return render(request, template, context)
+
+	def sumarize(self, request, *args, **kwargs):
+		print "SumySummarizer"

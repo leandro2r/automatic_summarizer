@@ -24,6 +24,12 @@
 							{% else %} Sumarizador Automático {% endif %}
 							</h2>
 							{% include "app/messages.html" %}
+							
+							{% if file %}
+							<h4 class="subtitle-session">
+							<span class="glyphicon glyphicon-file"></span> {{ file }} <small class="text-muted">{{ file.docfile }}</small>
+							</h4>
+							{% endif %}
 
 							{% block content %}
 							{% endblock %}

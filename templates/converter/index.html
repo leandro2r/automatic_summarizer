@@ -10,7 +10,7 @@
 		  		<button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#delete" data-parent="#accordion" title="Exclua o(s) arquivo(s) já adicionado(s).">Excluir arquivo</button>
 			</div>
 			<div id="add" class="collapse new-background">
-			    <form method="POST" action="." enctype="multipart/form-data" class="form-horizontal" >
+			    <form method="POST" action="." enctype="multipart/form-data" class="form-horizontal">
 					{% csrf_token %}
 					{% for field in form %}
 						<div class="form-group">
@@ -23,7 +23,7 @@
 				</form>
 			</div>
 			<div id="delete" class="collapse new-background">
-				<form method="POST" action="." enctype="multipart/form-data" class="form-horizontal" >
+				<form method="POST" action="." class="form-horizontal">
 					{% csrf_token %}
 					<div class="form-group dropup">
 					    <label for="url" class="control-label lb-lg">Arquivos:</label>
@@ -43,7 +43,7 @@
 			</div>
 		</div>
 	</div>
-	<form method="POST" action="summarizer/" enctype="multipart/form-data" class="form-horizontal" >
+	<form method="POST" action="summarizer/" class="form-horizontal">
 		{% csrf_token %}
 		<div class="form-group">
 			<label for="url" class="control-label lb-lg">Arquivo:</label>
@@ -53,7 +53,7 @@
 				{% endfor %}
 			</select>
 			<span id="url" class="help-block">Escolha um dos arquivo listados, caso já o tenha adicionado. Senão, adicione-o clicando no botão acima "Adicionar arquivo".</span>
-			<input type="submit" value="Avançar" class="btn btn-primary btn-lg btn-block" title="Sumarizador" />
+			<button type="submit" name="_method" value="summarize" class="btn btn-primary btn-lg btn-block" title="Sumarizar">Avançar</button>
 		</div>
 	</form>
 {% endblock content %}
