@@ -6,8 +6,14 @@
 	<div class="panel-group" id="accordion">
 	  	<div class="panel">
 		    <div class="panel-heading-custom">
-		  		<button type="button" class="btn btn-success" data-toggle="collapse" data-target="#add" data-parent="#accordion" title="Adicione o arquivo que deseja utilizar no sumarizador automático.">Adicionar arquivo</button>
-		  		<button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#delete" data-parent="#accordion" title="Exclua o(s) arquivo(s) já adicionado(s).">Excluir arquivo</button>
+	    		<div class="row">
+		    		<div class="col-md-4 col-md-offset-1 submenu sub1" data-toggle="collapse" data-target="#add" data-parent="#accordion">
+		    			<h4><span class="glyphicon glyphicon-plus"></span> Adicionar arquivo</h4>
+		    		</div>
+		    		<div class="col-md-4 col-md-offset-2 submenu sub2" data-toggle="collapse" data-target="#delete" data-parent="#accordion">
+		  				<h4><span class="glyphicon glyphicon-trash"></span> Excluir arquivo</h4>
+		  			</div>
+		  		</div>
 			</div>
 			<div id="add" class="collapse new-background">
 			    <form method="POST" action="." enctype="multipart/form-data" class="form-horizontal">
@@ -52,8 +58,8 @@
 			    	<option value="{{ each.id }}" data-subtext="{{ each.docfile.name }}">{{ each.title }}</option>
 				{% endfor %}
 			</select>
-			<span id="url" class="help-block">Escolha um dos arquivo listados, caso já o tenha adicionado. Senão, adicione-o clicando no botão acima "Adicionar arquivo".</span>
-			<button type="submit" name="_method" value="summarize" class="btn btn-primary btn-lg btn-block" title="Sumarizar">Avançar</button>
+			<span id="url" class="help-block">Escolha um dos arquivo listados, caso já o tenha adicionado. Senão, adicione-o clicando em "Adicionar arquivo".</span>
+			<button type="submit" name="_method" value="summarize" class="btn btn-primary btn-lg btn-block" title="Sumarizador">Avançar</button>
 		</div>
 	</form>
 {% endblock content %}

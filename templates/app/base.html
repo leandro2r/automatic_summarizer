@@ -26,7 +26,7 @@
 							{% include "app/messages.html" %}
 							
 							{% if file %}
-							<h4 class="subtitle-session">
+							<h4 class="subtitle-session"> Arquivo: 
 							<span class="glyphicon glyphicon-file"></span> {{ file }} <small class="text-muted">{{ file.docfile }}</small>
 							</h4>
 							{% endif %}
@@ -69,6 +69,20 @@
     	$('.title-session span').css(
     		"color", color
     	);
+
+    	$('.submenu').click(function() {
+    		if ($(this).hasClass('sub1') 
+    			&& !$(this).hasClass('collapsed')
+    			&& $('.sub2').hasClass('collapsed')) {
+		    	$('.submenu').children().addClass('reset-collapsed');
+			} else if ($(this).hasClass('sub2') 
+		    		   && !$(this).hasClass('collapsed')
+		    		   && $('.sub1').hasClass('collapsed')) {
+		    	$('.submenu').children().addClass('reset-collapsed');
+			} else {
+		    	$('.submenu').children().removeClass('reset-collapsed');
+			}
+	    });
 
     	$(".alert-success").delay(4000).fadeOut(400, function() {
 		    $(this).alert('close');
