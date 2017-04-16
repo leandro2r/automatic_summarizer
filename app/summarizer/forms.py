@@ -9,8 +9,7 @@ from utils import SumyFile
 import os
 
 class SubmitSummarizedForm(forms.Form):
-	file = forms.CharField(label=None, 
-						   widget=forms.HiddenInput())
+	file = forms.CharField(widget=forms.HiddenInput())
 	language = forms.ChoiceField(choices=LANGUAGE_CHOICES, 
 								label="Idioma do arquivo", 
 								widget=forms.Select(attrs={"class" : "form-control input-mg"}))

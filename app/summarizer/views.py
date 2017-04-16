@@ -21,13 +21,11 @@ class IndexView(View):
 	def post(self, request, *args, **kwargs):
 		method = self.request.POST.get('_method', '').lower()
 
-		file_id = request.POST.get('file', False)
-		file = File.objects.get(id=file_id)
+		file_id = request.POST.get('file', None)
+		file = get_object_or_404(File, id=file_id)
 
-		if method == u'translate':
-			return self.sumarize(request, file, *args, **kwargs)
-		else:
-			form = SubmitSummarizedForm(initial={'file': file.id})
+		if method == u'summarize':
+			form = SubmitSummarizedForm(initial={'file': file_id})
 			template = "summarizer/index.html"
 
 			context = {
@@ -36,6 +34,8 @@ class IndexView(View):
 				"form": form
 			}
 			return render(request, template, context)
+		else:
+			return self.sumarize(request, file, *args, **kwargs)
 
 	def sumarize(self, request, file, *args, **kwargs):
 		form = SubmitSummarizedForm(request.POST or None)
