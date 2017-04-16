@@ -23,14 +23,14 @@
 							{% if title %} {{ title }}
 							{% else %} Sumarizador Automático {% endif %}
 							</h2>
-							{% include "app/messages.html" %}
-							
 							{% if file %}
 							<h4 class="subtitle-session"> Arquivo: 
 							<span class="glyphicon glyphicon-file"></span> {{ file }} <small class="text-muted">{{ file.docfile }}</small>
 							</h4>
 							{% endif %}
 
+							{% include "app/messages.html" %}
+							
 							{% block content %}
 							{% endblock %}
 						</div>
@@ -84,7 +84,7 @@
 			}
 	    });
 
-    	$(".alert-success").delay(4000).fadeOut(400, function() {
+    	$(".alert-success").delay(5000).fadeOut(500, function() {
 		    $(this).alert('close');
 		});
 	});

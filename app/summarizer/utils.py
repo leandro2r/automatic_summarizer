@@ -10,17 +10,16 @@ from sumy.summarizers.lsa import LsaSummarizer as Summarizer
 from sumy.nlp.stemmers import Stemmer
 from sumy.utils import get_stop_words
 
-def SumySummarizer(file, language):
-	SENTENCES_COUNT = 10
-    parser = PlaintextParser.from_file(file, Tokenizer(language))
+def SumyFile(file_dir, language, sentences_count):
+    parser = PlaintextParser.from_file(file_dir, Tokenizer(language))
     stemmer = Stemmer(language)
 
     summarizer = Summarizer(stemmer)
     summarizer.stop_words = get_stop_words(language)
 
-    file = open("new_file.txt","w") 
+    file = open("files/new_file.txt","w") 
 
-    for sentence in summarizer(parser.document, SENTENCES_COUNT):
+    for sentence in summarizer(parser.document, sentences_count):
         file.write(sentence)
 
     file.close()

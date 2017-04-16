@@ -5,19 +5,11 @@
 {% block content %}
 	<form method="POST" action="." class="form-horizontal" >
 		{% csrf_token %}
-		<div class="form-group dropup">
-		    <label for="url" class="control-label lb-lg">Idioma do arquivo:</label>
-			<select class="form-control" required>
-			    <option value="portuguese">Português</option>
-			    <option value="french">Francês</option>
-			</select>
-		</div>
-		<div class="form-group dropup">
-		    <label for="url" class="control-label lb-lg">Número de sentenças:</label>
-			<select class="form-control" required>
-			    <option value="10">10</option>
-			</select>
-		</div>
+		{% for field in form.visible_fields %}
+			<div class="form-group">
+    			<label class="control-label lb-lg" for="{{ field.name }}">{{ field.label }}:</label> {{ field }}
+    		</div>
+		{% endfor %}
 		<button type="submit" name="_method" value="translate" class="btn btn-primary btn-lg btn-block" title="Tradutor">Avançar</button>
 	</form>
 {% endblock content %}
