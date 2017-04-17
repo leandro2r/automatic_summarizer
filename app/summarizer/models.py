@@ -6,20 +6,21 @@ from django.conf import settings
 
 from app.converter.models import File
 from choices import LANGUAGE_CHOICES
-from utils import SumyFile
+from utils import SummarizeFile
 import os
 
 class Summarized(models.Model):
 	file = models.ForeignKey(File, on_delete=models.CASCADE,
-							 null=True, blank=True)
+							 null=False, blank=False)
 	language = models.CharField(max_length=20, choices=LANGUAGE_CHOICES, null=False, blank=False)
 	sentences = models.IntegerField(null=False, blank=False)
+	summarized_file = models.CharField(max_length=100, null=True, blank=True)
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
 
 	def save(self, *args, **kwargs):
-		SumyFile(self.file.docfile, self.language, self.sentences)
-		# super(Summarized, self).save()
+		SummarizeFile(self)
+		super(Summarized, self).save()
 
 	def __unicode__(self):
 		return str(self.file)
