@@ -24,7 +24,7 @@ class IndexView(View):
 		file_id = request.POST.get('file', None)
 		file = get_object_or_404(File, id=file_id)
 
-		if method == u'summarize':
+		if method == u'converted':
 			form = SubmitSummarizedForm(initial={'file': file_id})
 			template = "summarizer/index.html"
 

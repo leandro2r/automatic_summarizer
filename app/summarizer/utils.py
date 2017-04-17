@@ -21,10 +21,11 @@ def SumyFile(file, new_file, language, sentences_count):
     summarizer = Summarizer(stemmer)
     summarizer.stop_words = get_stop_words(language)
 
-    sumy = open(new_file, "w") 
+    sumy = open(new_file, "w+")
 
     for sentence in summarizer(parser.document, sentences_count):
-        sumy.write(sentence)
+        sumy.write(str(sentence))
+        sumy.write('\n')
 
     sumy.close()
 

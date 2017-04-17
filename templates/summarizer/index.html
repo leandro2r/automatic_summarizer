@@ -3,16 +3,24 @@
 {% load staticfiles %}
 
 {% block content %}
-	<form method="POST" action="." class="form-horizontal" >
-		{% csrf_token %}
-		{% for field in form.visible_fields %}
-			<div class="form-group">
-    			<label class="control-label lb-lg" for="{{ field.name }}">{{ field.label }}:</label> {{ field }}
-    		</div>
-		{% endfor %}
-		{% for field in form.hidden_fields %}
-			<div style="display:none;">{{ field }}</div>
-		{% endfor %}
-		<button type="submit" name="_method" value="translate" class="btn btn-primary btn-lg btn-block" title="Tradutor">Avançar</button>
-	</form>
+	{% if form %}
+		<form method="POST" action="." class="form-horizontal" >
+			{% csrf_token %}
+			{% for field in form.visible_fields %}
+				<div class="form-group">
+	    			<label class="control-label lb-lg" for="{{ field.name }}">{{ field.label }}:</label> {{ field }}
+	    		</div>
+			{% endfor %}
+			{% for field in form.hidden_fields %}
+				<div style="display:none;">{{ field }}</div>
+			{% endfor %}
+	{% else %}
+		<h1>PRONTO!</h1>
+		<form method="POST" action="translate/" class="form-horizontal" >
+			{% for field in form.hidden_fields %}
+				<div style="display:none;"><input type=""></div>
+			{% endfor %}
+	{% endif %}
+			<button type="submit" name="_method" value="summarized" class="btn btn-primary btn-lg btn-block" title="Tradutor">Avançar</button>
+		</form>
 {% endblock content %}
