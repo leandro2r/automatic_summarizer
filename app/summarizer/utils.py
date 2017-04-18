@@ -24,3 +24,4 @@ def SummarizeFile(field):
             file_pyt.write(sentences)
 
     field.summarized_file = new_file
+    field.sentences = len(content)

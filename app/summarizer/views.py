@@ -6,10 +6,13 @@ from django.views import View
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 
 from app.converter.models import File
 from models import Summarized
 from forms import SubmitSummarizedForm
+
+import os
 
 class IndexView(View):
 	def get(self, request, *args, **kwargs):
@@ -54,10 +57,18 @@ class IndexView(View):
 			messages.success(request, "O arquivo " + file.title +
 							" foi sumarizado com sucesso!")
 
+		file_size = os.stat(os.path.join(settings.MEDIA_ROOT, str(file.docfile)))
+		summarized_size = os.stat(os.path.join(settings.MEDIA_ROOT, str(summarized.summarized_file)))
 		template = "summarizer/index.html"
 
 		context = {
 			"title": "Sumarizador",
-			"file": file
+			"file": file,
+			"file_size": file_size.st_size,
+			"summarized": {
+				"field": summarized,
+				"size": summarized_size.st_size,
+				"percent": summarized_size.st_size*100/file_size.st_size
+			}
 		}
 		return render(request, template, context)

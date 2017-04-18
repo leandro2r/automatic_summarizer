@@ -15,11 +15,16 @@
 				<div style="display:none;">{{ field }}</div>
 			{% endfor %}
 	{% else %}
-		<h1>PRONTO!</h1>
+		<div class="subtitle-session">
+			<h2>Estatísticas de sumarização <span class="glyphicon glyphicon-stats"></span></h2>
+			<h4>Número de sentenças: {{ summarized.field.sentences }}</h4>
+			<h4>Taxa de compressão: {{ summarized.percent|floatformat:2 }}% <small>de {{ file_size }} bytes para {{ summarized.size }} bytes</small></h4>
+		</div>
 		<form method="POST" action="translate/" class="form-horizontal" >
 			{% for field in form.hidden_fields %}
 				<div style="display:none;"><input type=""></div>
 			{% endfor %}
+		<br/>
 	{% endif %}
 			<button type="submit" name="_method" value="summarized" class="btn btn-primary btn-lg btn-block" title="Tradutor">Avançar</button>
 		</form>

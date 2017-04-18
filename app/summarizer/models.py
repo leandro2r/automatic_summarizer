@@ -14,6 +14,7 @@ class Summarized(models.Model):
 							 null=False, blank=False)
 	language = models.CharField(max_length=20, choices=LANGUAGE_CHOICES, null=False, blank=False)
 	summarized_file = models.CharField(max_length=100, null=True, blank=True)
+	sentences = models.IntegerField(null=True, blank=True)
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
 
