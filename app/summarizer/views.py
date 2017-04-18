@@ -43,13 +43,11 @@ class IndexView(View):
 		if form.is_valid():
 			summarized = Summarized(
 				file = file,
-				language = request.POST['language'],
-				sentences = request.POST['sentences']
+				language = request.POST['language']
 			)
 
 			# cleaned data
 			language = form.cleaned_data["language"]
-			sentences = form.cleaned_data["sentences"]
 
 			summarized.save()
 
