@@ -84,6 +84,10 @@
 			}
 	    });
 
+    	$($('.title-session').children()).clone().appendTo('h4.subtitle-session span');
+
+    	$('h4.subtitle-session span:nth-last-child(2)').removeAttr('style');
+
     	$(".alert-success").delay(5000).fadeOut(500, function() {
 		    $(this).alert('close');
 		});

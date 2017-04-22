@@ -44,10 +44,16 @@ class IndexView(View):
 		form = SubmitSummarizedForm(request.POST or None)
 
 		if form.is_valid():
-			summarized = Summarized(
-				file = file,
-				language = request.POST['language']
-			)
+			update = Summarized.objects.filter(file_id=file.id)
+
+			if update:
+				summarized = Summarized.objects.get(file_id=file.id)
+				summarized.language = request.POST['language']
+			else:
+				summarized = Summarized(
+					file = file,
+					language = request.POST['language']
+				)
 
 			# cleaned data
 			language = form.cleaned_data["language"]
