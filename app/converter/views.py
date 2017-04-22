@@ -115,7 +115,7 @@ class UserView(View):
 			form = UserForm(request.POST)
 			return self.new(request, form, *args, **kwargs)
 		else:
-			form = UserEditForm(request.POST)
+			form = UserEditForm(request.POST, instance=request.user)
 			return self.edit(request, form, *args, **kwargs)
 
 	def new(self, request, form, *args, **kwargs):
@@ -141,7 +141,7 @@ class UserView(View):
 						return redirect("/")
 			else:
 				messages.error(request,
-					"A senha informada diverge da senha de confirmação. Verifique-as")
+					"A senha informada diverge da senha de confirmação. Verifique-as.")
 
 		context = {
 			"title": "Registrar",
@@ -156,14 +156,19 @@ class UserView(View):
 			# cleaned data
 			email = form.cleaned_data["email"]
 			password = form.cleaned_data["password"]
+			confirm_password = form.cleaned_data["confirm_password"]
 
-			# if request.POST['password'] == request.POST['confirm_password']
-			# 	and request.POST['password'] is not None:
-			# 	user.set_password(password)
-			# 	user.save()
+			if password != confirm_password:
+				messages.error(request,
+					"A senha informada diverge da senha de confirmação. Verifique-as.")
+			else:
+				if password != "":
+					user.set_password(password)
 
-			messages.success(request, u"Usuário " + user.username +
-				" editado com sucesso!")
+				user.save()
+
+				messages.success(request, u"Usuário " + user.username +
+					" editado com sucesso!")
 
 		context = {
 			"title": "Editar",
