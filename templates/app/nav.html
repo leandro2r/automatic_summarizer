@@ -7,8 +7,8 @@
 		</div>
 	{% if user.is_authenticated %}
 		<ul class="nav navbar-nav">
-	     	<li><a href="/"><span class="glyphicon glyphicon-file"></span> Conversor</a></li>
-	      	<li><a id="/summarizer/"><span class="glyphicon glyphicon-text-width"></span> Sumarizador</a></li>
+	     	<li><a id="/converter" href="/"><span class="glyphicon glyphicon-file"></span> Conversor</a></li>
+	      	<li><a id="/summarizer"><span class="glyphicon glyphicon-text-width"></span> Sumarizador</a></li>
 	      	<li><a id="#"><span class="glyphicon glyphicon-transfer"></span> Tradutor</a></li>
 	      	<li><a id="#"><span class="glyphicon glyphicon-align-justify"></span> Alinhador</a></li>
 	    </ul>
@@ -16,15 +16,15 @@
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> {{ user.username }} <span class="caret"></span></a>
 				<ul class="dropdown-menu">
-		        	<li><a href="/edit/"><span class="glyphicon glyphicon-edit"></span> Editar</a></li>
-		            <li><a href="/logout/"><span class="glyphicon glyphicon-log-out"></span> Sair</a></li>
+		        	<li><a href="/edit"><span class="glyphicon glyphicon-edit"></span> Editar</a></li>
+		            <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Sair</a></li>
 		        </ul>
 			</li>
 		</ul>
 	{% else %}
 		<ul class="nav navbar-nav navbar-right">
-			<li><a href="/register/"><span class="glyphicon glyphicon-user"></span> Registrar</a></li>
-			<li><a href="/login/"><span class="glyphicon glyphicon-log-in"></span> Acessar</a></li>
+			<li><a href="/register"><span class="glyphicon glyphicon-user"></span> Registrar</a></li>
+			<li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Acessar</a></li>
 		</ul>
 	{% endif %}
 	</div>

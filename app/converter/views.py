@@ -10,20 +10,23 @@ from django.contrib.auth.decorators import login_required
 from models import File
 from django.contrib.auth.models import User
 from forms import UserForm, UserEditForm, SubmitFileForm
+from app.summarizer.views import IndexView as SummarizerIndexView
 
 class IndexView(View):
 	def get(self, request, *args, **kwargs):
 		if not request.user.is_authenticated():
 			return redirect("/login/")
 
-		files = File.objects.filter(user=request.user, active=True).all()
+		files = File.objects.filter(user=request.user, is_active=True, is_summarized=False).all()
+		summarizeds = File.objects.filter(user=request.user, is_active=True, is_summarized=True).all()
 		form = SubmitFileForm()
 		template = "converter/index.html"
 
 		context = {
 			"title": "Conversor",
 			"form": form,
-			"files": files
+			"files": files,
+			"summarizeds": summarizeds
 		}
 		return render(request, template, context)
 
@@ -32,8 +35,23 @@ class IndexView(View):
 
 		if method == 'adicionar':
 			return self.add(request, *args, **kwargs)
-		if method == 'excluir':
+
+		elif method == 'excluir':
 			return self.delete(request, *args, **kwargs)
+
+		elif method == 'converted':
+			file = File.objects.filter(id=request.POST['file']).values('is_summarized')
+			
+			if file[0]['is_summarized']:
+				return redirect("/")
+			else:
+				return SummarizerIndexView.as_view()(self.request)
+
+		elif method == 'download':
+			return redirect("/")
+
+		else:
+			return redirect("/")
 
 
 	def add(self, request, *args, **kwargs):
@@ -47,12 +65,14 @@ class IndexView(View):
 				file = File(
 					title = request.POST['title'],
 					docfile = request.FILES['docfile'],
+					is_summarized = request.POST.get('is_summarized', False),
 					user = request.user
 				)
 
 				# cleaned data
 				title = form.cleaned_data["title"]
 				docfile = form.cleaned_data["docfile"]
+				is_summarized = form.cleaned_data["is_summarized"]
 
 				file.save()
 
@@ -63,7 +83,7 @@ class IndexView(View):
 					messages.success(request, "O arquivo " + docfile.name +
 						" foi adicionado com sucesso!")
 
-				form = SubmitFileForm()
+				return redirect('/')
 			else:
 				messages.error(request, "Formato do arquivo ." + docfile_ext +
 					u" inválido! Apenas .pdf e .txt são permitidos.")

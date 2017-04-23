@@ -10,7 +10,8 @@ import os
 class File(models.Model):
 	title = models.CharField(max_length=100, null=False, blank=False)
 	docfile = models.FileField(upload_to="files/", null=False, blank=False)
-	active = models.BooleanField(default=True)
+	is_summarized = models.BooleanField(default=False)
+	is_active = models.BooleanField(default=True)
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, blank=False)
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)

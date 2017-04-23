@@ -43,3 +43,10 @@ class SubmitFileForm(forms.Form):
 							widget=forms.TextInput(attrs={"class" : "form-control input-mg"}))
 	docfile = forms.FileField(label="Arquivo (.pdf ou .txt)",
 							widget=forms.FileInput(attrs={"class" : "form-control input-mg"}))
+	is_summarized = forms.BooleanField(label="Sumarizado", required=False,
+							widget=forms.CheckboxInput(attrs={
+								"data-toggle" : "toggle",
+								"data-onstyle" : "default",
+								"data-on" : "Sim",
+								"data-off" : "Não"
+								}))
