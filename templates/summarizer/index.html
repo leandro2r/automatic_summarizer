@@ -4,7 +4,7 @@
 
 {% block content %}
 	{% if form %}
-		<form method="POST" action="." class="form-horizontal" >
+		<form method="POST" action="summarizer/" class="form-horizontal" >
 			{% csrf_token %}
 			{% for field in form.visible_fields %}
 				<div class="form-group">
@@ -20,7 +20,7 @@
 			<h4>Número de sentenças: {{ summarized.field.sentences }}</h4>
 			<h4>Taxa de compressão: {{ summarized.percent|floatformat:2 }}% <small>de {{ file_size }} bytes para {{ summarized.size }} bytes</small></h4>
 		</div>
-		<form method="POST" action="translate/" class="form-horizontal" >
+		<form method="POST" action="/translator" class="form-horizontal" >
 			{% for field in form.hidden_fields %}
 				<div style="display:none;"><input type=""></div>
 			{% endfor %}

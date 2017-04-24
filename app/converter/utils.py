@@ -1,13 +1,14 @@
 # -*- coding: utf8 -*-
 
+import os
+import sys, getopt
+import string
+
 from cStringIO import StringIO
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.converter import TextConverter
 from pdfminer.layout import LAParams
 from pdfminer.pdfpage import PDFPage
-import os
-import sys, getopt
-import string
 
 from django.core.files.base import ContentFile
 

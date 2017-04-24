@@ -1,9 +1,9 @@
 # -*- coding: utf8 -*-
 
-from pyteaser import Summarize
-
 import os
 import io
+
+from pyteaser import Summarize
 
 from django.conf import settings
 

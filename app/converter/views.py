@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 
+import os
+
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 
 from models import File
 from django.contrib.auth.models import User
@@ -39,19 +42,22 @@ class IndexView(View):
 		elif method == 'excluir':
 			return self.delete(request, *args, **kwargs)
 
-		elif method == 'converted':
-			file = File.objects.filter(id=request.POST['file']).values('is_summarized')
-			
-			if file[0]['is_summarized']:
-				return redirect("/")
-			else:
-				return SummarizerIndexView.as_view()(self.request)
-
-		elif method == 'download':
-			return redirect("/")
-
 		else:
-			return redirect("/")
+			file = File.objects.get(id=request.POST['file'])
+
+			if method == 'converted':
+				if file.is_summarized:
+					return redirect("/")
+				else:
+					return SummarizerIndexView.as_view()(self.request)
+
+			elif method == 'download':
+				file_path = os.path.join(settings.MEDIA_ROOT, str(file.docfile))
+				response = HttpResponse(file.docfile, content_type='text/plain')
+				response['Content-Disposition'] = 'attachment; filename=' + str(file_path)
+				return response
+
+		return redirect("/")
 
 
 	def add(self, request, *args, **kwargs):
