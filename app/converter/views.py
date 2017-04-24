@@ -15,6 +15,7 @@ from models import File
 from django.contrib.auth.models import User
 from forms import UserForm, UserEditForm, SubmitFileForm
 from app.summarizer.views import IndexView as SummarizerIndexView
+from app.translator.views import IndexView as TranslatorIndexView
 
 class IndexView(View):
 	def get(self, request, *args, **kwargs):
@@ -48,7 +49,7 @@ class IndexView(View):
 
 			if method == 'converted':
 				if file.is_summarized:
-					return redirect("/")
+					return TranslatorIndexView.as_view()(self.request)
 				else:
 					return SummarizerIndexView.as_view()(self.request)
 
