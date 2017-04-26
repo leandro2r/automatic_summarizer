@@ -5,4 +5,5 @@ db.sqlite3
 .DS_Store
 app/converter/migrations/*.py
 app/summarizer/migrations/*.py
+app/translator/migrations/*.py
 media/files/*

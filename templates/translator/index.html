@@ -4,6 +4,15 @@
 
 {% block content %}
 	<form method="POST" action="." class="form-horizontal" >
+		{% csrf_token %}
+		{% for field in form.visible_fields %}
+			<div class="form-group">
+    			<label class="control-label lb-lg" for="{{ field.name }}">{{ field.label }}:</label> {{ field }}
+    		</div>
+		{% endfor %}
+		{% for field in form.hidden_fields %}
+			<div style="display:none;">{{ field }}</div>
+		{% endfor %}
 		<button type="submit" name="_method" value="translated" class="btn btn-primary btn-lg btn-block" title="Alinhador">Avançar</button>
 	</form>
 {% endblock content %}

@@ -35,6 +35,11 @@
 					    <label for="url" class="control-label lb-lg">Arquivos:</label>
 						<select class="form-control selectpicker" name="delete_ids" multiple data-actions-box="true"
 						data-selected-text-format="count" multiple required>
+							<optgroup label="Sumarizados">
+							{% for each in summarizeds %}
+						    	<option value="{{ each.id }}" data-subtext="{{ each.docfile.name }}">{{ each.title }}</option>
+							{% endfor %}
+							<optgroup label="Não sumarizados">
 							{% for each in files %}
 						    	<option value="{{ each.id }}" data-subtext="{{ each.docfile.name }}">{{ each.title }}</option>
 							{% endfor %}

@@ -1,4 +1,4 @@
-# -*- coding: utf8 -*-
+# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
 from django.conf.urls import url, include
@@ -10,4 +10,5 @@ urlpatterns = [
 	url(r'^register/', UserView.as_view(), name="register"),
 	url(r'^edit/', UserView.as_view(), name="edit"),
 	url(r'^summarizer/', include('app.summarizer.urls')),
+	url(r'^translator/', include('app.translator.urls')),
 ]

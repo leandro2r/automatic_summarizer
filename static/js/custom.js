@@ -4,6 +4,8 @@ function app_name(name) {
             return "converter";
         case "sumarizador":
             return "summarizer";
+        case "tradutor":
+            return "translator";
     }
 }
 
@@ -47,9 +49,7 @@ $(document).ready(function(){
         }
     });
 
-    $($('.title-session').children()).clone().appendTo('h4.subtitle-session span');
-
-    $('h4.subtitle-session span:nth-last-child(2)').removeAttr('style');
+    $($('.title-session').find('span')).clone().appendTo('h4.subtitle-session span');
 
     $(".alert-success").delay(5000).fadeOut(500, function() {
         $(this).alert('close');

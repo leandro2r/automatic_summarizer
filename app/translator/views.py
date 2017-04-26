@@ -24,21 +24,19 @@ class IndexView(View):
 		return redirect("/")
 		
 	def post(self, request, *args, **kwargs):
+		print("entrou!")
 		method = self.request.POST.get('_method', '').lower()
 
 		file_id = request.POST.get('file', None)
 		file = get_object_or_404(File, id=file_id)
 
-		if method == u'summarized':
-			form = SubmitTranslatedForm(initial={'file': file_id})
-			template = "translator/index.html"
+		form = SubmitTranslatedForm(initial={'file': file_id})
+		template = "translator/index.html"
 
-			context = {
-				"title": "Tradutor",
-				"file": file,
-				"form": form
-			}
-			return render(request, template, context)
-		else:
-			return redirect("/")
+		context = {
+			"title": "Tradutor",
+			"file": file,
+			"form": form
+		}
+		return render(request, template, context)
 
