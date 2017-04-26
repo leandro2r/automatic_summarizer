@@ -21,4 +21,4 @@ class File(models.Model):
 		super(File, self).save()
 
 	def __unicode__(self):
-		return str(self.title)
+		return self.title

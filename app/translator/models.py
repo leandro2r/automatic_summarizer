@@ -22,4 +22,4 @@ class Translated(models.Model):
 		super(Translated, self).save()
 
 	def __unicode__(self):
-		return str(self.file)
+		return self.translated_file

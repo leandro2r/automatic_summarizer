@@ -23,4 +23,4 @@ class Summarized(models.Model):
 		super(Summarized, self).save()
 
 	def __unicode__(self):
-		return str(self.file)
+		return self.summarized_file
