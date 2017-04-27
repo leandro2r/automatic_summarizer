@@ -24,19 +24,52 @@ class IndexView(View):
 		return redirect("/")
 		
 	def post(self, request, *args, **kwargs):
-		print("entrou!")
 		method = self.request.POST.get('_method', '').lower()
 
 		file_id = request.POST.get('file', None)
 		file = get_object_or_404(File, id=file_id)
 
-		form = SubmitTranslatedForm(initial={'file': file_id})
+		if method == u'translated':
+			return self.translate(request, file, *args, **kwargs)
+
+		else:
+			form = SubmitTranslatedForm(initial={'file': file_id})
+			template = "translator/index.html"
+
+			context = {
+				"title": "Tradutor",
+				"file": file,
+				"form": form
+			}
+			return render(request, template, context)
+
+	def translate(self, request, file, *args, **kwargs):
+		form = SubmitTranslatedForm(request.POST or None)
+
+		if form.is_valid():
+			update = Translated.objects.filter(file_id=file.id)
+
+			if update:
+				translated = Translated.objects.get(file_id=file.id)
+				translated.language = request.POST['language']
+			else:
+				translated = Translated(
+					file = file,
+					language = request.POST['language']
+				)
+
+			# cleaned data
+			language = form.cleaned_data["language"]
+
+			translated.save()
+
+			messages.success(request, "O arquivo " + file.title +
+							" foi traduzido com sucesso!")
+
 		template = "translator/index.html"
 
 		context = {
 			"title": "Tradutor",
-			"file": file,
-			"form": form
+			"file": file
 		}
 		return render(request, template, context)
-

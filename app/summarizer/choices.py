@@ -8,6 +8,4 @@ LANGUAGE_CHOICES = (
     ('spanish',  'Espanhol'),
 	('german', 'Alemão'),
 	('japanese', 'Japonês'),
-    ('czech', 'Checo'),
-	('slovak', 'Eslovaco'),
 )
