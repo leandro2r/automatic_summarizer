@@ -3,16 +3,30 @@
 {% load staticfiles %}
 
 {% block content %}
-	<form method="POST" action="/translator/" class="form-horizontal" >
-		{% csrf_token %}
-		{% for field in form.visible_fields %}
-			<div class="form-group">
-    			<label class="control-label lb-lg" for="{{ field.name }}">{{ field.label }}:</label> {{ field }}
-    		</div>
-		{% endfor %}
-		{% for field in form.hidden_fields %}
-			<div style="display:none;">{{ field }}</div>
-		{% endfor %}
+	{% if form %}
+		<form method="POST" action="/translator/" class="form-horizontal" >
+			{% csrf_token %}
+			{% for field in form.visible_fields %}
+				<div class="form-group">
+	    			<label class="control-label lb-lg" for="{{ field.name }}">{{ field.label }}:</label> {{ field }}
+	    		</div>
+			{% endfor %}
+			{% for field in form.hidden_fields %}
+				<div style="display:none;">{{ field }}</div>
+			{% endfor %}
+	{% else %}
+		<div class="subtitle-session">
+			<h2>Estatísticas da tradução <span class="glyphicon glyphicon-stats"></span></h2>
+			<h4>Idiomas da tradução: {{ translated.from_language }} <small>(Fonte) </small>
+			<span class="glyphicon glyphicon-transfer"> </span>
+			{{ translated.to_language }}
+			<small>(Alvo)</small></h4>
+		</div>
+		<form method="POST" action="/aligner/" class="form-horizontal" >
+			{% csrf_token %}
+			<div style="display:none;"><input type="hidden" name="file" id="id_file" value="{{ file.id }}"/></div>
+		<br/>
+	{% endif %}
 		<button type="submit" name="_method" value="translated" class="btn btn-primary btn-lg btn-block" title="Alinhador">Avançar</button>
 	</form>
 {% endblock content %}

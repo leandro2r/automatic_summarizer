@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 LANGUAGE_CHOICES = (
-    ('pt_br', 'Português'),
+    ('pt', 'Português'),
     ('fr', 'Francês'),
     ('en', 'Inglês'),
     ('es',  'Espanhol'),

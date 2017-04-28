@@ -13,7 +13,7 @@ class Summarized(models.Model):
 	file = models.ForeignKey(File, on_delete=models.CASCADE,
 							 null=False, blank=False)
 	language = models.CharField(max_length=20, choices=LANGUAGE_CHOICES, null=False, blank=False)
-	summarized_file = models.CharField(max_length=100, null=True, blank=True)
+	summarized_file = models.CharField(max_length=100, editable=False)
 	sentences = models.IntegerField(null=True, blank=True)
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)

@@ -190,7 +190,7 @@ class UserView(View):
 				messages.error(request,
 					"A senha informada diverge da senha de confirmação. Verifique-as.")
 			else:
-				if password != "":
+				if not password:
 					user.set_password(password)
 
 				user.save()

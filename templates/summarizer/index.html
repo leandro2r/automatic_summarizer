@@ -16,15 +16,15 @@
 			{% endfor %}
 	{% else %}
 		<div class="subtitle-session">
-			<h2>Estatísticas de sumarização <span class="glyphicon glyphicon-stats"></span></h2>
+			<h2>Estatísticas da sumarização <span class="glyphicon glyphicon-stats"></span></h2>
 			<h4>Número de sentenças: {{ summarized.field.sentences }}</h4>
-			<h4>Taxa de compressão: {{ summarized.percent|floatformat:2 }}% <small>de {{ file_size }} bytes para {{ summarized.size }} bytes</small></h4>
+			<h4>Taxa de compressão: {{ summarized.percent|floatformat:2 }}% <small>Redução de {{ file_size }} bytes para {{ summarized.size }} bytes</small></h4>
 		</div>
 		<form method="POST" action="/translator/" class="form-horizontal" >
 			{% csrf_token %}
 			<div style="display:none;"><input type="hidden" name="file" id="id_file" value="{{ file.id }}"/></div>
 		<br/>
 	{% endif %}
-			<button type="submit" name="_method" value="summarized" class="btn btn-primary btn-lg btn-block" title="Tradutor">Avançar</button>
-		</form>
+		<button type="submit" name="_method" value="summarized" class="btn btn-primary btn-lg btn-block" title="Tradutor">Avançar</button>
+	</form>
 {% endblock content %}

@@ -75,7 +75,7 @@ class IndexView(View):
 			"summarized": {
 				"field": summarized,
 				"size": summarized_size.st_size,
-				"percent": summarized_size.st_size*100/file_size.st_size
+				"percent": 100-summarized_size.st_size*100/file_size.st_size
 			}
 		}
 		return render(request, template, context)

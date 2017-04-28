@@ -12,8 +12,9 @@ import os
 class Translated(models.Model):
 	file = models.ForeignKey(File, on_delete=models.CASCADE,
 							 null=False, blank=False)
-	language = models.CharField(max_length=20, choices=LANGUAGE_CHOICES, null=False, blank=False)
-	translated_file = models.CharField(max_length=100, null=True, blank=True)
+	from_language = models.CharField(max_length=20, choices=LANGUAGE_CHOICES, editable=False)
+	to_language = models.CharField(max_length=20, choices=LANGUAGE_CHOICES, null=False, blank=False)
+	translated_file = models.CharField(max_length=100, editable=False)
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
 

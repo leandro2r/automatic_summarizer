@@ -7,22 +7,29 @@ import io
 from textblob import TextBlob
 
 from django.conf import settings
+from django.contrib import messages
 from app.summarizer.models import Summarized
 
-def ApiTextBlob(text, from_lang, to_lang):
+def ApiTextBlob(text, field):
     blob = TextBlob(text)
-    blob_translated = blob.translate(from_lang=from_lang, to=to_lang)
-    return blob_translated
+
+    if not field.from_language:
+        field.from_language = str(blob.detect_language())
+
+    try:
+        blob_translated = blob.translate(to=field.to_language)
+    except:
+        blob_translated = None
+
+    return str(blob_translated)
 
 def TranslateFile(field):
-    from_summarizer = Summarized.objects.filter(file_id=field.file.id)
-
-    if from_summarizer:
+    try:
+        from_summarizer = Summarized.objects.get(file_id=field.file.id)
         docfile = str(from_summarizer.summarized_file)
-        doclang = str(from_summarizer.language)
-    else:
+        field.from_language = str(from_summarizer.language)
+    except Summarized.DoesNotExist:
         docfile = str(field.file.docfile)
-        doclang = str("en")
 
     file_path = os.path.join(settings.MEDIA_ROOT, str(docfile))
     new_file = str(docfile).split(".")[0] + "_t.txt"
@@ -30,9 +37,11 @@ def TranslateFile(field):
 
     text = io.open(file_path, encoding="utf8").read()
 
-    content = ApiTextBlob(text, doclang, field.language)
-    print(content)
-    # with io.open(new_file_path, "wb", encoding="utf8") as file_txtblob:
-    #     file_txtblob.write(content)
+    content = ApiTextBlob(text, field)
+
+    content = content.decode('utf-8')
+
+    with io.open(new_file_path, "w+", encoding="utf8") as file_txtblob:
+        file_txtblob.write(content)
 
     field.translated_file = new_file

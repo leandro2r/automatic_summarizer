@@ -11,6 +11,6 @@ import os
 
 class SubmitTranslatedForm(forms.Form):
 	file = forms.CharField(widget=forms.HiddenInput())
-	language = forms.ChoiceField(choices=LANGUAGE_CHOICES, 
-								label="Idioma do arquivo", 
+	to_language = forms.ChoiceField(choices=LANGUAGE_CHOICES, 
+								label="Idioma da tradução", 
 								widget=forms.Select(attrs={"class" : "form-control input-mg"}))
