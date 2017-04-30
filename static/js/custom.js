@@ -6,6 +6,12 @@ function app_name(name) {
             return "summarizer";
         case "tradutor":
             return "translator";
+        case "registrar":
+            return "register";
+        case "editar":
+            return "edit";
+        default:
+            return "login";
     }
 }
 
@@ -15,7 +21,7 @@ $(document).ready(function(){
 
     $('ul.nav a[href="'+ app +'"]').parent().addClass('active');
     $('ul.nav a[id="'+ app +'"]').parent().addClass('active');
-    if (app == '/edit/') {
+    if (app == '/edit') {
         $('li.dropdown').addClass('active');
     }
     $('ul.nav a').filter(function() {

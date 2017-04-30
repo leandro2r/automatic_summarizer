@@ -56,7 +56,7 @@ class IndexView(View):
 			elif method == 'download':
 				file_path = os.path.join(settings.MEDIA_ROOT, str(file.docfile))
 				response = HttpResponse(file.docfile, content_type='text/plain')
-				response['Content-Disposition'] = 'attachment; filename=' + str(file_path)
+				response['Content-Disposition'] = 'attachment; filename=' + str(file.docfile.name)
 				return response
 
 		return redirect("/")
@@ -190,7 +190,7 @@ class UserView(View):
 				messages.error(request,
 					"A senha informada diverge da senha de confirmação. Verifique-as.")
 			else:
-				if not password:
+				if password:
 					user.set_password(password)
 
 				user.save()
