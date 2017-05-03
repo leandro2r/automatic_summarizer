@@ -50,6 +50,7 @@ class IndexView(View):
 			if update:
 				summarized = Summarized.objects.get(file_id=file.id)
 				summarized.language = request.POST['language']
+				summarized.sentences = request.POST['sentences']
 			else:
 				summarized = Summarized(
 					file = file,

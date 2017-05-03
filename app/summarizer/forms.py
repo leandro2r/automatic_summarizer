@@ -14,7 +14,7 @@ class SubmitSummarizedForm(forms.Form):
 	language = forms.ChoiceField(choices=LANGUAGE_CHOICES, 
 								label="Idioma do arquivo", 
 								widget=forms.Select(attrs={"class" : "form-control input-mg"}))
-	sentences = forms.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(20)], 								
+	sentences = forms.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(50)], 								
 								label="Número de sentenças", initial=10,
 								widget=forms.NumberInput(attrs={"class" : "form-control input-mg"}))
 

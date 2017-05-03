@@ -18,10 +18,16 @@ from django.contrib import admin
 
 from django.contrib.auth import views as auth_views
 from app.converter.forms import LoginForm
+from app.converter.views import UserView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('app.converter.urls')),
     url(r'^login/$', auth_views.login, {'template_name': 'app/login.html', 'authentication_form': LoginForm}, name='login'),
     url(r'^logout/$', auth_views.logout, {'next_page': '/login'}, name='logout'),
+    url(r'^register/', UserView.as_view(), name="register"),
+    url(r'^edit/', UserView.as_view(), name="edit"),
+    url(r'^summarizer/', include('app.summarizer.urls')),
+    url(r'^translator/', include('app.translator.urls')),
+    url(r'^aligner/', include('app.aligner.urls')),
 ]
