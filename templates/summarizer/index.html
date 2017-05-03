@@ -14,6 +14,7 @@
 			{% for field in form.hidden_fields %}
 				<div style="display:none;">{{ field }}</div>
 			{% endfor %}
+			<button type="submit" name="_method" value="summarized" class="btn btn-primary btn-lg btn-block" title="Sumarizar" id="run_app">Sumarizar</button>
 	{% else %}
 		<div class="subtitle-session">
 			<h2>Estatísticas da sumarização <span class="glyphicon glyphicon-stats"></span></h2>
@@ -24,7 +25,7 @@
 			{% csrf_token %}
 			<div style="display:none;"><input type="hidden" name="file" id="id_file" value="{{ file.id }}"/></div>
 		<br/>
-	{% endif %}
 		<button type="submit" name="_method" value="summarized" class="btn btn-primary btn-lg btn-block" title="Tradutor">Avançar</button>
+	{% endif %}
 	</form>
 {% endblock content %}

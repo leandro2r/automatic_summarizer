@@ -6,4 +6,5 @@ db.sqlite3
 app/converter/migrations/*.py
 app/summarizer/migrations/*.py
 app/translator/migrations/*.py
+app/aligner/migrations/*.py
 media/files/*

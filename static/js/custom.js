@@ -1,3 +1,4 @@
+// Add name for each session used in this project
 function app_name(name) {
     switch (name) {
         case "conversor":
@@ -17,10 +18,11 @@ function app_name(name) {
     }
 }
 
-$(document).ready(function(){
+$(document).ready(function() {
     var name = $.trim($('.title-session').text()).toLowerCase();
     var app = "/" + app_name(name);
 
+    // Navbar option activate
     $('ul.nav a[href="'+ app +'"]').parent().addClass('active');
     $('ul.nav a[id="'+ app +'"]').parent().addClass('active');
     if (app == '/edit') {
@@ -30,11 +32,13 @@ $(document).ready(function(){
         return this.href == app;
     }).parent().addClass('active');
 
+    // Color bottom-line
     var color = $('li.active').css("border-bottom-color");
     $('.title-session').css(
         "border-color", color
     );
 
+    // Color icon
     var icon = $('li.active span').attr('class');
     $('.title-session').append(
         "<span class='"+icon+"'></span>"
@@ -43,12 +47,13 @@ $(document).ready(function(){
         "color", color
     );
 
+    // Collapsed menu from Converter
     $('.submenu').click(function() {
-        if ($(this).hasClass('sub1') 
+        if ($(this).hasClass('sub1')
             && !$(this).hasClass('collapsed')
             && $('.sub2').hasClass('collapsed')) {
             $('.submenu').children().addClass('reset-collapsed');
-        } else if ($(this).hasClass('sub2') 
+        } else if ($(this).hasClass('sub2')
                    && !$(this).hasClass('collapsed')
                    && $('.sub1').hasClass('collapsed')) {
             $('.submenu').children().addClass('reset-collapsed');
@@ -57,18 +62,35 @@ $(document).ready(function(){
         }
     });
 
+    // Clone App icon
     $($('.title-session').find('span')).clone().appendTo('h4.subtitle-session span');
 
+    // App's messages
     $(".alert-success").delay(5000).fadeOut(500, function() {
         $(this).alert('close');
     });
 
+    // Toggle from Converter collapsed menu
     $('#id_is_summarized').change(function() {
         var bool = $(this).prop("checked");
         if (bool) {
             $(this).val('True');
         } else {
             $(this).val('False');
+        }
+    });
+
+    // Loading animation
+    $('#run_app').click(function() {
+        icon = ' <img src="/static/imgs/loading.gif" width="25px" height="25px">'
+        var gerund = $(this).attr('title').slice(0, -1) + 'ndo';
+
+        if (gerund != 'Convertendo'
+            || (gerund == 'Convertendo'
+                && $("#id_title").val() != ""
+                && $("#id_docfile").val() != "")) {
+            $('.loading').fadeIn(500);
+            $('h4.loading').html(gerund + icon);
         }
     });
 });
