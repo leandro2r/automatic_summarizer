@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'app.converter',
     'app.summarizer',
     'app.translator',
+    'app.aligner',
 ]
 
 MIDDLEWARE = [

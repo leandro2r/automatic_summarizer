@@ -6,6 +6,8 @@ function app_name(name) {
             return "summarizer";
         case "tradutor":
             return "translator";
+        case "alinhador":
+            return "aligner";
         case "registrar":
             return "register";
         case "editar":
