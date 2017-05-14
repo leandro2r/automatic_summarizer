@@ -84,13 +84,14 @@ $(document).ready(function() {
     $('#run_app').click(function() {
         icon = ' <img src="/static/imgs/loading.gif" width="25px" height="25px">'
         var gerund = $(this).attr('title').slice(0, -1) + 'ndo';
+        var subtitle = "<br><small>Dependendo do tamanho arquivo, isto poderá levar alguns minutos.</small>"
 
         if (gerund != 'Convertendo'
             || (gerund == 'Convertendo'
                 && $("#id_title").val() != ""
                 && $("#id_docfile").val() != "")) {
             $('.loading').fadeIn(500);
-            $('h4.loading').html(gerund + icon);
+            $('h4.loading').html(gerund + ", aguarde..." + icon + subtitle);
         }
     });
 });
