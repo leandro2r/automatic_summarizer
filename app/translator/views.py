@@ -11,8 +11,7 @@ from django.conf import settings
 
 from app.converter.models import File
 from app.summarizer.models import Summarized
-from app.summarizer.choices import LANGUAGE_CHOICES as SUMM_LANG_CHOICES
-from choices import LANGUAGE_CHOICES as TRANS_LANG_CHOICES
+from choices import LANGUAGE_CHOICES
 from models import Translated
 from forms import SubmitTranslatedForm
 
@@ -67,20 +66,14 @@ class IndexView(View):
 			messages.success(request, "O arquivo " + file.title +
 							" foi traduzido com sucesso!")
 
-		try:
-			Summarized.objects.get(file_id=file.id)
-			SUMM_OR_TRANS = SUMM_LANG_CHOICES
-		except Summarized.DoesNotExist:
-			SUMM_OR_TRANS = TRANS_LANG_CHOICES
-
 		template = "translator/index.html"
 
 		context = {
 			"title": "Tradutor",
 			"file": file,
 			"translated": {
-				"from_language": dict(SUMM_OR_TRANS).get(translated.from_language),
-				"to_language": dict(TRANS_LANG_CHOICES).get(translated.to_language)
+				"from_language": dict(LANGUAGE_CHOICES).get(translated.from_language),
+				"to_language": dict(LANGUAGE_CHOICES).get(translated.to_language)
 			}
 		}
 		return render(request, template, context)

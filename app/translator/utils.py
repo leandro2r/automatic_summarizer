@@ -13,8 +13,7 @@ from app.summarizer.models import Summarized
 def ApiTextBlob(text, field):
     blob = TextBlob(text)
 
-    if not field.from_language:
-        field.from_language = str(blob.detect_language())
+    field.from_language = str(blob.detect_language())
 
     try:
         blob_translated = blob.translate(to=field.to_language)
@@ -27,7 +26,6 @@ def TranslateFile(field):
     try:
         from_summarizer = Summarized.objects.get(file_id=field.file.id)
         docfile = str(from_summarizer.summarized_file)
-        field.from_language = str(from_summarizer.language)
     except Summarized.DoesNotExist:
         docfile = str(field.file.docfile)
 
