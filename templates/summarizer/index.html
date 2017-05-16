@@ -18,8 +18,17 @@
 	{% else %}
 		<div class="subtitle-session">
 			<h2>Estatísticas da sumarização <span class="glyphicon glyphicon-stats"></span></h2>
-			<h4>Número de sentenças: {{ summarized.field.sentences }}</h4>
-			<h4>Taxa de compressão: {{ summarized.percent|floatformat:2 }}% <small>Redução de {{ file_size }} bytes para {{ summarized.size }} bytes</small></h4>
+			<h4>Tempo de processamento: 
+			{% if summarized.processing_time.minute > 0 %}
+				{{ summarized.processing_time.minute }} min.
+			{% endif %}
+			{% if summarized.processing_time.minute == 0 %}
+				{{ summarized.processing_time|time:"i.u" }}
+			{% else %}
+				{{ summarized.processing_time.second }}
+			{% endif %}
+			 seg.</h4>
+			<h4>Taxa de compressão: {{ summarized.field.ratio }} <small>Redução de {{ file_size }} bytes para {{ summarized.size }} bytes</small></h4>
 		</div>
 		<form method="POST" action="/translator/" class="form-horizontal" >
 			{% csrf_token %}

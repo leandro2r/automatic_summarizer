@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 from django import forms
-from django.core.validators import MinValueValidator, MaxValueValidator
 
 from models import Translated
 from choices import LANGUAGE_CHOICES

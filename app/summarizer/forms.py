@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 from django import forms
-from django.core.validators import MinValueValidator, MaxValueValidator
 
 from models import Summarized
 from choices import LANGUAGE_CHOICES
@@ -11,10 +10,7 @@ import os
 
 class SubmitSummarizedForm(forms.Form):
 	file = forms.CharField(widget=forms.HiddenInput())
-	language = forms.ChoiceField(choices=LANGUAGE_CHOICES, 
-								label="Idioma do arquivo", 
-								widget=forms.Select(attrs={"class" : "form-control input-mg"}))
-	sentences = forms.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(50)], 								
-								label="Número de sentenças", initial=10,
-								widget=forms.NumberInput(attrs={"class" : "form-control input-mg"}))
-
+	ratio = forms.FloatField(label="Taxa de compressão", 
+							 initial=0.5,
+							 widget=forms.NumberInput(attrs={"class" : "form-control input-mg", 
+									   				   		 "step": "0.01"}))

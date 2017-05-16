@@ -14,6 +14,7 @@ from models import Summarized
 from forms import SubmitSummarizedForm
 
 import os
+from datetime import datetime
 
 class IndexView(View):
 	def get(self, request, *args, **kwargs):
@@ -49,18 +50,15 @@ class IndexView(View):
 
 			if update:
 				summarized = Summarized.objects.get(file_id=file.id)
-				summarized.language = request.POST['language']
-				summarized.sentences = request.POST['sentences']
+				summarized.ratio = request.POST['ratio']
 			else:
 				summarized = Summarized(
 					file = file,
-					language = request.POST['language'],
-					sentences = request.POST['sentences']
+					ratio = request.POST['ratio']
 				)
 
 			# cleaned data
-			language = form.cleaned_data["language"]
-			sentences = form.cleaned_data["sentences"]
+			ratio = form.cleaned_data["ratio"]
 
 			summarized.save()
 
@@ -70,6 +68,7 @@ class IndexView(View):
 		file_size = os.stat(os.path.join(settings.MEDIA_ROOT, str(file.docfile)))
 		summarized_size = os.stat(os.path.join(settings.MEDIA_ROOT, str(summarized.summarized_file)))
 		template = "summarizer/index.html"
+		processing_time = datetime.strptime(summarized.processing_time,"%H:%M:%S.%f")
 
 		context = {
 			"title": "Sumarizador",
@@ -78,7 +77,7 @@ class IndexView(View):
 			"summarized": {
 				"field": summarized,
 				"size": summarized_size.st_size,
-				"percent": 100-summarized_size.st_size*100/file_size.st_size
+				"processing_time": processing_time
 			}
 		}
 		return render(request, template, context)
