@@ -22,9 +22,8 @@ def SummarizeFile(field):
 
     content = Gensim(text, float(field.ratio))
 
-    with io.open(new_file_path, "w+", encoding="utf8") as file_pyt:
-        for sentences in content:
-            file_pyt.write(sentences)
+    with io.open(new_file_path, "w+", encoding="utf8") as file_text:
+        file_text.write(content)
 
     field.summarized_file = new_file
     field.processing_time = str(datetime.now() - start)

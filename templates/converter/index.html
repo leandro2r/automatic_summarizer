@@ -19,9 +19,24 @@
 			    <form method="POST" action="." enctype="multipart/form-data" class="form-horizontal">
 					{% csrf_token %}
 					{% for field in form %}
+						{% if field.name != 'starts_at' and field.name != 'ends_at' %}
 						<div class="form-group">
 		        			<label class="control-label lb-lg" for="{{ field.name }}">{{ field.label }}:</label> {{ field }}
 		        		</div>
+		        		{% elif field.name == 'starts_at' %}
+		        		<div class="form-group summarized">
+		        			<span class="col-md-3 control-label lb-lg">Range de conversão:<br/><small>(por páginas)</small></span>
+		        			<div class="col-md-8">
+		        				<div class="col-md-6">
+		        					<label class="control-label lb-lg" for="{{ field.name }}">{{ field.label }}:</label> {{ field }}
+		        				</div>
+		        		{% else %}
+		        				<div class="col-md-6">
+		        					<label class="control-label lb-lg" for="{{ field.name }}">{{ field.label }}:</label> {{ field }}
+		        				</div>
+		        			</div>
+		        		</div>
+		        		{% endif %}
 		    		{% endfor %}
 		    		<div class="form-group panel-button">
 						<input type="submit" name="_method" value="Adicionar" class="btn btn-primary btn-block" title="Converter" id="run_app" />
