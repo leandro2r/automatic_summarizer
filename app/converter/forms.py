@@ -51,3 +51,11 @@ class SubmitFileForm(forms.Form):
 								"data-on" : "Sim",
 								"data-off" : "Não"
 								}))
+	starts_at = forms.DecimalField(label="Início", min_value=0, required=False,
+							widget=forms.NumberInput(attrs={
+								"class" : "form-control"
+								}))
+	ends_at = forms.DecimalField(label="Fim", required=False, min_value=0,
+							widget=forms.NumberInput(attrs={
+								"class" : "form-control"
+								}))

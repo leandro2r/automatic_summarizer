@@ -77,6 +77,8 @@ class IndexView(View):
 					title = request.POST['title'],
 					docfile = request.FILES['docfile'],
 					is_summarized = request.POST.get('is_summarized', False),
+					starts_at = request.POST['starts_at'],
+					ends_at = request.POST['ends_at'],
 					user = request.user
 				)
 
@@ -84,15 +86,22 @@ class IndexView(View):
 				title = form.cleaned_data["title"]
 				docfile = form.cleaned_data["docfile"]
 				is_summarized = form.cleaned_data["is_summarized"]
+				starts_at = form.cleaned_data["starts_at"]
+				ends_at = form.cleaned_data["ends_at"]
 
-				file.save()
+				if (not request.POST['starts_at'] and not request.POST['ends_at']
+					or request.POST['starts_at'] < request.POST['ends_at']):
+					file.save()
 
-				if docfile_ext == "pdf":
-					messages.success(request, "O arquivo " + docfile.name +
-						" foi convertido para txt e adicionado com sucesso!")
+					if docfile_ext == "pdf":
+						messages.success(request, "O arquivo " + docfile.name +
+							" foi convertido para txt e adicionado com sucesso!")
+					else:
+						messages.success(request, "O arquivo " + docfile.name +
+							" foi adicionado com sucesso!")
 				else:
-					messages.success(request, "O arquivo " + docfile.name +
-						" foi adicionado com sucesso!")
+					messages.error(request, "Range de conversão inválido. "
+					"Verfique se as páginas inseridas estão corretas.")
 
 				return redirect('/')
 			else:

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import re
+import io
 import os
 import sys, getopt
 import string
@@ -12,8 +14,9 @@ from pdfminer.layout import LAParams
 from pdfminer.pdfpage import PDFPage
 
 from django.core.files.base import ContentFile
+from django.conf import settings
 
-def pdf_to_txt(input, pages=None):
+def pdf_to_txt(input, pages):
     if not pages:
         pagenums = set()
     else:
@@ -32,10 +35,34 @@ def pdf_to_txt(input, pages=None):
     output.close
     return text
 
-def ConvertFile(file):
+def format_content(content):
+    content = content.decode("utf-8")
+
+    clean_text = re.sub(r"(\d\s*)([A-Z].*)", 
+                        r"--LINEBREAK----LINEBREAK-- \2 --LINEBREAK--", 
+                        content)
+    clean_text = re.sub(r"(\S)(\s*\n)", r"\1 ", clean_text)
+    clean_text = re.sub(r"\d?\s\n{2,}", "", clean_text)
+    clean_text = clean_text.replace("--LINEBREAK--", "\n")
+
+    return clean_text
+
+def ConvertFile(field):
+    file = field.docfile
     pdf = file.name
     fileExtension = pdf.split(".")[-1]
+
     if fileExtension == "pdf":
-        newcontent = pdf_to_txt(file)
+        if field.starts_at and field.ends_at:
+            starts_at = int(field.starts_at)
+            ends_at = int(field.ends_at)
+
+            pages = range(starts_at - 1, ends_at - 1)
+        else:
+            pages = None
+
+        newcontent = pdf_to_txt(file, pages)
         newdocfile = os.path.splitext(os.path.basename(pdf))[0] + ".txt"
+
+        newcontent = format_content(newcontent)
         file.save(newdocfile, ContentFile(newcontent))

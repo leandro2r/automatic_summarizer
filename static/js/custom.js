@@ -78,6 +78,8 @@ $(document).ready(function() {
         } else {
             $(this).val('False');
         }
+
+        $('.summarized').slideToggle( "fast", "linear" );
     });
 
     // Loading animation
