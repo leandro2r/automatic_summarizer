@@ -5,8 +5,7 @@ pip install Django==1.11
 pip install django-cleanup
 
 sudo apt-get install mysql-server libmysqlclient-dev
-mysql -u root -p
--ex CREATE DATABASE AUTOMATIC_SUMMARIZER CHARACTER SET UTF8;
+echo "CREATE DATABASE AUTOMATIC_SUMMARIZER CHARACTER SET UTF8;" | mysql -u root -p
 
 pip install mysql-python
 
