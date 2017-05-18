@@ -90,7 +90,7 @@ class IndexView(View):
 				ends_at = form.cleaned_data["ends_at"]
 
 				if (not request.POST['starts_at'] and not request.POST['ends_at']
-					or request.POST['starts_at'] < request.POST['ends_at']):
+					or request.POST['starts_at'] > request.POST['ends_at']):
 					file.save()
 
 					if docfile_ext == "pdf":

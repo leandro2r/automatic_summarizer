@@ -23,7 +23,7 @@
 				{{ summarized.processing_time.minute }} min.
 			{% endif %}
 			{% if summarized.processing_time.minute == 0 %}
-				{{ summarized.processing_time|time:"i.u" }}
+				{{ summarized.processing_time|time:"s.u" }}
 			{% else %}
 				{{ summarized.processing_time.second }}
 			{% endif %}
