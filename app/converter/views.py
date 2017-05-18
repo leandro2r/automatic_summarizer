@@ -73,12 +73,15 @@ class IndexView(View):
 			docfile_ext = docfile.name.split(".")[-1]
 
 			if docfile_ext == "pdf" or docfile_ext == "txt":
+				field_starts_at = request.POST['starts_at'] or 0
+				field_ends_at = request.POST['ends_at'] or 0
+
 				file = File(
 					title = request.POST['title'],
 					docfile = request.FILES['docfile'],
 					is_summarized = request.POST.get('is_summarized', False),
-					starts_at = request.POST['starts_at'],
-					ends_at = request.POST['ends_at'],
+					starts_at = field_starts_at,
+					ends_at = field_ends_at,
 					user = request.user
 				)
 
@@ -89,8 +92,7 @@ class IndexView(View):
 				starts_at = form.cleaned_data["starts_at"]
 				ends_at = form.cleaned_data["ends_at"]
 
-				if (not request.POST['starts_at'] and not request.POST['ends_at']
-					or request.POST['starts_at'] > request.POST['ends_at']):
+				if (field_starts_at <= field_ends_at):
 					file.save()
 
 					if docfile_ext == "pdf":
