@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 import os
 import io
+import re
 
 from textblob import TextBlob
 
@@ -15,12 +16,33 @@ def ApiTextBlob(text, field):
 
     field.from_language = str(blob.detect_language())
 
-    try:
-        blob_translated = blob.translate(to=field.to_language)
-    except:
-        blob_translated = None
+    if field.to_language == field.from_language:
+        return text.encode('utf-8')
 
-    return str(blob_translated)
+    block_len = 50
+
+    sentences = re.findall(r"[^\n]+", text)
+    rest_block = len(sentences)%block_len
+
+    blob_translated = str("")
+
+    for x in range(0, len(sentences)-rest_block, block_len):
+        block = ""
+        for each in sentences[x:x+block_len]:
+            block += each + "\n\n"
+
+        blob = TextBlob(block)
+        blob_translated += str(blob.translate(to=field.to_language))
+
+    if rest_block > 0:
+        block = ""
+        for each in sentences[len(sentences)-rest_block:len(sentences)]:
+            block += each + "\n\n"
+
+        blob = TextBlob(block)
+        blob_translated += str(blob.translate(to=field.to_language))
+
+    return blob_translated
 
 def TranslateFile(field):
     try:
