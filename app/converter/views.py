@@ -92,7 +92,7 @@ class IndexView(View):
 				starts_at = form.cleaned_data["starts_at"]
 				ends_at = form.cleaned_data["ends_at"]
 
-				if (field_starts_at <= field_ends_at):
+				if (int(field_starts_at) <= int(field_ends_at)):
 					file.save()
 
 					if docfile_ext == "pdf":
