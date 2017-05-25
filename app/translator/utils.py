@@ -29,18 +29,24 @@ def ApiTextBlob(text, field):
     for x in range(0, len(sentences)-rest_block, block_len):
         block = ""
         for each in sentences[x:x+block_len]:
-            block += each + "\n\n"
+            block += each + "\n"
 
         blob = TextBlob(block)
-        blob_translated += str(blob.translate(to=field.to_language))
+        try:
+            blob_translated += str(blob.translate(to=field.to_language))
+        except:
+            blob_translated += str(block.encode('utf-8'))
 
     if rest_block > 0:
         block = ""
         for each in sentences[len(sentences)-rest_block:len(sentences)]:
-            block += each + "\n\n"
+            block += each + "\n"
 
         blob = TextBlob(block)
-        blob_translated += str(blob.translate(to=field.to_language))
+        try:
+            blob_translated += str(blob.translate(to=field.to_language))
+        except:
+            blob_translated += str(block.encode('utf-8'))
 
     return blob_translated
 
