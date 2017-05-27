@@ -19,14 +19,12 @@ def ApiTextBlob(text, field):
     if field.to_language == field.from_language:
         return text.encode('utf-8')
 
-    block_len = 50
+    block_len = 20
 
     sentences = re.findall(r"[^\n]+", text)
-    rest_block = len(sentences)%block_len
-
     blob_translated = str("")
 
-    for x in range(0, len(sentences)-rest_block, block_len):
+    for x in range(0, len(sentences), block_len):
         block = ""
         for each in sentences[x:x+block_len]:
             block += each + "\n"
@@ -37,16 +35,9 @@ def ApiTextBlob(text, field):
         except:
             blob_translated += str(block.encode('utf-8'))
 
-    if rest_block > 0:
-        block = ""
-        for each in sentences[len(sentences)-rest_block:len(sentences)]:
-            block += each + "\n"
+        if block_len > len(sentences) - (x + block_len):
+            block_len = len(sentences) - (x + block_len)
 
-        blob = TextBlob(block)
-        try:
-            blob_translated += str(blob.translate(to=field.to_language))
-        except:
-            blob_translated += str(block.encode('utf-8'))
 
     return blob_translated
 
