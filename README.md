@@ -9,13 +9,13 @@ Next, each app and their purpose:
 ### Converter ([PDF Miner](https://github.com/euske/pdfminer))
 This app converts PDF files into TXT format
 
-### Summarizer ([Sumy](https://github.com/miso-belica/sumy), [PyTeaser](https://github.com/xiaoxu193/PyTeaser), [Summa](https://github.com/summanlp/textrank) or [Gensim](https://github.com/RaRe-Technologies/gensim)) _Almost Done_
+### Summarizer ([Gensim](https://github.com/RaRe-Technologies/gensim))
 This app summarizes the TXT file and return some metrics data
 
-### Translator ([TextBlob](https://github.com/sloria/TextBlob)) _In Progress_
+### Translator ([TextBlob](https://github.com/sloria/TextBlob)) _Almost Done_
 This app translates the language of the TXT summarized file (e.g.: PT-BR -> FR)
 
-### Aligner ([Yalign](https://github.com/machinalis/yalign))
+### Aligner ([Gale & Church](https://github.com/vchahun/galechurch)) _In Progress_
 This app aligns the TXT summarized translated file
 
 ## Flowchart
