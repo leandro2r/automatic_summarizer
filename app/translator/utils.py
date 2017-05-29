@@ -52,7 +52,10 @@ def TranslateFile(field):
     new_file = str(docfile).split(".")[0] + "_t.txt"
     new_file_path = os.path.join(settings.MEDIA_ROOT, new_file)
 
-    text = io.open(file_path, encoding="utf8").read()
+    try:
+        text = io.open(file_path, encoding="utf-8").read()
+    except:
+        text = io.open(file_path, encoding="ISO-8859-1").read()
 
     content = ApiTextBlob(text, field)
 
