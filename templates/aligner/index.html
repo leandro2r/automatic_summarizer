@@ -4,7 +4,7 @@
 
 {% block content %}
 	{% if form %}
-		<form method="POST" action="/translator/" class="form-horizontal" >
+		<form method="POST" action="/aligner/" class="form-horizontal" >
 			{% csrf_token %}
 			{% for field in form.visible_fields %}
 				<div class="form-group">
@@ -14,20 +14,20 @@
 			{% for field in form.hidden_fields %}
 				<div style="display:none;">{{ field }}</div>
 			{% endfor %}
-			<button type="submit" name="_method" value="translated" class="btn btn-primary btn-lg btn-block" title="Alinhar" id="run_app">Alinhar</button>
+			<button type="submit" name="_method" value="aligned" class="btn btn-primary btn-lg btn-block" title="Alinhar" id="run_app">Alinhar</button>
 	{% else %}
 		<div class="subtitle-session">
 			<h2>Estatísticas da tradução <span class="glyphicon glyphicon-stats"></span></h2>
-			<h4>Idiomas da tradução: {{ translated.from_language }} <small>(Fonte) </small>
+			<h4>Idiomas da tradução: {{ aligned.from_language }} <small>(Fonte) </small>
 			<span class="glyphicon glyphicon-transfer"> </span>
-			{{ translated.to_language }}
+			{{ aligned.to_language }}
 			<small>(Alvo)</small></h4>
 		</div>
 		<form method="POST" action="/aligner/" class="form-horizontal" >
 			{% csrf_token %}
 			<div style="display:none;"><input type="hidden" name="file" id="id_file" value="{{ file.id }}"/></div>
 		<br/>
-		<button type="submit" name="_method" value="translated" class="btn btn-primary btn-lg btn-block" title="Alinhador">Avançar</button>
+		<button type="submit" name="_method" value="translated" class="btn btn-primary btn-lg btn-block" title="Alinhador">Baixar</button>
 	{% endif %}
 	</form>
 {% endblock content %}

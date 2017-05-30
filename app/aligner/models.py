@@ -16,7 +16,7 @@ class Aligned(models.Model):
 	updated = models.DateTimeField(auto_now=True)
 
 	def save(self, *args, **kwargs):
-		TranslateFile(self)
+		AlignFile(self)
 		super(Aligned, self).save()
 
 	def __unicode__(self):

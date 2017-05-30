@@ -10,7 +10,6 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
 from app.converter.models import File
-from app.summarizer.models import Summarized
 from models import Aligned
 from forms import SubmitAlignedForm
 
@@ -30,7 +29,7 @@ class IndexView(View):
 		file = get_object_or_404(File, id=file_id)
 
 		if method == u'aligned':
-			return redirect("/")
+			return self.align(request, file, *args, **kwargs)
 		else:
 			form = SubmitAlignedForm(initial={'file': file_id})
 			template = "aligner/index.html"
@@ -41,3 +40,30 @@ class IndexView(View):
 				"form": form
 			}
 			return render(request, template, context)
+
+	def align(self, request, file, *args, **kwargs):
+		form = SubmitAlignedForm(request.POST or None)
+
+		if form.is_valid():
+			update = Aligned.objects.filter(file_id=file.id)
+
+			if update:
+				aligned = Aligned.objects.get(file_id=file.id)
+			else:
+				aligned = Aligned(
+					file = file
+				)
+
+			aligned.save()
+
+			messages.success(request, "O arquivo " + file.title +
+							" foi alinhado com sucesso!")
+
+		template = "aligner/index.html"
+
+		context = {
+			"title": "Alinhador",
+			"file": file,
+			"aligned": aligned
+		}
+		return render(request, template, context)
