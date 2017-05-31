@@ -30,6 +30,11 @@ class IndexView(View):
 
 		if method == u'aligned':
 			return self.align(request, file, *args, **kwargs)
+		elif method == u'finished':
+			file_path = os.path.join(settings.MEDIA_ROOT, str(aligned.aligned_file))
+			response = HttpResponse(aligned.aligned_file, content_type='text/plain')
+			response['Content-Disposition'] = 'attachment; filename=' + str(aligned.aligned_file)
+			return response
 		else:
 			form = SubmitAlignedForm(initial={'file': file_id})
 			template = "aligner/index.html"

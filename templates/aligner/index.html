@@ -17,17 +17,17 @@
 			<button type="submit" name="_method" value="aligned" class="btn btn-primary btn-lg btn-block" title="Alinhar" id="run_app">Alinhar</button>
 	{% else %}
 		<div class="subtitle-session">
-			<h2>Estatísticas da tradução <span class="glyphicon glyphicon-stats"></span></h2>
-			<h4>Idiomas da tradução: {{ aligned.from_language }} <small>(Fonte) </small>
-			<span class="glyphicon glyphicon-transfer"> </span>
-			{{ aligned.to_language }}
-			<small>(Alvo)</small></h4>
+			<h2>Estatísticas do alinhamento <span class="glyphicon glyphicon-stats"></span></h2>
+			<h4>Proporção de sentenças do alinhamento: {{ aligned.sentences_x }} <small>(Original) </small>
+			<span class="glyphicon glyphicon-align-justify"> </span>
+			{{ aligned.sentences_y }}
+			<small>(Traduzido)</small></h4>
 		</div>
 		<form method="POST" action="/aligner/" class="form-horizontal" >
 			{% csrf_token %}
 			<div style="display:none;"><input type="hidden" name="file" id="id_file" value="{{ file.id }}"/></div>
 		<br/>
-		<button type="submit" name="_method" value="translated" class="btn btn-primary btn-lg btn-block" title="Alinhador">Baixar</button>
+		<button type="submit" name="_method" value="finished" class="btn btn-primary btn-lg btn-block" title="Baixar">Baixar</button>
 	{% endif %}
 	</form>
 {% endblock content %}
