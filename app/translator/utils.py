@@ -61,7 +61,7 @@ def TranslateFile(field):
 
     content = content.decode('utf-8')
 
-    with io.open(new_file_path, "w+", encoding="utf8") as file_txtblob:
+    with io.open(new_file_path, "w+", encoding="utf-8") as file_txtblob:
         file_txtblob.write(content)
 
     field.translated_file = new_file
