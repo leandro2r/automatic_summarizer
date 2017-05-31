@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 import os
 import io
+import re
 from itertools import izip
 
 from app.translator.models import Translated
@@ -33,5 +34,11 @@ def AlignFile(field):
 
 	with io.open(new_file_path, "w+", encoding="utf-8") as file_galechurch:
 		file_galechurch.write(content)
+
+	sentences_x = re.findall(r"[^\n]\n\|{3}", content)
+	sentences_y = re.findall(r"\|{3}\n[^\n]", content)
+
+	field.sentences_x = len(sentences_x)
+	field.sentences_y = len(sentences_y)
 
 	field.aligned_file = new_file
