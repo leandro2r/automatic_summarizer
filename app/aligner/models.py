@@ -11,7 +11,7 @@ import os
 class Aligned(models.Model):
 	file = models.ForeignKey(File, on_delete=models.CASCADE,
 							 null=False, blank=False)
-	aligned_file = models.CharField(max_length=100, editable=False)
+	aligned_file = models.CharField(max_length=200, editable=False)
 	sentences_x = models.IntegerField(editable=False)
 	sentences_y = models.IntegerField(editable=False)
 	created = models.DateTimeField(auto_now_add=True)

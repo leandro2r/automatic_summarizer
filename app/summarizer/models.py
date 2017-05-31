@@ -13,7 +13,7 @@ import os
 class Summarized(models.Model):
 	file = models.ForeignKey(File, on_delete=models.CASCADE,
 							 null=False, blank=False)
-	summarized_file = models.CharField(max_length=100, editable=False)
+	summarized_file = models.CharField(max_length=200, editable=False)
 	ratio = models.FloatField(default=0.5, validators = [MinValueValidator(0.01), MaxValueValidator(0.99)], null=False, blank=False)
 	processing_time = models.TimeField(editable=False, null=True, blank=True)
 	created = models.DateTimeField(auto_now_add=True)

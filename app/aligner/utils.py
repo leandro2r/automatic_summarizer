@@ -7,6 +7,7 @@ import re
 from itertools import izip
 
 from app.translator.models import Translated
+from app.summarizer.models import Summarized
 
 from django.conf import settings
 
@@ -23,14 +24,20 @@ def GaleAndChurch(corpus_x, corpus_y):
 	return content
 
 def AlignFile(field):
+	try:
+		from_summarizer = Summarized.objects.get(file_id=field.file.id)
+		docfile = str(from_summarizer.summarized_file)
+	except Summarized.DoesNotExist:
+		docfile = str(field.file.docfile)
+
 	files = Translated.objects.get(file_id=field.file.id)
 
-	docfile = os.path.join(settings.MEDIA_ROOT, str(field.file.docfile))
+	file_path = os.path.join(settings.MEDIA_ROOT, str(docfile))
 	translated = os.path.join(settings.MEDIA_ROOT, str(files.translated_file))
-	new_file = str(docfile).split(".")[0] + "_a.txt"
+	new_file = str(translated).split(".")[0] + "_a.txt"
 	new_file_path = os.path.join(settings.MEDIA_ROOT, new_file)
 
-	content = GaleAndChurch(docfile, translated);
+	content = GaleAndChurch(file_path, translated);
 
 	with io.open(new_file_path, "w+", encoding="utf-8") as file_galechurch:
 		file_galechurch.write(content)

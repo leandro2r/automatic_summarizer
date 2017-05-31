@@ -8,7 +8,6 @@ import re
 from textblob import TextBlob
 
 from django.conf import settings
-from django.contrib import messages
 from app.summarizer.models import Summarized
 
 def ApiTextBlob(text, field):
