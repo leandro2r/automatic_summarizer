@@ -63,7 +63,7 @@ $(document).ready(function() {
     });
 
     // Clone App icon
-    $($('.title-session').find('span')).clone().appendTo('h4.subtitle-session span');
+    $($('.title-session').find('span')).clone().prependTo('h4.subtitle-session small');
 
     // App's messages
     $(".alert-success").delay(5000).fadeOut(500, function() {
@@ -87,11 +87,14 @@ $(document).ready(function() {
         icon = ' <img src="/static/imgs/loading.gif" width="25px" height="25px">'
         var gerund = $(this).attr('title').slice(0, -1) + 'ndo';
         var subtitle = "<br><small>Dependendo do tamanho arquivo, isto poderá levar alguns minutos.</small>"
-
-        if (gerund != 'Convertendo'
-            || (gerund == 'Convertendo'
-                && $("#id_title").val() != ""
-                && $("#id_docfile").val() != "")) {
+        var ratio = 0.1;
+        if (gerund != 'Convertendo' || (gerund == 'Convertendo'
+                                        && $("#id_title").val() != ""
+                                        && $("#id_docfile").val() != "")) {
+            $(".title-session").animate({opacity: ratio});
+            $(".subtitle-session").animate({opacity: ratio});
+            $(".panel-heading-custom").animate({opacity: ratio});
+            $(".form-horizontal").animate({opacity: ratio});
             $('.loading').fadeIn(500);
             $('h4.loading').html(gerund + ", aguarde..." + icon + subtitle);
         }

@@ -25,9 +25,8 @@
 							{% else %} Sumarizador Automático {% endif %}
 							</h2>
 							{% if file %}
-							<h4 class="subtitle-session"> Arquivo:
-							<span class="glyphicon glyphicon-file"></span> {{ file }} <small class="text-muted">{{ file.docfile }}</small>
-							</h4>
+								<h4 class="subtitle-session"> {{ file }} <small class="text-muted"> <span class="glyphicon glyphicon-file"></span>{{ file.docfile.name|cut:'files/' }}</small>
+								</h4>
 							{% endif %}
 
 							<h4 class="loading alert alert-info" style="display:none;text-align:center"></h4>

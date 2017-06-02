@@ -76,11 +76,11 @@
 			<select class="form-control selectpicker" name="file" input-lg title="Selecione um arquivo" data-live-search="true" required>
 				<optgroup label="Não sumarizados">
 				{% for each in files %}
-					<option value="{{ each.id }}" data-subtext="{{ each.docfile.name }}">{{ each.title }}</option>
+					<option value="{{ each.id }}" data-subtext="{{ each.docfile.name|cut:'files/' }}">{{ each.title }}</option>
 				{% endfor %}
 				<optgroup label="Sumarizados">
 				{% for each in summarizeds %}
-					<option value="{{ each.id }}" data-subtext="{{ each.docfile.name }}">{{ each.title }}</option>
+					<option value="{{ each.id }}" data-subtext="{{ each.docfile.name|cut:'files/' }}">{{ each.title }}</option>
 				{% endfor %}
 			</select>
 			<span id="url" class="help-block">Escolha um dos arquivo listados, caso já o tenha adicionado. Senão, adicione-o clicando em "Adicionar arquivo".</span>
