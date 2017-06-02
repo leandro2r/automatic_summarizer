@@ -10,6 +10,8 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
 from app.converter.models import File
+from app.translator.models import Translated
+from app.translator.choices import LANGUAGE_CHOICES
 from models import Aligned
 from forms import SubmitAlignedForm
 
@@ -38,11 +40,16 @@ class IndexView(View):
 		else:
 			form = SubmitAlignedForm(initial={'file': file_id})
 			template = "aligner/index.html"
+			translated = Translated.objects.get(file_id=file_id)
 
 			context = {
 				"title": "Alinhador",
 				"file": file,
-				"form": form
+				"form": form,
+				"translated": {
+					"from_language": dict(LANGUAGE_CHOICES).get(translated.from_language),
+					"to_language": dict(LANGUAGE_CHOICES).get(translated.to_language)
+				}
 			}
 			return render(request, template, context)
 

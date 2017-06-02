@@ -19,7 +19,10 @@ def GaleAndChurch(corpus_x, corpus_y):
 	with open(corpus_x) as fx, open(corpus_y) as fy:
 		for block_x, block_y in izip(read_blocks(fx), read_blocks(fy)):
 			for (sentence_x, sentence_y) in align(block_x, block_y):
-				content += sentence_x.decode('utf-8') + "\n|||\n" + sentence_y.decode('utf-8') + "\n\n------------------------\n\n"
+				content += (sentence_x.decode('utf-8') + 
+							"\n|||\n" + 
+							sentence_y.decode('utf-8') + 
+							"\n\n------------------------\n\n")
 
 	return content
 

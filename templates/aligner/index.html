@@ -3,14 +3,20 @@
 {% load staticfiles %}
 
 {% block content %}
-	{% if form %}
+	{% if form %}		
 		<form method="POST" action="/aligner/" class="form-horizontal" >
+			<div class="form-group">
+				<label class="control-label lb-lg">Arquivos para alinhamento sentencial:</label>
+				<div class="row">
+					<div class="col-xs-6">
+						<input class="form-control input-mg" type="text" placeholder=" Sumarizado ({{ translated.from_language }})" readonly>
+					</div>
+					<div class="col-xs-6">
+						<input class="form-control input-mg" type="text" placeholder=" Traduzido ({{ translated.to_language }})" readonly>
+					</div>
+				</div>
+			</div>
 			{% csrf_token %}
-			{% for field in form.visible_fields %}
-				<div class="form-group">
-	    			<label class="control-label lb-lg" for="{{ field.name }}">{{ field.label }}:</label> {{ field }}
-	    		</div>
-			{% endfor %}
 			{% for field in form.hidden_fields %}
 				<div style="display:none;">{{ field }}</div>
 			{% endfor %}
@@ -18,7 +24,7 @@
 	{% else %}
 		<div class="subtitle-session">
 			<h2>Estatísticas do alinhamento <span class="glyphicon glyphicon-stats"></span></h2>
-			<h4>Proporção de sentenças do alinhamento: {{ aligned.sentences_x }} <small>(Original) </small>
+			<h4>Proporção de sentenças: {{ aligned.sentences_x }} <small>(Sumarizado) </small>
 			<span class="glyphicon glyphicon-align-justify"> </span>
 			{{ aligned.sentences_y }}
 			<small>(Traduzido)</small></h4>
