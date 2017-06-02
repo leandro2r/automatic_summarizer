@@ -57,9 +57,14 @@ class IndexView(View):
 					return SummarizerIndexView.as_view()(self.request)
 
 			elif method == 'download':
-				file_path = os.path.join(settings.MEDIA_ROOT, str(file.docfile))
-				response = HttpResponse(file.docfile, content_type='text/plain')
-				response['Content-Disposition'] = 'attachment; filename=' + str(file.docfile.name)
+				try:
+					aligned = Aligned.objects.get(file_id=file.id)
+					file_name = aligned.aligned_file
+				except:
+					file_name = file.docfile.name
+
+				response = HttpResponse(file_name, content_type='text/plain')
+				response['Content-Disposition'] = 'attachment; filename=' + file_name.split("/")[-1]
 				return response
 
 		return redirect("/")

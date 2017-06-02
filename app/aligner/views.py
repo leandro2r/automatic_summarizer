@@ -33,9 +33,9 @@ class IndexView(View):
 		if method == u'aligned':
 			return self.align(request, file, *args, **kwargs)
 		elif method == u'finished':
-			file_path = os.path.join(settings.MEDIA_ROOT, str(aligned.aligned_file))
+			aligned = Aligned.objects.get(file_id=file_id)
 			response = HttpResponse(aligned.aligned_file, content_type='text/plain')
-			response['Content-Disposition'] = 'attachment; filename=' + str(aligned.aligned_file)
+			response['Content-Disposition'] = 'attachment; filename=' + str(aligned.aligned_file).split("/")[-1]
 			return response
 		else:
 			form = SubmitAlignedForm(initial={'file': file_id})
