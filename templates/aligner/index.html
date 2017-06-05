@@ -24,9 +24,9 @@
 	{% else %}
 		<div class="subtitle-session">
 			<h2>Estatísticas do alinhamento <span class="glyphicon glyphicon-stats"></span></h2>
-			<h4>Proporção de sentenças: {{ aligned.sentences_x }} <small>(Sumarizado) </small>
+			<h4>Proporção de sentenças: {{ sentences }} <small>(Sumarizado) </small>
 			<span class="glyphicon glyphicon-align-justify"> </span>
-			{{ aligned.sentences_y }}
+			{{ sentences }}
 			<small>(Traduzido)</small></h4>
 		</div>
 		<form method="POST" action="/aligner/" class="form-horizontal" >

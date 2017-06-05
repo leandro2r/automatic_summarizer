@@ -76,6 +76,6 @@ class IndexView(View):
 		context = {
 			"title": "Alinhador",
 			"file": file,
-			"aligned": aligned
+			"sentences": min(aligned.sentences_x, aligned.sentences_y)
 		}
 		return render(request, template, context)

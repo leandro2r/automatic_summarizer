@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 import os
 import io
 import re
+import csv
 from itertools import izip
 
 from app.translator.models import Translated
@@ -13,18 +14,23 @@ from django.conf import settings
 
 from galechurch import read_blocks, align
 
-def GaleAndChurch(corpus_x, corpus_y):
-	content = ""
+def GaleAndChurch(corpus_x, corpus_y, file):
+	sentences = [0,0]
 
-	with open(corpus_x) as fx, open(corpus_y) as fy:
-		for block_x, block_y in izip(read_blocks(fx), read_blocks(fy)):
-			for (sentence_x, sentence_y) in align(block_x, block_y):
-				content += (sentence_x.decode('utf-8') + 
-							"\n|||\n" + 
-							sentence_y.decode('utf-8') + 
-							"\n\n------------------------\n\n")
+	with open(file, "w+") as file_galechurch:
+		with open(corpus_x) as fx, open(corpus_y) as fy:
+			file_writer = csv.DictWriter(file_galechurch, 
+				fieldnames=["Sumarizado", "Traduzido"], delimiter=str("|"))
+			file_writer.writeheader()
 
-	return content
+			for block_x, block_y in izip(read_blocks(fx), read_blocks(fy)):
+				for (sentence_x, sentence_y) in align(block_x, block_y):
+					file_writer.writerow({"Sumarizado": sentence_x, "Traduzido": sentence_y})
+
+				sentences[0] = len(block_x)
+				sentences[1] = len(block_y)
+
+	return sentences
 
 def AlignFile(field):
 	try:
@@ -37,18 +43,12 @@ def AlignFile(field):
 
 	file_path = os.path.join(settings.MEDIA_ROOT, str(docfile))
 	translated = os.path.join(settings.MEDIA_ROOT, str(files.translated_file))
-	new_file = str(translated).split(".")[0] + "_a.txt"
+	new_file = str(translated).split(".")[0] + "_a.csv"
 	new_file_path = os.path.join(settings.MEDIA_ROOT, new_file)
 
-	content = GaleAndChurch(file_path, translated);
+	sentences = GaleAndChurch(file_path, translated, new_file_path);
 
-	with io.open(new_file_path, "w+", encoding="utf-8") as file_galechurch:
-		file_galechurch.write(content)
-
-	sentences_x = re.findall(r"[^\n]\n\|{3}", content)
-	sentences_y = re.findall(r"\|{3}\n[^\n]", content)
-
-	field.sentences_x = len(sentences_x)
-	field.sentences_y = len(sentences_y)
+	field.sentences_x = sentences[0]
+	field.sentences_y = sentences[1]
 
 	field.aligned_file = new_file
