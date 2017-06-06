@@ -95,6 +95,10 @@ $(document).ready(function() {
             $(".subtitle-session").animate({opacity: ratio});
             $(".panel-heading-custom").animate({opacity: ratio});
             $(".form-horizontal").animate({opacity: ratio});
+
+            $("input").prop("readonly", true);
+            $(".form-horizontal [type='submit']").hide();
+
             $('.loading').fadeIn(500);
             $('h4.loading').html(gerund + ", aguarde..." + icon + subtitle);
         }
