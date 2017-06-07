@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import os
-
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
@@ -12,9 +10,6 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
 from models import File
-from app.summarizer.models import Summarized
-from app.translator.models import Translated
-from app.aligner.models import Aligned
 from django.contrib.auth.models import User
 from forms import UserForm, UserEditForm, SubmitFileForm
 from app.summarizer.views import IndexView as SummarizerIndexView
@@ -127,27 +122,6 @@ class IndexView(View):
 	def delete(self, request, *args, **kwargs):
 		files = request.POST.getlist("delete_ids")
 		for each in files:
-			# Remove Summarized file from media/files
-			try:
-				from_summarizer = Summarized.objects.get(file_id=each)
-				os.remove(os.path.join(settings.MEDIA_ROOT, from_summarizer.summarized_file))
-			except:
-				pass
-
-			# Remove Translated file from media/files
-			try:
-				from_translated = Translated.objects.get(file_id=each)
-				os.remove(os.path.join(settings.MEDIA_ROOT, from_translated.translated_file))
-			except:
-				pass
-
-			# Remove Aligned file from media/files
-			try:
-				from_aligned = Aligned.objects.get(file_id=each)
-				os.remove(os.path.join(settings.MEDIA_ROOT, from_aligned.aligned_file))
-			except:
-				pass
-
 			File.objects.filter(id=each).delete()
 
 		n_files = len(files)

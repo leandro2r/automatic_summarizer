@@ -33,11 +33,11 @@ def AlignFile(field):
 	except Summarized.DoesNotExist:
 		docfile = str(field.file.docfile)
 
-	files = Translated.objects.get(file_id=field.file.id)
+	translated_file = Translated.objects.get(file_id=field.file.id)
 
 	file_path = os.path.join(settings.MEDIA_ROOT, str(docfile))
-	translated = os.path.join(settings.MEDIA_ROOT, str(files.translated_file))
-	new_file = str(translated).split(".")[0] + "_a.txt"
+	translated = os.path.join(settings.MEDIA_ROOT, str(translated_file))
+	new_file = str(field.file.docfile).split(".")[0] + "_a.txt"
 	new_file_path = os.path.join(settings.MEDIA_ROOT, new_file)
 
 	content = GaleAndChurch(file_path, translated);

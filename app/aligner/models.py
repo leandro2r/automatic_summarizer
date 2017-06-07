@@ -4,6 +4,9 @@ from __future__ import unicode_literals
 from django.db import models
 from django.conf import settings
 
+from django.db.models.signals import pre_delete
+from django.dispatch.dispatcher import receiver
+
 from app.translator.models import File
 from utils import AlignFile
 import os
@@ -20,6 +23,15 @@ class Aligned(models.Model):
 	def save(self, *args, **kwargs):
 		AlignFile(self)
 		super(Aligned, self).save()
+
+	@receiver(pre_delete, sender=File)
+	def remove_file(sender, *args, **kwargs):
+		file_id = sender.objects.get().id
+		try:
+			aligned_file = Aligned.objects.get(file_id=file_id).aligned_file
+			os.remove(os.path.join(settings.MEDIA_ROOT, aligned_file))
+		except:
+			pass
 
 	def __unicode__(self):
 		return self.aligned_file

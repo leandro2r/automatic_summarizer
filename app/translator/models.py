@@ -4,6 +4,9 @@ from __future__ import unicode_literals
 from django.db import models
 from django.conf import settings
 
+from django.db.models.signals import pre_delete
+from django.dispatch.dispatcher import receiver
+
 from app.converter.models import File
 from choices import LANGUAGE_CHOICES
 from utils import TranslateFile
@@ -21,6 +24,15 @@ class Translated(models.Model):
 	def save(self, *args, **kwargs):
 		TranslateFile(self)
 		super(Translated, self).save()
+
+	@receiver(pre_delete, sender=File)
+	def remove_file(sender, *args, **kwargs):
+		file_id = sender.objects.get().id
+		try:
+			translated_file = Translated.objects.get(file_id=file_id).translated_file
+			os.remove(os.path.join(settings.MEDIA_ROOT, translated_file))
+		except:
+			pass
 
 	def __unicode__(self):
 		return self.translated_file

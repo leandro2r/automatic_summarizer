@@ -22,5 +22,8 @@ class File(models.Model):
 		ConvertFile(self)
 		super(File, self).save()
 
+	def delete(self, *args, **kwargs):
+		super(File, self).delete()
+
 	def __unicode__(self):
 		return self.title

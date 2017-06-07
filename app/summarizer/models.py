@@ -5,6 +5,9 @@ from django.db import models
 from django.conf import settings
 from django.core.validators import MinValueValidator, MaxValueValidator
 
+from django.db.models.signals import pre_delete
+from django.dispatch.dispatcher import receiver
+
 from app.converter.models import File
 from choices import LANGUAGE_CHOICES
 from utils import SummarizeFile
@@ -22,6 +25,15 @@ class Summarized(models.Model):
 	def save(self, *args, **kwargs):
 		SummarizeFile(self)
 		super(Summarized, self).save()
+
+	@receiver(pre_delete, sender=File)
+	def remove_file(sender, *args, **kwargs):
+		file_id = sender.objects.get().id
+		try:
+			summarized_file = Summarized.objects.get(file_id=file_id).summarized_file
+			os.remove(os.path.join(settings.MEDIA_ROOT, summarized_file))
+		except:
+			pass
 
 	def __unicode__(self):
 		return self.summarized_file
