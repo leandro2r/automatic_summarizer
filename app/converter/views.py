@@ -10,10 +10,14 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
 from models import File
+from app.aligner.models import Aligned
 from django.contrib.auth.models import User
 from forms import UserForm, UserEditForm, SubmitFileForm
 from app.summarizer.views import IndexView as SummarizerIndexView
 from app.translator.views import IndexView as TranslatorIndexView
+
+import os
+from wsgiref.util import FileWrapper
 
 class IndexView(View):
 	def get(self, request, *args, **kwargs):
@@ -53,13 +57,15 @@ class IndexView(View):
 
 			elif method == 'download':
 				try:
-					aligned = Aligned.objects.get(file_id=file.id)
-					file_name = aligned.aligned_file
+					docfile = Aligned.objects.get(file_id=file.id)
 				except:
-					file_name = file.docfile.name
+					docfile = file.docfile.name
 
-				response = HttpResponse(file_name, content_type='text/plain')
-				response['Content-Disposition'] = 'attachment; filename=' + file_name.split("/")[-1]
+				file_path = os.path.join(settings.MEDIA_ROOT, str(docfile))
+				download_file = open(file_path, "r")
+				response = HttpResponse(FileWrapper(download_file), content_type='text/plain')
+				response['Content-Disposition'] = 'attachment; filename=' + str(docfile).split("/")[-1]
+				download_file.close()
 				return response
 
 		return redirect("/")

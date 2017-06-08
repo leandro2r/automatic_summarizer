@@ -16,6 +16,7 @@ from models import Aligned
 from forms import SubmitAlignedForm
 
 import os
+from wsgiref.util import FileWrapper
 
 class IndexView(View):
 	def get(self, request, *args, **kwargs):
@@ -32,11 +33,19 @@ class IndexView(View):
 
 		if method == u'aligned':
 			return self.align(request, file, *args, **kwargs)
+
 		elif method == u'finished':
-			aligned = Aligned.objects.get(file_id=file_id)
-			response = HttpResponse(aligned.aligned_file, content_type='text/plain')
-			response['Content-Disposition'] = 'attachment; filename=' + str(aligned.aligned_file).split("/")[-1]
+			docfile = Aligned.objects.get(file_id=file_id)
+			file_path = os.path.join(settings.MEDIA_ROOT, str(docfile))
+			download_file = open(file_path, "r")
+			response = HttpResponse(FileWrapper(download_file), content_type='text/plain')
+			response['Content-Disposition'] = 'attachment; filename=' + str(docfile).split("/")[-1]
+			download_file.close()
 			return response
+
+		elif method == u'back':
+			return redirect("/")
+			
 		else:
 			form = SubmitAlignedForm(initial={'file': file_id})
 			template = "aligner/index.html"
