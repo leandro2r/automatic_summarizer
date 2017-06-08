@@ -45,12 +45,12 @@ def format_content(content):
     clean_text = re.sub(r"\d?\s\n{2,}", "", clean_text)
     clean_text = clean_text.replace("--LINEBREAK--", "\n")
 
-    return clean_text
+    return clean_text.encode("utf-8")
 
 def ConvertFile(field):
     file = field.docfile
-    pdf = file.name
-    fileExtension = pdf.split(".")[-1]
+    file_name = file.name
+    fileExtension = file_name.split(".")[-1]
 
     if fileExtension == "pdf":
         if field.starts_at and field.ends_at:
@@ -62,7 +62,15 @@ def ConvertFile(field):
             pages = None
 
         newcontent = pdf_to_txt(file, pages)
-        newdocfile = os.path.splitext(os.path.basename(pdf))[0] + ".txt"
+        newdocfile = os.path.splitext(os.path.basename(file_name))[0] + ".txt"
 
         newcontent = format_content(newcontent)
         file.save(newdocfile, ContentFile(newcontent))
+    elif fileExtension == "txt":
+        content = file.read()
+
+        try:
+            newcontent = content.decode('utf-8')
+        except:
+            newcontent = content.decode('ISO-8859-1').encode('utf-8')
+            file.save(file_name, ContentFile(newcontent))            

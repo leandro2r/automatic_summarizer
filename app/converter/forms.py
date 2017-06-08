@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 
 from models import File
-from utils import ConvertFile
 import os
 
 class LoginForm(AuthenticationForm):
