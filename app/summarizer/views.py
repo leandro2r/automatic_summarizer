@@ -46,24 +46,31 @@ class IndexView(View):
 		form = SubmitSummarizedForm(request.POST or None)
 
 		if form.is_valid():
-			update = Summarized.objects.filter(file_id=file.id)
+			ratio = float(request.POST['ratio'])
+			if ratio > 0 and ratio < 1:
+				update = Summarized.objects.filter(file_id=file.id)
 
-			if update:
-				summarized = Summarized.objects.get(file_id=file.id)
-				summarized.ratio = request.POST['ratio']
+				if update:
+					summarized = Summarized.objects.get(file_id=file.id)
+					summarized.ratio = request.POST['ratio']
+				else:
+					summarized = Summarized(
+						file = file,
+						ratio = request.POST['ratio']
+					)
+
+				# cleaned data
+				ratio = form.cleaned_data["ratio"]
+
+				summarized.save()
+
+				messages.success(request, "O arquivo " + file.title +
+								" foi sumarizado com sucesso!")
 			else:
-				summarized = Summarized(
-					file = file,
-					ratio = request.POST['ratio']
-				)
+				messages.error(request, "Taxa de compressão inválida. "
+					"Informe um valor entre 0.01 e 0.99.")
 
-			# cleaned data
-			ratio = form.cleaned_data["ratio"]
-
-			summarized.save()
-
-			messages.success(request, "O arquivo " + file.title +
-							" foi sumarizado com sucesso!")
+				return redirect("/")
 
 		file_size = os.stat(os.path.join(settings.MEDIA_ROOT, str(file.docfile)))
 		summarized_size = os.stat(os.path.join(settings.MEDIA_ROOT, str(summarized.summarized_file)))
