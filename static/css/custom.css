@@ -124,9 +124,18 @@ label {
   cursor: default;
 }
 
-.logo-custom {
-  opacity:0.4;
-  filter:alpha(opacity=40);
+.navbar-brand {
+  width: 100px;
+  padding-top: 32px;
+  background-repeat: no-repeat;
+  background-position: center; 
+  text-align: center;
+  cursor: default;
+}
+
+.unb-custom {
+  opacity:0.6;
+  filter:alpha(opacity=60);
 }
 
 .bootstrap-select.btn-group .dropdown-menu {
