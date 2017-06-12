@@ -3,8 +3,8 @@ option="$1"
 
 if [ "${option}" == "install" ]; then
 	echo -e "\n[AUTOMATIC_SUMMARIZER] Installing prerequisite..."
-    sudo apt-get install python
-	sudo apt-get install pip
+    	sudo apt-get install python
+	sudo apt-get install python-pip
 
 	sudo apt-get install screen
 

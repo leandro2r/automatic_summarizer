@@ -12,10 +12,10 @@ This app converts PDF files into TXT format
 ### Summarizer ([Gensim](https://github.com/RaRe-Technologies/gensim))
 This app summarizes the TXT file and return some metrics data
 
-### Translator ([TextBlob](https://github.com/sloria/TextBlob)) _Almost Done_
+### Translator ([TextBlob](https://github.com/sloria/TextBlob)) 
 This app translates the language of the TXT summarized file (e.g.: PT-BR -> FR)
 
-### Aligner ([Gale & Church](https://github.com/vchahun/galechurch)) _In Progress_
+### Aligner ([Gale & Church](https://github.com/vchahun/galechurch)) 
 This app aligns the TXT summarized translated file
 
 ## Flowchart
