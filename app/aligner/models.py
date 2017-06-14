@@ -27,7 +27,7 @@ class Aligned(models.Model):
 	@receiver(pre_delete, sender=File)
 	def remove_file(sender, *args, **kwargs):
 		try:
-			file_id = sender.objects.get().id
+			file_id = sender.objects.first().id
 			aligned_file = Aligned.objects.get(file_id=file_id).aligned_file
 			os.remove(os.path.join(settings.MEDIA_ROOT, aligned_file))
 		except:

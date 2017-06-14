@@ -28,7 +28,7 @@ class Translated(models.Model):
 	@receiver(pre_delete, sender=File)
 	def remove_file(sender, *args, **kwargs):
 		try:
-			file_id = sender.objects.get().id
+			file_id = sender.objects.first().id
 			translated_file = Translated.objects.get(file_id=file_id).translated_file
 			os.remove(os.path.join(settings.MEDIA_ROOT, translated_file))
 		except:

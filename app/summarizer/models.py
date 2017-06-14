@@ -29,7 +29,7 @@ class Summarized(models.Model):
 	@receiver(pre_delete, sender=File)
 	def remove_file(sender, *args, **kwargs):
 		try:
-			file_id = sender.objects.get().id
+			file_id = sender.objects.first().id
 			summarized_file = Summarized.objects.get(file_id=file_id).summarized_file
 			os.remove(os.path.join(settings.MEDIA_ROOT, summarized_file))
 		except:
