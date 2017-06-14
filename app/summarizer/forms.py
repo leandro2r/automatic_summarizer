@@ -11,6 +11,6 @@ import os
 class SubmitSummarizedForm(forms.Form):
 	file = forms.CharField(widget=forms.HiddenInput())
 	ratio = forms.FloatField(label="Taxa de compressão", 
-							 initial=0.5,
+							 min_value=0, max_value=1, initial=0.5,
 							 widget=forms.NumberInput(attrs={"class" : "form-control input-mg", 
 									   				   		 "step": "0.01"}))
