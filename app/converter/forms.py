@@ -40,7 +40,8 @@ class UserEditForm(forms.ModelForm):
 
 class SubmitFileForm(forms.Form):
 	title = forms.CharField(label="Título",
-							widget=forms.TextInput(attrs={"class" : "form-control input-mg"}))
+							widget=forms.TextInput(attrs={"class" : "form-control input-mg",
+														  "maxlength": "100"}))
 	docfile = forms.FileField(label="Arquivo (.pdf ou .txt)",
 							widget=forms.FileInput(attrs={"class" : "form-control input-mg"}))
 	is_summarized = forms.BooleanField(label="Sumarizado", required=False,
