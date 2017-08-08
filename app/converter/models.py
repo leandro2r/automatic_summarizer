@@ -19,8 +19,11 @@ class File(models.Model):
 	updated = models.DateTimeField(auto_now=True)
 
 	def save(self, *args, **kwargs):
-		ConvertFile(self)
-		super(File, self).save()
+		if ConvertFile(self):
+			super(File, self).save()
+			return True
+		else:
+			return False
 
 	def delete(self, *args, **kwargs):
 		super(File, self).delete()

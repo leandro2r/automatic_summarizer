@@ -99,17 +99,19 @@ class IndexView(View):
 				ends_at = form.cleaned_data["ends_at"]
 
 				if (int(field_starts_at) <= int(field_ends_at)):
-					file.save()
-
-					if docfile_ext == "pdf":
-						messages.success(request, "O arquivo " + docfile.name +
-							" foi convertido para txt e adicionado com sucesso!")
+					if file.save():
+						if docfile_ext == "pdf":
+							messages.success(request, "O arquivo " + docfile.name +
+								" foi convertido para txt e adicionado com sucesso!")
+						else:
+							messages.success(request, "O arquivo " + docfile.name +
+								" foi adicionado com sucesso!")
 					else:
-						messages.success(request, "O arquivo " + docfile.name +
-							" foi adicionado com sucesso!")
+						messages.error(request, "O arquivo " + docfile.name + " está protegido."
+							" Verifique as permissões de acesso ao conteúdo do arquivo.")
 				else:
 					messages.error(request, "Range de conversão inválido. "
-					"Verfique se as páginas inseridas estão corretas.")
+						"Verfique se as páginas inseridas estão corretas.")
 
 				return redirect('/')
 			else:

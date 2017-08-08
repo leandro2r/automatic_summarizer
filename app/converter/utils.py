@@ -27,19 +27,23 @@ def pdf_to_txt(input, pages):
     converter = TextConverter(manager, output, laparams=LAParams())
     interpreter = PDFPageInterpreter(manager, converter)
 
-    for page in PDFPage.get_pages(input, pagenums):
-        interpreter.process_page(page)
-    input.close()
+    try:
+        for page in PDFPage.get_pages(input, pagenums):
+            interpreter.process_page(page)
+        input.close()
+        text = output.getvalue()
+    except:
+        text = ''
+
     converter.close()
-    text = output.getvalue()
     output.close
     return text
 
 def format_content(content):
     content = content.decode("utf-8")
 
-    clean_text = re.sub(r"(\d\s*)([A-Z].*)", 
-                        r"--LINEBREAK----LINEBREAK-- \2 --LINEBREAK--", 
+    clean_text = re.sub(r"(\d\s*)([A-Z].*)",
+                        r"--LINEBREAK----LINEBREAK-- \2 --LINEBREAK--",
                         content)
     clean_text = re.sub(r"(\S)(\s*\n)", r"\1 ", clean_text)
     clean_text = re.sub(r"\d?\s\n{2,}", "", clean_text)
@@ -62,6 +66,10 @@ def ConvertFile(field):
             pages = None
 
         newcontent = pdf_to_txt(file, pages)
+
+        if newcontent == '':
+            return False
+
         newdocfile = os.path.splitext(os.path.basename(file_name))[0] + ".txt"
 
         newcontent = format_content(newcontent)
@@ -73,4 +81,7 @@ def ConvertFile(field):
             newcontent = content.decode('utf-8')
         except:
             newcontent = content.decode('ISO-8859-1').encode('utf-8')
-            file.save(file_name, ContentFile(newcontent))            
+            file.save(file_name, ContentFile(newcontent))
+
+    return True
+
