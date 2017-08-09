@@ -1,5 +1,5 @@
 body {
-  padding-top: 90px;
+  padding-top: 25px;
   background-color: #DCDCDC;
   color: #666666;
   font-family: sans-serif;
@@ -8,6 +8,18 @@ body {
 
 label {
   font-weight: 300;
+}
+
+.container{
+  width: 100%;
+}
+
+.panel {
+  background-color: #f8f8f8;
+}
+
+.panel-body {
+  margin: 8px;
 }
 
 .panel-content {
@@ -131,6 +143,33 @@ label {
   background-position: center; 
   text-align: center;
   cursor: default;
+}
+
+.well {
+  min-height: 30px;
+  padding: 29px;
+  margin-top: 20px;
+}
+
+.jumbotron {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+  color: inherit;
+  background-color: #eee;
+  border: 1px solid #d5d5d5;
+}
+
+.alert-error {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+.alert-error hr {
+  border-top-color: #e4b9c0;
+}
+.alert-error {
+  color: #843534;
 }
 
 .unb-custom {
