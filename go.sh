@@ -3,7 +3,7 @@ option="$1"
 
 if [ "${option}" == "install" ]; then
 	echo -e "\n[AUTOMATIC_SUMMARIZER] Installing prerequisite..."
-    	sudo apt-get install python
+    sudo apt-get install python
 	sudo apt-get install python-pip
 
 	sudo apt-get install screen
@@ -34,6 +34,15 @@ elif [ "${option}" == "run" ]; then
 	screen -dmS automatic_summarizer python manage.py runserver
 
 	echo -e "[AUTOMATIC_SUMMARIZER] Running.\n[AUTOMATIC_SUMMARIZER] To see it, use the command: \$ screen -r automatic_summarizer\n"
+
+elif [ "${option}" == "update" ]; then
+	echo -e "\n[AUTOMATIC_SUMMARIZER] Updating repository from github..."
+	git stash
+	git fetch --all
+	git pull --rebase origin master
+	git stash pop
+
+	echo -e "[AUTOMATIC_SUMMARIZER] Done.\n"
 
 else
 	echo -e "\n[AUTOMATIC_SUMMARIZER] Wrong argument ${option}! Use only run or install parameters.\n"
