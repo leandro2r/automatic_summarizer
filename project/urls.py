@@ -23,7 +23,7 @@ from app.converter.views import UserView
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('app.converter.urls')),
-    url(r'^login/$', auth_views.login, {'template_name': 'app/login.html', 'authentication_form': LoginForm}, name='login'),
+    url(r'^login/$', auth_views.login, {'template_name': 'app/login.html', 'authentication_form': LoginForm, 'redirect_authenticated_user': True}, name='login'),
     url(r'^logout/$', auth_views.logout, {'next_page': '/login'}, name='logout'),
     url(r'^register/', UserView.as_view(), name="register"),
     url(r'^edit/', UserView.as_view(), name="edit"),
