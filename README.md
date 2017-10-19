@@ -21,3 +21,8 @@ This app aligns the TXT summarized translated file
 ## Flowchart
 
 ![Flowchart](https://s8.postimg.org/5x2ux8smt/fluxogram.png)
+
+## Credits
+
+Leandro Rezende Rodrigues
+Prof. Francisco Cláudio S. de Menezes
