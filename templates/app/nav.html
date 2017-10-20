@@ -3,7 +3,7 @@
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a class="navbar-brand" style="background-image: url('{% static "imgs/sa_logo.png" %}')" title="Sumarizador Automático">sa</a>
+			<a class="navbar-brand" style="background-image: url('{% static "imgs/sa_logo.png" %}')" title="Sumarizador Automático" href="/">sa</a>
 		</div>
 	{% if user.is_authenticated %}
 		<ul class="nav navbar-nav">
@@ -23,8 +23,9 @@
 		</ul>
 	{% else %}
 		<ul class="nav navbar-nav navbar-right">
-			<li><a href="/register"><span class="glyphicon glyphicon-user"></span> Registrar</a></li>
+			<li><a href="/credits"><span class="glyphicon glyphicon-info-sign"></span> Créditos</a></li>
 			<li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Acessar</a></li>
+			<li><a href="/register"><span class="glyphicon glyphicon-user"></span> Registrar</a></li>
 		</ul>
 	{% endif %}
 	</div>

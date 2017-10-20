@@ -225,3 +225,12 @@ class UserView(View):
 			"form": form
 		}
 		return render(request, "app/edit.html", context)
+
+class CreditsView(View):
+	def get(self, request, *args, **kwargs):
+		template = "app/credits.html"
+
+		context = {
+			"title": "Créditos"
+		}
+		return render(request, template, context)
