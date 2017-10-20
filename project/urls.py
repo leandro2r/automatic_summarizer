@@ -18,7 +18,7 @@ from django.contrib import admin
 
 from django.contrib.auth import views as auth_views
 from app.converter.forms import LoginForm
-from app.converter.views import UserView
+from app.converter.views import UserView, CreditsView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^logout/$', auth_views.logout, {'next_page': '/login'}, name='logout'),
     url(r'^register/', UserView.as_view(), name="register"),
     url(r'^edit/', UserView.as_view(), name="edit"),
+    url(r'^credits/', CreditsView.as_view()),
     url(r'^summarizer/', include('app.summarizer.urls')),
     url(r'^translator/', include('app.translator.urls')),
     url(r'^aligner/', include('app.aligner.urls')),

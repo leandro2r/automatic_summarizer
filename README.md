@@ -22,7 +22,14 @@ This app aligns the TXT summarized translated file
 
 ![Flowchart](https://s8.postimg.org/5x2ux8smt/fluxogram.png)
 
+## References
+
+- PDF Miner <https://github.com/euske/pdfminer>
+- Gensim <https://github.com/RaRe-Technologies/gensim>
+- TextBlob <https://github.com/sloria/TextBlob>
+- Gale & Church <https://github.com/vchahun/galechurch>
+
 ## Credits
 
-Leandro Rezende Rodrigues
-Prof. Francisco Cláudio S. de Menezes
+- Leandro Rezende Rodrigues <<leandro.l2r@gmail.com>>
+- Prof. Francisco Cláudio S. de Menezes <<new.claudiomenezes@gmail.com>>
