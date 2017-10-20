@@ -13,6 +13,8 @@ function app_name(name) {
             return "register";
         case "editar":
             return "edit";
+        case "créditos":
+            return "credits";
         default:
             return "login";
     }
