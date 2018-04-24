@@ -1,0 +1,6 @@
+django==1.11
+django-cleanup==2.1.0
+mysql-python==1.2.5
+pdfminer==20140328
+gensim==2.3.0
+textblob==0.13.0
