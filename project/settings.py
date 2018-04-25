@@ -88,11 +88,11 @@ WSGI_APPLICATION = 'project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'AUTOMATIC_SUMMARIZER',
-        'USER': 'root',
-        'PASSWORD': 'qwe123',
-        'HOST': 'localhost',
-        'PORT': '',
+        'NAME': os.environ["MYSQL_DATABASE"],
+        'USER': os.environ["MYSQL_USER"],
+        'PASSWORD': os.environ["MYSQL_PASSWORD"],
+        'HOST': 'db',
+        'PORT': '3306',
     }
 }
 
