@@ -20,7 +20,23 @@ This app aligns the TXT summarized translated file
 
 ## Flowchart
 
-![Flowchart](https://s8.postimg.org/5x2ux8smt/fluxogram.png)
+![Flowchart](flowchart.jpg)
+
+## Installation
+
+To install the project, first your environment must have the docker installed (version 3.3). 
+
+After docker installed, you need to set the database configurations on `db.env` file.
+
+Then, you can manage the `Dockerfile` using the `docker-compose.yml`.
+```
+docker-compose up -d
+```
+
+If you already have a complete environment with all Django/MySQL dependencies, you just need to install the project dependencies and make some database changes. 
+```
+pip install -r requirements.txt
+```
 
 ## References
 
