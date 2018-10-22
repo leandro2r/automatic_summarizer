@@ -8,3 +8,7 @@ app/summarizer/migrations/*.py
 app/translator/migrations/*.py
 app/aligner/migrations/*.py
 media/files/*
+build
+dist
+venv
+*.egg-info
