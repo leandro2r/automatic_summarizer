@@ -12,30 +12,34 @@ This app converts PDF files into TXT format
 ### Summarizer ([Gensim](https://github.com/RaRe-Technologies/gensim))
 This app summarizes the TXT file and return some metrics data
 
-### Translator ([TextBlob](https://github.com/sloria/TextBlob)) 
+### Translator ([TextBlob](https://github.com/sloria/TextBlob))
 This app translates the language of the TXT summarized file (e.g.: PT-BR -> FR)
 
-### Aligner ([Gale & Church](https://github.com/vchahun/galechurch)) 
+### Aligner ([Gale & Church](https://github.com/vchahun/galechurch))
 This app aligns the TXT summarized translated file
 
 ## Flowchart
 
 ![Flowchart](flowchart.jpg)
 
+## Configure
+
+This project has a YAML file to configure database connection settings and others. The current path is `config/automatic_summarizer.yml`.
+
 ## Installation
 
-To install the project, first your environment must have the docker installed (version 3.3). 
+To install the project, first your environment must have the docker installed (version 3.3).
 
-After docker installed, you need to set the database configurations on `db.env` file.
+After docker installed, you need to set the database configures on environments variables from db service (MySQL) in `docker-compose.yml` file.
 
-Then, you can manage the `Dockerfile` using the `docker-compose.yml`.
+Then, you can manage the `Dockerfile` using the orchestrator file `docker-compose.yml`.
 ```
 docker-compose up -d
 ```
 
-If you already have a complete environment with all Django/MySQL dependencies, you just need to install the project dependencies and make some database changes. 
+If you already have a complete environment with Django/MySQL installed and don't want to use Docker, you can just install the project dependencies and make some database changes.
 ```
-pip install -r requirements.txt
+./setup.py install
 ```
 
 ## References
