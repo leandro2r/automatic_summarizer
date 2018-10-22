@@ -14,7 +14,7 @@ services:
     container_name: automatic_summarizer
     restart: on-failure
     build: .
-    command: ["./run.sh"]
+    command: ["./docker/run.sh"]
     env_file:
       - db.env
     volumes:
