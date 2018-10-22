@@ -30,14 +30,14 @@ This project has a YAML file to configure database connection settings and other
 
 To install the project, first your environment must have the docker installed (version 3.3).
 
-After docker installed, you need to set the database configures on environments variables from db service (MySQL) in `docker-compose.yml` file.
+After docker installed, you need to set the database configures on environments variables from db service (PostgreSQL) in `docker-compose.yml` file.
 
 Then, you can manage the `Dockerfile` using the orchestrator file `docker-compose.yml`.
 ```
 docker-compose up -d
 ```
 
-If you already have a complete environment with Django/MySQL installed and don't want to use Docker, you can just install the project dependencies and make some database changes.
+If you already have a complete environment with Django/PostgreSQL installed and don't want to use Docker, you can just install the project dependencies and make some database changes.
 ```
 ./setup.py install
 ```

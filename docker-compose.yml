@@ -2,29 +2,25 @@ version: '3.3'
 
 services:
   db:
-    container_name: mysql
-    image: mysql:5.7
-    restart: on-failure
-    env_file:
-      - db.env
+    image: postgres:11-alpine
+    environment:
+      - TZ=America/Sao_Paulo
+      - POSTGRES_DB=AUTOMATIC_SUMMARIZER
+      - POSTGRES_USER=user_as
+      - POSTGRES_PASSWORD=abc123
     volumes:
-      - mysql-data:/var/lib/mysql
+      - postgres-data:/var/lib/postgresql/data:rw
 
-  web:
-    container_name: automatic_summarizer
-    restart: on-failure
+  automatic_summarizer:
     build: .
-    command: ["./docker/run.sh"]
-    env_file:
-      - db.env
     volumes:
-      - .:/automatic_summarizer
+      - ./config:/root/automatic_summarizer/config:ro
     ports:
-      - "8080:8080"
+      - 8080:8080
     links:
       - db
     depends_on:
       - db
 
 volumes:
-  mysql-data:
+  postgres-data:

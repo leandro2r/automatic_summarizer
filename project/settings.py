@@ -86,12 +86,12 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ["MYSQL_DATABASE"],
-        'USER': os.environ["MYSQL_USER"],
-        'PASSWORD': os.environ["MYSQL_PASSWORD"],
-        'HOST': 'db',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'AUTOMATIC_SUMMARIZER',
+        'USER': 'user_as',
+        'PASSWORD': 'docker123',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
