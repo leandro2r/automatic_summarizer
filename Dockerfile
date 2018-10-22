@@ -1,18 +1,20 @@
 FROM python:2.7
 ENV PYTHONUNBUFFERED 1
 
-RUN mkdir /automatic_summarizer
-WORKDIR /automatic_summarizer
-
 # Installing OS Dependencies
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
-libsqlite3-dev
+    libsqlite3-dev
 
-RUN pip install -U pip setuptools
+WORKDIR /root/automatic_summarizer
 
-COPY requirements.txt /automatic_summarizer/
+COPY . /root/automatic_summarizer/
 
-RUN pip install -r /automatic_summarizer/requirements.txt
+RUN ./setup.py install
 RUN python -m textblob.download_corpora
 
-ADD . /automatic_summarizer/
+RUN apk del git \
+    py-pip
+
+EXPOSE 8080
+
+CMD ["./docker/entrypoint.sh"]
