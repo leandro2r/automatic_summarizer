@@ -10,10 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
-import os
-
 # Trick to remove UTF-8 encode issues
 import sys
+import os
+import yaml
+import collections
+
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
@@ -28,10 +30,7 @@ LOGIN_REDIRECT_URL = '/'
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'q_0l5bthxd6va-3i4c0o0*(-m^34_$_!)9(w8ij-+^qag%cx*%'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -145,3 +144,44 @@ FILE_UPLOAD_HANDLERS = [
     'django.core.files.uploadhandler.MemoryFileUploadHandler',
     'django.core.files.uploadhandler.TemporaryFileUploadHandler',
 ]
+
+DEBUG = True
+
+CONFIG_PATH = 'config/'
+
+config = {}
+
+def config_reader(path):
+    if os.path.isfile(path + 'automatic_summarizer.yml'):
+        config_file = path + 'automatic_summarizer.yml'
+    elif os.path.isfile('automatic_summarizer.yml'):
+        config_file = 'automatic_summarizer.yml'
+    else:
+        print('Load dev config')
+        return False
+
+    print('Load config from file: {}'.format(config_file))
+
+    file = open(config_file, 'r')
+    config.update(yaml.load(file))
+
+    return True
+
+def dict_update(cur, new):
+    for key, value in new.items():
+        if isinstance(value, collections.Mapping):
+            cur[key] = dict_update(cur.get(key, {}), value)
+        else:
+            cur[key] = value
+    return cur
+
+if config_reader(CONFIG_PATH):
+    for key, val in config.items():
+        for var, value in locals().copy().items():
+            if var.isupper():
+                if key.upper() == var:
+                    if type(val) is dict:
+                        dict_update(value, val)
+                    else:
+                        locals()[var] = val
+                    break
