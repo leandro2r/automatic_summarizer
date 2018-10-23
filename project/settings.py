@@ -88,7 +88,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'AUTOMATIC_SUMMARIZER',
         'USER': 'user_as',
-        'PASSWORD': 'docker123',
+        'PASSWORD': 'abc123',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }

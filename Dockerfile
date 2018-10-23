@@ -1,9 +1,25 @@
-FROM python:2.7
-ENV PYTHONUNBUFFERED 1
+FROM python:2.7-alpine
 
-# Installing OS Dependencies
-RUN apt-get update && apt-get upgrade -y && apt-get install -y \
-    libsqlite3-dev
+RUN apk update && apk --no-cache add \
+    linux-headers \
+    make \
+    cmake \
+    gcc \
+    g++ \
+    gfortran \
+    tzdata \
+    git \
+    build-base \
+    musl \
+    libc-dev \
+    libffi-dev \
+    mariadb-dev \
+    python-dev \
+    py-mysqldb \
+    py-pip && \
+    pip install -U pip && pip install -U setuptools
+
+ENV TZ=America/Sao_Paulo
 
 WORKDIR /root/automatic_summarizer
 

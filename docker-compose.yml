@@ -6,9 +6,9 @@ services:
     restart: on-failure
     environment:
       - MYSQL_DATABASE=AUTOMATIC_SUMMARIZER
-      - MYSQL_ROOT_PASSWORD=qwe123
+      - MYSQL_ROOT_PASSWORD=abc123
       - MYSQL_USER=user_as
-      - MYSQL_PASSWORD=dockeruhul
+      - MYSQL_PASSWORD=abc123
       - MYSQL_PORT=3306
     volumes:
       - mysql-data:/var/lib/mysql
