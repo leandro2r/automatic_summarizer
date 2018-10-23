@@ -20,7 +20,7 @@ setup(
     install_requires=[
         'django<1.12',
         'django-cleanup<2.2',
-        'mysql-python<1.3',
+        'mysqlclient<1.4',
         'pdfminer==20140328',
         'gensim<2.4',
         'textblob<0.14.0',

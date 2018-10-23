@@ -1,19 +1,20 @@
 FROM python:2.7-alpine
 
-RUN apk update && apk --no-cache add \
-    linux-headers \
-    make \
-    cmake \
-    gcc \
-    g++ \
-    gfortran \
+
+RUN apk update && apk --no-cache --virtual add 
+    .build-deps \
     tzdata \
     git \
     build-base \
-    musl \
+    linux-headers \
+    gcc \
+    g++ \
+    musl-dev \
     libc-dev \
     libffi-dev \
+    openssl-dev \
     mariadb-dev \
+    mariadb-connector-c \
     python-dev \
     py-mysqldb \
     py-pip && \
