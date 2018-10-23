@@ -2,9 +2,9 @@
 
 ## Apps
 
-This project was made from a necessity to create a system that integrates convertion, summarization, translation and alignment of a corpus' file into one project called Automatic Summarizer.
-So, since a pdf file, this Automatic Summarizer will do all of this 4 steps, described before, using existing APIs in Python for each one.
-Next, each app and their purpose:
+This project was made from the necessity of a system that integrates convertion, summarization, translation, and alignment of corpus' files. From them, using a clean and easy interface, Automatic Summarizer have all of these functionalities linked, step by step, delivering a final result with an _aligned summarized translated_ txt file.
+Made in Python (Django framework) using the best of existing Python APIs (Converter, Summarizer, Translator, Aligner).
+Below, each Automatic Summarizer app and its purpose:
 
 ### Converter ([PDF Miner](https://github.com/euske/pdfminer))
 This app converts PDF files into TXT format
@@ -24,7 +24,7 @@ This app aligns the TXT summarized translated file
 
 ## Configure
 
-This project has a YAML file to configure database connection settings and others. The current path is `config/automatic_summarizer.yml`.
+This project has an YAML file to configure database connection settings and others. The current path is `config/automatic_summarizer.yml`.
 
 ## Installation
 

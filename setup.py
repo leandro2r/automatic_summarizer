@@ -9,7 +9,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='automatic_summarizer',
-    version='1.0.0',
+    version='1.1.0',
     license='No license',
     author='Leandro Rezende Rodrigues <leandro2r>',
     author_email='leandro.l2r@gmail.com',
@@ -20,10 +20,11 @@ setup(
     install_requires=[
         'django<1.12',
         'django-cleanup<2.2',
-        'mysqlclient<1.4',
-        'pdfminer==20140328',
         'gensim<2.4',
-        'textblob<0.14.0',
+        'mysqlclient<1.4',
+        'mysql-connector<2.2',
+        'pdfminer==20140328',
+        'textblob<0.14.0',        
         'PyYaml',
     ],
     extras_require={
