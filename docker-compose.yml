@@ -2,25 +2,24 @@ version: '3.3'
 
 services:
   db:
-    container_name: mysql
     image: mysql:5.7
     restart: on-failure
-    env_file:
-      - db.env
+    environment:
+      - MYSQL_DATABASE=AUTOMATIC_SUMMARIZER
+      - MYSQL_ROOT_PASSWORD=qwe123
+      - MYSQL_USER=user_as
+      - MYSQL_PASSWORD=dockeruhul
+      - MYSQL_PORT=3306
     volumes:
       - mysql-data:/var/lib/mysql
 
   web:
-    container_name: automatic_summarizer
-    restart: on-failure
     build: .
-    command: ["./docker/run.sh"]
-    env_file:
-      - db.env
+    restart: on-failure
     volumes:
-      - .:/automatic_summarizer
+      - ./config:/root/automatic_summarizer/config:ro
     ports:
-      - "8080:8080"
+      - 8080:8080
     links:
       - db
     depends_on:
