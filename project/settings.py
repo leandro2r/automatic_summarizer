@@ -156,10 +156,7 @@ def config_reader(path):
     elif os.path.isfile('automatic_summarizer.yml'):
         config_file = 'automatic_summarizer.yml'
     else:
-        print('Load dev config')
         return False
-
-    print('Load config from file: {}'.format(config_file))
 
     file = open(config_file, 'r')
     config.update(yaml.load(file))
@@ -184,3 +181,8 @@ if config_reader(CONFIG_PATH):
                     else:
                         locals()[var] = val
                     break
+
+# ========================= Environment Variables =============================
+
+if os.environ.get('DB_HOST'):
+    DATABASES['default']['HOST'] = os.environ['DB_HOST']

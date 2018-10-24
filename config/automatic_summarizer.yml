@@ -1,6 +1,6 @@
-databases:
+DATABASES:
   default:
-    host: db
-    name: AUTOMATIC_SUMMARIZER
-    password: docker123
-    user: user_as
+    HOST: db
+    NAME: AUTOMATIC_SUMMARIZER
+    PASSWORD: docker123
+    USER: user_as
